@@ -2,8 +2,9 @@ package com.example.crsfhs.android
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.core.view.WindowCompat
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -12,12 +13,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val s: Array<String> = Array(5){i -> "Test $i"}
+        val searchbar = findViewById<EditText>(R.id.searchbar_text)
+        searchbar.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                TODO("Not yet implemented")
+            }
+
+        })
+        val s: Array<String> = Array(15){i -> "Test $i"}
 
         val recyclerView = findViewById<RecyclerView>(R.id.rv)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val adapter = CustomAdapter(s)
         recyclerView.adapter = adapter
+
     }
 }
