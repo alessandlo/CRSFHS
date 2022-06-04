@@ -7,12 +7,15 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import com.example.crsfhs.android.api.ApiInterface
-import com.example.crsfhs.android.api.UserItem
+import com.example.crsfhs.android.api.UserDetails
+import com.example.crsfhs.android.api.UserList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
+const val BASE_URL = "https://database.deta.sh/v1/a0a1f9b4/"
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,18 +50,16 @@ class MainActivity : AppCompatActivity() {
 
         val retrofitData = retrofitBuilder.getUsers()
 
-        retrofitData.enqueue(object : Callback<List<UserItem>?> {
-            override fun onResponse(
-                call: Call<List<UserItem>?>,
-                response: Response<List<UserItem>?>
-            ) {
-                val responseBody = response.body()!!
+        retrofitData.enqueue(object : Callback<UserList?> {
+            override fun onResponse(call: Call<UserList?>, response: Response<UserList?>) {
+                Log.i("Info", "$response")
+                val responseBody = response.body()!!.items
                 val stringBuilder = StringBuilder()
 
                 for (User in responseBody) {
                     stringBuilder.append(User.username)
                     stringBuilder.append("\n")
-                    if (User.username == "test") {
+                    if (User.username == "test_username2") {
                         stringBuilder.append("User is in Database\n")
                     }
                 }
@@ -67,9 +68,10 @@ class MainActivity : AppCompatActivity() {
                 data.text = stringBuilder
             }
 
-            override fun onFailure(call: Call<List<UserItem>?>, t: Throwable) {
-                Log.e("Test", "onFailure: " + t.message)
+            override fun onFailure(call: Call<UserList?>, t: Throwable) {
+                Log.e("Login", "onFailure: " + t.message)
             }
         })
+
     }
 }
