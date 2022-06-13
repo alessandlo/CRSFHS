@@ -24,4 +24,11 @@ interface ApiInterface {
     )
     @POST("users/items")
     fun storeUser(@Body userItem: UserItem): Call<UserItem>
+
+    @Headers(
+        "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",
+        "Content-Type: application/json"
+    )
+    @POST("users/query")
+    fun checkUser(@Body userCheck: UserCheck): Call<UserList>
 }

@@ -1,10 +1,11 @@
-package com.example.crsfhs.android
+package com.example.crsfhs.android.activities
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.crsfhs.android.R
 
 class CustomAdapter(private val dataSet: Array<String>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 

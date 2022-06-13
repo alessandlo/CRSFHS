@@ -9,13 +9,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Register"
+            android:name=".activities.Register"
             android:exported="false" />
         <activity
-            android:name=".Start"
+            android:name=".activities.Start"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

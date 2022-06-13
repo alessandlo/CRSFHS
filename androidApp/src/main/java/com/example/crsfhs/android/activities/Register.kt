@@ -1,5 +1,6 @@
-package com.example.crsfhs.android
+package com.example.crsfhs.android.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,15 +9,15 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.crsfhs.android.Validation.isStringContainNumber
-import com.example.crsfhs.android.Validation.isStringContainSpecialCharacter
-import com.example.crsfhs.android.Validation.isStringLowerAndUpperCase
-import com.example.crsfhs.android.Validation.isValidEmail
-import com.example.crsfhs.android.Validation.isValidName
-import com.example.crsfhs.android.api.ApiInterface
-import com.example.crsfhs.android.api.UserDetails
-import com.example.crsfhs.android.api.UserItem
+import com.example.crsfhs.android.R
+import com.example.crsfhs.android.services.Validation.isStringContainNumber
+import com.example.crsfhs.android.services.Validation.isStringContainSpecialCharacter
+import com.example.crsfhs.android.services.Validation.isStringLowerAndUpperCase
+import com.example.crsfhs.android.services.Validation.isValidEmail
+import com.example.crsfhs.android.services.Validation.isValidName
+import com.example.crsfhs.android.api.*
 import com.example.crsfhs.android.databinding.ActivityRegisterBinding
+import com.example.crsfhs.android.services.Encryption.toSHA
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,14 +36,14 @@ class Register : AppCompatActivity() {
 
         binding.registerButton.setOnClickListener {
             if (isValidate()) {
-                Toast.makeText(this, "Account erstellt", Toast.LENGTH_SHORT).show()
-                register()
+                checkUser()
             }
         }
     }
 
     private fun isValidate(): Boolean =
-        validateUsername() && validateFirstname() && validateLastname() && validateEmail() && validatePassword()
+        validateUsername() && validateFirstname() && validateLastname() &&
+                validateEmail() && validatePassword()
 
     private fun setupListeners() {
         binding.usernameEditText.addTextChangedListener(TextFieldValidation(binding.usernameEditText))
@@ -57,7 +58,7 @@ class Register : AppCompatActivity() {
      */
     private fun validateUsername(): Boolean {
         if (binding.usernameEditText.text.toString().trim().isEmpty()) {
-            binding.usernameContainer.error = "Erforderliche Eingabe!"
+            binding.usernameContainer.error = getString(R.string.requiredInput)
             binding.usernameEditText.requestFocus()
             return false
         } else {
@@ -72,11 +73,11 @@ class Register : AppCompatActivity() {
      */
     private fun validateFirstname(): Boolean {
         if (binding.firstnameEditText.text.toString().trim().isEmpty()) {
-            binding.firstnameContainer.error = "Erforderliche Eingabe!"
+            binding.firstnameContainer.error = getString(R.string.requiredInput)
             binding.firstnameEditText.requestFocus()
             return false
         } else if (!isValidName(binding.firstnameEditText.text.toString())) {
-            binding.firstnameContainer.error = "Ungültiger Vorname!"
+            binding.firstnameContainer.error = getString(R.string.invalidFirstname)
             binding.firstnameEditText.requestFocus()
             return false
         } else {
@@ -91,11 +92,11 @@ class Register : AppCompatActivity() {
      */
     private fun validateLastname(): Boolean {
         if (binding.lastnameEditText.text.toString().trim().isEmpty()) {
-            binding.lastnameContainer.error = "Erforderliche Eingabe!"
+            binding.lastnameContainer.error = getString(R.string.requiredInput)
             binding.lastnameEditText.requestFocus()
             return false
         } else if (!isValidName(binding.lastnameEditText.text.toString())) {
-            binding.lastnameContainer.error = "Ungültiger Nachname!"
+            binding.lastnameContainer.error = getString(R.string.invalidLastname)
             binding.lastnameEditText.requestFocus()
             return false
         } else {
@@ -110,11 +111,11 @@ class Register : AppCompatActivity() {
      */
     private fun validateEmail(): Boolean {
         if (binding.emailEditText.text.toString().trim().isEmpty()) {
-            binding.emailContainer.error = "Erforderliche Eingabe!"
+            binding.emailContainer.error = getString(R.string.requiredInput)
             binding.emailEditText.requestFocus()
             return false
         } else if (!isValidEmail(binding.emailEditText.text.toString())) {
-            binding.emailContainer.error = "Ungültige E-Mail!"
+            binding.emailContainer.error = getString(R.string.invalidEmail)
             binding.emailEditText.requestFocus()
             return false
         } else {
@@ -132,23 +133,23 @@ class Register : AppCompatActivity() {
      */
     private fun validatePassword(): Boolean {
         if (binding.passwordEditText.text.toString().trim().isEmpty()) {
-            binding.passwordContainer.error = "Erforderliche Eingabe!"
+            binding.passwordContainer.error = getString(R.string.requiredInput)
             binding.passwordEditText.requestFocus()
             return false
         } else if (binding.passwordEditText.text.toString().length < 8) {
-            binding.passwordContainer.error = "Mindestens 8 Zeichen benötigt"
+            binding.passwordContainer.error = getString(R.string.passwordMin8Char)
             binding.passwordEditText.requestFocus()
             return false
         } else if (!isStringContainNumber(binding.passwordEditText.text.toString())) {
-            binding.passwordContainer.error = "Mindestens eine Zahl benötigt"
+            binding.passwordContainer.error = getString(R.string.passwordMin1Number)
             binding.passwordEditText.requestFocus()
             return false
         } else if (!isStringLowerAndUpperCase(binding.passwordEditText.text.toString())) {
-            binding.passwordContainer.error = "Mindestens einen Groß- und Kleinbuchstaben benötigt"
+            binding.passwordContainer.error = getString(R.string.passwordMin1UpperLower)
             binding.passwordEditText.requestFocus()
             return false
         } else if (!isStringContainSpecialCharacter(binding.passwordEditText.text.toString())) {
-            binding.passwordContainer.error = "Mindestens ein Sonderzeichen benötigt"
+            binding.passwordContainer.error = getString(R.string.passwordMin1Special)
             binding.passwordEditText.requestFocus()
             return false
         } else {
@@ -181,6 +182,38 @@ class Register : AppCompatActivity() {
         }
     }
 
+    private fun checkUser() {
+        val userCheck = UserCheck(
+            query =
+            listOf(UserQuery(findViewById<EditText>(R.id.usernameEditText).text.toString()))
+        )
+
+        val retrofitBuilder = Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(BASE_URL)
+            .build()
+            .create(ApiInterface::class.java)
+
+        val retrofitData = retrofitBuilder.checkUser(userCheck)
+
+        retrofitData.enqueue(object : Callback<UserList?> {
+            override fun onResponse(call: Call<UserList?>, response: Response<UserList?>) {
+                val userInDatabase = response.body()!!.paging.size != 0
+                Log.i("Info", "${response.body()!!.paging.size}, $userInDatabase")
+                if (userInDatabase) {
+                    binding.usernameContainer.error = getString(R.string.userAlreadyExists)
+                    binding.usernameEditText.requestFocus()
+                } else {
+                    register()
+                }
+            }
+
+            override fun onFailure(call: Call<UserList?>, t: Throwable) {
+                Log.e("CheckUser", "onFailure: " + t.message)
+            }
+        })
+    }
+
     private fun register() {
         val userItem = UserItem(
             UserDetails(
@@ -189,7 +222,7 @@ class Register : AppCompatActivity() {
                 firstname = findViewById<EditText>(R.id.firstnameEditText).text.toString(),
                 lastname = findViewById<EditText>(R.id.lastnameEditText).text.toString(),
                 email = findViewById<EditText>(R.id.emailEditText).text.toString(),
-                password = findViewById<EditText>(R.id.passwordEditText).text.toString()
+                password = findViewById<EditText>(R.id.passwordEditText).text.toString().toSHA()
             )
         )
 
@@ -203,10 +236,13 @@ class Register : AppCompatActivity() {
 
         retrofitData.enqueue(object : Callback<UserItem?> {
             override fun onResponse(call: Call<UserItem?>, response: Response<UserItem?>) {
-                if (response.code() == 400) {
-                    Log.i("Error", "Doesn't work")
-                }
-                Log.i("Info", "$response")
+                Toast.makeText(
+                    this@Register, getString(R.string.accountCreated),
+                    Toast.LENGTH_SHORT
+                ).show()
+                val intent = Intent(this@Register, Start::class.java)
+                startActivity(intent)
+                Log.i("Register", "Account created")
             }
 
             override fun onFailure(call: Call<UserItem?>, t: Throwable) {

@@ -2,6 +2,7 @@ package com.example.crsfhs.android.api
 
 data class UserList(
     val items: List<UserDetails>,
+    val paging: Paging
 )
 
 data class UserItem(
@@ -15,4 +16,16 @@ data class UserDetails(
     val lastname: String,
     val email: String,
     val password: String
+)
+
+data class Paging(
+    val size: Int
+)
+
+data class UserCheck(
+    val query: List<UserQuery>
+)
+
+data class UserQuery(
+    val username: String
 )

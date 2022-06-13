@@ -1,4 +1,4 @@
-package com.example.crsfhs.android
+package com.example.crsfhs.android.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.crsfhs.android.R
 
 class Start : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

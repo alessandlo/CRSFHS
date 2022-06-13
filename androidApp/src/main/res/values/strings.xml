@@ -11,5 +11,16 @@
     <string name="lastname">Nachname</string>
     <string name="email">E-Mail</string>
     <string name="noAccount">noch keinen Account?</string>
-    <string name="required">Erforderlich</string>
+    <string name="requiredInput">Erforderliche Eingabe!</string>
+    <string name="accountCreated">Account erstellt</string>
+    <string name="userAlreadyExists">Benutzer existiert bereits!</string>
+    <string name="invalidFirstname">Vorname ungültig!</string>
+    <string name="invalidLastname">Nachname ungültig!</string>
+    <string name="invalidEmail">E-Mail ungültig!</string>
+    <string name="passwordMin8Char">Mindestens 8 Zeichen benötigt</string>
+    <string name="passwordMin1Number">Mindestens eine Zahl benötigt</string>
+    <string name="passwordMin1UpperLower">Mindestens einen Groß- und Kleinbuchstaben benötigt</string>
+    <string name="passwordMin1Special">Mindestens ein Sonderzeichen benötigt</string>
+    <string name="userDoesntExist">Benutzer existiert nicht</string>
+    <string name="wrongPassword">Falsches Passwort</string>
 </resources>

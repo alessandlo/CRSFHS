@@ -1,4 +1,4 @@
-package com.example.crsfhs.android
+package com.example.crsfhs.android.services
 
 import android.util.Patterns
 import java.util.regex.Pattern
@@ -35,5 +35,4 @@ object Validation {
         val specialCharacterMatcher = specialCharacterPattern.matcher(text)
         return specialCharacterMatcher.find()
     }
-
 }
