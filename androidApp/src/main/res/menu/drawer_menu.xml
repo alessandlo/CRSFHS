@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single" >
+        <item
+            android:id="@+id/fragment_startseite"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="Startseite" />
+        <item
+            android:id="@+id/fragment_pers_daten"
+            android:icon="@drawable/ic_baseline_person_24"
+            android:title="Persönliche Daten" />
+        <item
+            android:id="@+id/fragment_meine_reservierungen"
+            android:icon="@drawable/ic_baseline_menu_book_24"
+            android:title="Meine Reservierungen" />
+        <item
+            android:id="@+id/fragment_meine_favoriten"
+            android:icon="@drawable/ic_baseline_favorite_24"
+            android:title="Meine Favoriten" />
+        <item
+            android:icon="@drawable/ic_baseline_star_rate_24"
+            android:title="Meine Bewertungen" />
+        <item
+            android:icon="@drawable/ic_baseline_settings_24"
+            android:title="Einstellungen" />
+        <item
+            android:icon="@drawable/ic_baseline_contact_mail_24"
+            android:title="Kontakt" />
+        <item
+            android:icon="@drawable/ic_baseline_power_settings_new_24"
+            android:title="Abmelden" />
+    </group>
+</menu>

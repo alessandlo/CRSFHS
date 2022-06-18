@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_startseite">
+
+    <fragment
+        android:id="@+id/fragment_startseite"
+        android:name="com.example.crsfhs.android.StartseiteFragment"
+        android:label="fragment_startseite"
+        tools:layout="@layout/fragment_startseite" />
+    <fragment
+        android:id="@+id/fragment_pers_daten"
+        android:name="com.example.crsfhs.android.PersDatenFragment"
+        android:label="fragment_pers_daten"
+        tools:layout="@layout/fragment_pers_daten" />
+    <fragment
+        android:id="@+id/fragment_meine_reservierungen"
+        android:name="com.example.crsfhs.android.MeineReservierungenFragment"
+        android:label="fragment_meine_reservierungen"
+        tools:layout="@layout/fragment_meine_reservierungen" />
+    <fragment
+        android:id="@+id/fragment_meine_favoriten"
+        android:name="com.example.crsfhs.android.MeineFavoritenFragment"
+        android:label="fragment_meine_favoriten"
+        tools:layout="@layout/fragment_meine_favoriten" />
+</navigation>
