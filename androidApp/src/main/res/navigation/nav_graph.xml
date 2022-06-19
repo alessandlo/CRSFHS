@@ -26,8 +26,8 @@
     <fragment
         android:id="@+id/fragment_pers_daten"
         android:name="com.example.crsfhs.android.PersDatenFragment"
-        android:label="fragment_pers_daten"
-        tools:layout="@layout/fragment_pers_daten" >
+        android:label="Persönliche Daten"
+        tools:layout="@layout/fragment_pers_daten">
         <action
             android:id="@+id/action_pers_daten_to_pw_aendern"
             app:destination="@id/fragment_passwort_aendern" />

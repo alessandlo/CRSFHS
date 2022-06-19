@@ -7,13 +7,63 @@
     android:layout_height="match_parent"
     tools:context=".preDatenschutzFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="bitte Datenschutz durchlesen und bestätigen"
+
+    <Button
+        android:id="@+id/willkommensseite_btn_wie_funktioniert_das"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#2E989C"
+        android:text="AKZEPTIEREN"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.928" />
+
+    <Button
+        android:id="@+id/willkommensseite_btn_wie_funktioniert_das2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#2E989C"
+        android:text="DATENSCHUTZERKLÄRUNG ANZEIGEN"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.857" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Sie verdienen das beste Erlebnis"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.381" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:text="Aus diesem Grund verwenden wir und unsere vertrauenswürdigen Drittanbierer-Partner Tracking-Technologien, um Daten zu Ihrer Nutzung von resHairvation zu sammeln. Somit können wir ihr Erlebnis optimieren und personalisieren, die Sicherheit verbessern und in anderen Apps/auf anderen Websites Werbung anzeigen, die genau auf Sie zugeschnitten ist."
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="408dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="346dp"
+        android:layout_height="216dp"
+        android:src="@drawable/logo_besipel2_tuerkis"
+        app:layout_constraintBottom_toTopOf="@+id/textView13"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
