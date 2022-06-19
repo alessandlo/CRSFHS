@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -35,18 +36,34 @@ private lateinit var drawerLayout: DrawerLayout
 private lateinit var navView: NavigationView
 private lateinit var navController: NavController
 
-// AppBarConfiguration:
+// AppBarConfiguration: Hier mehr Fragemente hinzufügen, wenn wir das Menü erweitern sollten
 private val idSets = setOf(R.id.fragment_startseite, R.id.fragment_pers_daten, R.id.fragment_meine_reservierungen, R.id.fragment_meine_favoriten)
 private lateinit var appBarConfig: AppBarConfiguration
 
 class MainActivity : AppCompatActivity() {
+
+
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        // FIRST TIME LOGIK START
+        val isFirstRun: Boolean = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+            .getBoolean("isFirstRun", true)
+
+        if (isFirstRun) {
+            //show sign up activity
+            startActivity(Intent(this@MainActivity, FirstTimeMainActivity::class.java))
+        }
+
+        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
+            .putBoolean("isFirstRun", false).apply()
+        // FIRST TIME END
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Navi Drawer
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -79,6 +96,7 @@ class MainActivity : AppCompatActivity() {
         }*/
     }
 
+    // Navi Drawer
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host)
         return navController.navigateUp(appBarConfig) || super.onSupportNavigateUp()
