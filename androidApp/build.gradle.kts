@@ -26,6 +26,8 @@ android {
     }
 }
 
+
+
 dependencies {
     implementation(project(":shared"))
     implementation("com.google.android.material:material:1.6.1")
@@ -36,4 +38,10 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.4.2")
     implementation("androidx.navigation:navigation-ui-ktx:2.4.2")
+
+    val navVersion = "2.4.2"
+
+    // Kotlin
+    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
 }

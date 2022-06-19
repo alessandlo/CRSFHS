@@ -8,21 +8,169 @@
     <fragment
         android:id="@+id/fragment_startseite"
         android:name="com.example.crsfhs.android.StartseiteFragment"
-        android:label="fragment_startseite"
-        tools:layout="@layout/fragment_startseite" />
+        android:label="Startseite"
+        tools:layout="@layout/fragment_startseite" >
+        <action
+            android:id="@+id/action_startseite_to_mr"
+            app:destination="@id/fragment_meine_reservierungen" />
+        <action
+            android:id="@+id/action_startseite_to_pers_daten"
+            app:destination="@id/fragment_pers_daten" />
+        <action
+            android:id="@+id/action_startseite_to_meine_fav"
+            app:destination="@id/fragment_meine_favoriten" />
+        <action
+            android:id="@+id/action_startseite_to_suchfilter"
+            app:destination="@id/fragment_suchfilter" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_pers_daten"
         android:name="com.example.crsfhs.android.PersDatenFragment"
         android:label="fragment_pers_daten"
-        tools:layout="@layout/fragment_pers_daten" />
+        tools:layout="@layout/fragment_pers_daten" >
+        <action
+            android:id="@+id/action_pers_daten_to_pw_aendern"
+            app:destination="@id/fragment_passwort_aendern" />
+        <action
+            android:id="@+id/action_fragment_pers_daten_to_fragment_login"
+            app:destination="@id/fragment_login" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_meine_reservierungen"
         android:name="com.example.crsfhs.android.MeineReservierungenFragment"
         android:label="fragment_meine_reservierungen"
-        tools:layout="@layout/fragment_meine_reservierungen" />
+        tools:layout="@layout/fragment_meine_reservierungen" >
+        <action
+            android:id="@+id/action_mr_to_mrv"
+            app:destination="@id/fragment_meine_reservierungen_verwalten" />
+        <action
+            android:id="@+id/action_fragment_meine_reservierungen_to_fragment_login"
+            app:destination="@id/fragment_login" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_meine_favoriten"
         android:name="com.example.crsfhs.android.MeineFavoritenFragment"
         android:label="fragment_meine_favoriten"
-        tools:layout="@layout/fragment_meine_favoriten" />
+        tools:layout="@layout/fragment_meine_favoriten" >
+        <action
+            android:id="@+id/action_fragment_meine_favoriten_to_fragment_login"
+            app:destination="@id/fragment_login" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_meine_reservierungen_verwalten"
+        android:name="com.example.crsfhs.android.MeineReservierungenVerwaltenFragment"
+        android:label="fragment_meine_reservierungen_verwalten"
+        tools:layout="@layout/fragment_meine_reservierungen_verwalten" />
+    <fragment
+        android:id="@+id/fragment_passwort_aendern"
+        android:name="com.example.crsfhs.android.PasswortAendernFragment"
+        android:label="fragment_passwort_aendern"
+        tools:layout="@layout/fragment_passwort_aendern" />
+    <fragment
+        android:id="@+id/fragment_suchfilter"
+        android:name="com.example.crsfhs.android.SuchfilterFragment"
+        android:label="fragment_suchfilter"
+        tools:layout="@layout/fragment_suchfilter" >
+        <action
+            android:id="@+id/action_suchfilter_to_suchergebnisse"
+            app:destination="@id/fragment_suchergebnisse" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_suchergebnisse"
+        android:name="com.example.crsfhs.android.SuchergebnisseFragment"
+        android:label="fragment_suchergebnisse"
+        tools:layout="@layout/fragment_suchergebnisse" >
+        <action
+            android:id="@+id/action_suchergebnisse_to_friseursalon"
+            app:destination="@id/fragment_friseursalon" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_friseursalon"
+        android:name="com.example.crsfhs.android.FriseursalonFragment"
+        android:label="fragment_friseursalon"
+        tools:layout="@layout/fragment_friseursalon" >
+        <action
+            android:id="@+id/action_friseursalon_to_termindetails"
+            app:destination="@id/fragment_termin_details" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_termin_details"
+        android:name="com.example.crsfhs.android.TerminDetailsFragment"
+        android:label="fragment_termin_details"
+        tools:layout="@layout/fragment_termin_details" >
+        <action
+            android:id="@+id/action_fragment_termin_details_to_fragment_login"
+            app:destination="@id/fragment_login" />
+        <action
+            android:id="@+id/action_termin_details_to_zusammenfassung"
+            app:destination="@id/fragment_zusammenfassung_reservierung" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_registrieren"
+        android:name="com.example.crsfhs.android.RegistrierenFragment"
+        android:label="fragment_registrieren"
+        tools:layout="@layout/fragment_registrieren" />
+    <fragment
+        android:id="@+id/fragment_login"
+        android:name="com.example.crsfhs.android.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_fragment_login_to_fragment_registrieren"
+            app:destination="@id/fragment_registrieren" />
+    </fragment>
+    <action android:id="@+id/action_global_login" app:destination="@id/fragment_login" />
+    <fragment
+        android:id="@+id/fragment_zusammenfassung_reservierung"
+        android:name="com.example.crsfhs.android.ZusammenfassungReservierungFragment"
+        android:label="fragment_zusammenfassung_reservierung"
+        tools:layout="@layout/fragment_zusammenfassung_reservierung" >
+        <action
+            android:id="@+id/action_zusammenfassung_to_wurde_reserviert"
+            app:destination="@id/fragment_wurde_reserviert" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_wurde_reserviert"
+        android:name="com.example.crsfhs.android.WurdeReserviertFragment"
+        android:label="fragment_wurde_reserviert"
+        tools:layout="@layout/fragment_wurde_reserviert" >
+        <action
+            android:id="@+id/action_wurde_reserviert_to_startsetie"
+            app:destination="@id/fragment_startseite" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_pre_willkommensseite"
+        android:name="com.example.crsfhs.android.preWillkommensseiteFragment"
+        android:label="fragment_pre_willkommensseite"
+        tools:layout="@layout/fragment_pre_willkommensseite" >
+        <action
+            android:id="@+id/action_willkommensseite_to_wie_funktioniert_das"
+            app:destination="@id/fragment_pre_wie_funktioniert_das" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_pre_wie_funktioniert_das"
+        android:name="com.example.crsfhs.android.preWieFunktioniertDasFragment"
+        android:label="fragment_pre_wie_funktioniert_das"
+        tools:layout="@layout/fragment_pre_wie_funktioniert_das" >
+        <action
+            android:id="@+id/action_wie_funktioniert_das_to_datenschutz"
+            app:destination="@id/fragment_pre_datenschutz" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_pre_datenschutz"
+        android:name="com.example.crsfhs.android.preDatenschutzFragment"
+        android:label="fragment_pre_datenschutz"
+        tools:layout="@layout/fragment_pre_datenschutz" >
+        <action
+            android:id="@+id/action_datenschutz_to_startseite"
+            app:destination="@id/fragment_startseite" />
+        <action
+            android:id="@+id/action_datenschutz_to_datenschutz_anzeigen"
+            app:destination="@id/fragment_datenschutz_anzeigen" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_datenschutz_anzeigen"
+        android:name="com.example.crsfhs.android.DatenschutzAnzeigenFragment"
+        android:label="fragment_datenschutz_anzeigen"
+        tools:layout="@layout/fragment_datenschutz_anzeigen" />
 </navigation>
