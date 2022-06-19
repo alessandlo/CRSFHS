@@ -12,6 +12,7 @@ data class UserItem(
 data class UserDetails(
     val key: String?,
     val username: String,
+    val gender: String,
     val firstname: String,
     val lastname: String,
     val email: String,

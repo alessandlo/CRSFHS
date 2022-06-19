@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragment_startseite">
+    app:startDestination="@id/fragment_registrieren">
 
     <fragment
         android:id="@+id/fragment_startseite"
@@ -109,7 +109,11 @@
         android:id="@+id/fragment_registrieren"
         android:name="com.example.crsfhs.android.RegistrierenFragment"
         android:label="fragment_registrieren"
-        tools:layout="@layout/fragment_registrieren" />
+        tools:layout="@layout/fragment_registrieren" >
+        <action
+            android:id="@+id/action_fragment_registrieren_to_fragment_startseite"
+            app:destination="@id/fragment_startseite" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_login"
         android:name="com.example.crsfhs.android.LoginFragment"

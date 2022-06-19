@@ -219,6 +219,7 @@ class Register : AppCompatActivity() {
             UserDetails(
                 key = null,
                 username = findViewById<EditText>(R.id.usernameEditText).text.toString(),
+                gender = findViewById<EditText>(R.id.genderSelection).text.toString(),
                 firstname = findViewById<EditText>(R.id.firstnameEditText).text.toString(),
                 lastname = findViewById<EditText>(R.id.lastnameEditText).text.toString(),
                 email = findViewById<EditText>(R.id.emailEditText).text.toString(),
