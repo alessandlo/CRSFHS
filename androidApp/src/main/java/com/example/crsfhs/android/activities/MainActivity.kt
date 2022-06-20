@@ -41,10 +41,6 @@ private val idSets = setOf(R.id.fragment_startseite, R.id.fragment_pers_daten, R
 private lateinit var appBarConfig: AppBarConfiguration
 
 class MainActivity : AppCompatActivity() {
-
-
-    private lateinit var binding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         // FIRST TIME LOGIK START
@@ -73,27 +69,6 @@ class MainActivity : AppCompatActivity() {
         appBarConfig = AppBarConfiguration(idSets,drawerLayout)
         setupActionBarWithNavController(navController, appBarConfig)
         navView.setupWithNavController(navController)
-
-        // Registr.
-        /*super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        setupListeners()
-
-        binding.guestButton.setOnClickListener {
-            val intent = Intent(this, Start::class.java)
-            startActivity(intent)
-        }
-
-        binding.registerButton.setOnClickListener {
-            val intent = Intent(this, Register::class.java)
-            startActivity(intent)
-        }
-
-        binding.loginButton.setOnClickListener {
-            login()
-        }*/
     }
 
     // Navi Drawer
@@ -101,81 +76,4 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host)
         return navController.navigateUp(appBarConfig) || super.onSupportNavigateUp()
     }
-
-    // Registr.
-/*
-    private fun setupListeners() {
-        binding.usernameEditText.addTextChangedListener(TextFieldValidation(binding.usernameEditText))
-        binding.passwordEditText.addTextChangedListener(TextFieldValidation(binding.passwordEditText))
-    }
-
-    inner class TextFieldValidation(private val view: View) : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {}
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            when (view.id) {
-                R.id.usernameEditText -> {
-                    if (binding.usernameEditText.text.toString().trim().isEmpty()) {
-                        binding.usernameContainer.error = getString(R.string.requiredInput)
-                        binding.usernameEditText.requestFocus()
-                    }
-                    else {
-                        binding.usernameContainer.isErrorEnabled = false
-                    }
-                }
-                R.id.passwordEditText -> {
-                    if (binding.passwordEditText.text.toString().trim().isEmpty()) {
-                        binding.passwordContainer.error = getString(R.string.requiredInput)
-                        binding.passwordEditText.requestFocus()
-                    }
-                    else {
-                        binding.passwordContainer.isErrorEnabled = false
-                    }
-                }
-            }
-        }
-    }
-
-    private fun login() {
-        val userCheck = UserCheck(
-            query =
-            listOf(UserQuery(findViewById<EditText>(R.id.usernameEditText).text.toString()))
-        )
-
-        val retrofitBuilder = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BASE_URL)
-            .build()
-            .create(ApiInterface::class.java)
-
-        val retrofitData = retrofitBuilder.checkUser(userCheck)
-
-        retrofitData.enqueue(object : Callback<UserList?> {
-            override fun onResponse(call: Call<UserList?>, response: Response<UserList?>) {
-                val userInDatabase = response.body()!!.paging.size != 0
-
-                if (!userInDatabase) {
-                    binding.usernameContainer.error = getString(R.string.userDoesntExist)
-                    binding.usernameEditText.requestFocus()
-                } else {
-                    val passwordCheck = response.body()!!.items[0].password
-                    if (binding.passwordEditText.text.toString().toSHA() != passwordCheck){
-                        binding.passwordContainer.error = getString(R.string.wrongPassword)
-                        binding.passwordEditText.requestFocus()
-                        Log.i("Login", "falsches Passwort")
-                    }
-                    else{
-                        loggedInUser = response.body()!!.items[0].key
-                        val intent = Intent(this@MainActivity, Start::class.java)
-                        startActivity(intent)
-                        Log.i("Login", "eingeloggt")
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<UserList?>, t: Throwable) {
-                Log.e("Login", "onFailure: " + t.message)
-            }
-        })
-    }*/
 }

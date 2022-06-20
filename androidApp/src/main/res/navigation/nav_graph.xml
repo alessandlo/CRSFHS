@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragment_registrieren">
+    app:startDestination="@id/fragment_pre_willkommensseite">
 
     <fragment
         android:id="@+id/fragment_startseite"
@@ -122,6 +122,9 @@
         <action
             android:id="@+id/action_fragment_login_to_fragment_registrieren"
             app:destination="@id/fragment_registrieren" />
+        <action
+            android:id="@+id/action_fragment_login_to_fragment_startseite"
+            app:destination="@id/fragment_startseite" />
     </fragment>
     <action android:id="@+id/action_global_login" app:destination="@id/fragment_login" />
     <fragment
@@ -169,7 +172,10 @@
             android:id="@+id/action_datenschutz_to_startseite"
             app:destination="@id/fragment_startseite" />
         <action
-            android:id="@+id/action_datenschutz_to_datenschutz_anzeigen"
+            android:id="@+id/action_fragment_pre_datenschutz_to_fragment_login"
+            app:destination="@id/fragment_login" />
+        <action
+            android:id="@+id/action_fragment_pre_datenschutz_to_fragment_datenschutz_anzeigen"
             app:destination="@id/fragment_datenschutz_anzeigen" />
     </fragment>
     <fragment

@@ -10,7 +10,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 
 class MeineReservierungenFragment : Fragment() {
-
     private lateinit var rootView: View
 
     override fun onCreateView(

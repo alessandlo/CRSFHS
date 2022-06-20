@@ -9,10 +9,9 @@
 
 
     <Button
-        android:id="@+id/willkommensseite_btn_wie_funktioniert_das"
+        android:id="@+id/acceptButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#2E989C"
         android:text="AKZEPTIEREN"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,17 +20,17 @@
         app:layout_constraintVertical_bias="0.928" />
 
     <Button
-        android:id="@+id/willkommensseite_btn_wie_funktioniert_das2"
+        android:id="@+id/showDatapolicyButton"
+        style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#2E989C"
         android:text="DATENSCHUTZERKLÄRUNG ANZEIGEN"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.857" />
+        app:layout_constraintVertical_bias="0.827" />
 
     <TextView
         android:id="@+id/textView13"
@@ -53,10 +52,12 @@
         android:text="Aus diesem Grund verwenden wir und unsere vertrauenswürdigen Drittanbierer-Partner Tracking-Technologien, um Daten zu Ihrer Nutzung von resHairvation zu sammeln. Somit können wir ihr Erlebnis optimieren und personalisieren, die Sicherheit verbessern und in anderen Apps/auf anderen Websites Werbung anzeigen, die genau auf Sie zugeschnitten ist."
         android:textAlignment="center"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="408dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textView13"
+        app:layout_constraintVertical_bias="0.15" />
 
     <ImageView
         android:id="@+id/imageView2"

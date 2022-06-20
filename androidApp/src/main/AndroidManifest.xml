@@ -12,9 +12,6 @@
             android:name=".activities.FirstTimeMainActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.Register"
-            android:exported="false" />
-        <activity
             android:name=".activities.Start"
             android:exported="false" />
         <activity
