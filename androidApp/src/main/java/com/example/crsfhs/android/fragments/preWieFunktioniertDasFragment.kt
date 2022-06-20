@@ -1,4 +1,4 @@
-package com.example.crsfhs.android
+package com.example.crsfhs.android.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.example.crsfhs.android.R
 import com.example.crsfhs.android.databinding.FragmentPreWieFunktioniertDasBinding
 
 class preWieFunktioniertDasFragment : Fragment() {

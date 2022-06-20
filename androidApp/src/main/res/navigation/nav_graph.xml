@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragment_startseite"
-        android:name="com.example.crsfhs.android.StartseiteFragment"
+        android:name="com.example.crsfhs.android.fragments.StartseiteFragment"
         android:label="Startseite"
         tools:layout="@layout/fragment_startseite" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_pers_daten"
-        android:name="com.example.crsfhs.android.PersDatenFragment"
+        android:name="com.example.crsfhs.android.fragments.PersDatenFragment"
         android:label="Persönliche Daten"
         tools:layout="@layout/fragment_pers_daten">
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_meine_reservierungen"
-        android:name="com.example.crsfhs.android.MeineReservierungenFragment"
+        android:name="com.example.crsfhs.android.fragments.MeineReservierungenFragment"
         android:label="fragment_meine_reservierungen"
         tools:layout="@layout/fragment_meine_reservierungen" >
         <action
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_meine_favoriten"
-        android:name="com.example.crsfhs.android.MeineFavoritenFragment"
+        android:name="com.example.crsfhs.android.fragments.MeineFavoritenFragment"
         android:label="fragment_meine_favoriten"
         tools:layout="@layout/fragment_meine_favoriten" >
         <action
@@ -58,17 +58,17 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_meine_reservierungen_verwalten"
-        android:name="com.example.crsfhs.android.MeineReservierungenVerwaltenFragment"
+        android:name="com.example.crsfhs.android.fragments.MeineReservierungenVerwaltenFragment"
         android:label="fragment_meine_reservierungen_verwalten"
         tools:layout="@layout/fragment_meine_reservierungen_verwalten" />
     <fragment
         android:id="@+id/fragment_passwort_aendern"
-        android:name="com.example.crsfhs.android.PasswortAendernFragment"
+        android:name="com.example.crsfhs.android.fragments.PasswortAendernFragment"
         android:label="fragment_passwort_aendern"
         tools:layout="@layout/fragment_passwort_aendern" />
     <fragment
         android:id="@+id/fragment_suchfilter"
-        android:name="com.example.crsfhs.android.SuchfilterFragment"
+        android:name="com.example.crsfhs.android.fragments.SuchfilterFragment"
         android:label="fragment_suchfilter"
         tools:layout="@layout/fragment_suchfilter" >
         <action
@@ -77,7 +77,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_suchergebnisse"
-        android:name="com.example.crsfhs.android.SuchergebnisseFragment"
+        android:name="com.example.crsfhs.android.fragments.SuchergebnisseFragment"
         android:label="fragment_suchergebnisse"
         tools:layout="@layout/fragment_suchergebnisse" >
         <action
@@ -86,7 +86,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_friseursalon"
-        android:name="com.example.crsfhs.android.FriseursalonFragment"
+        android:name="com.example.crsfhs.android.fragments.FriseursalonFragment"
         android:label="fragment_friseursalon"
         tools:layout="@layout/fragment_friseursalon" >
         <action
@@ -95,7 +95,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_termin_details"
-        android:name="com.example.crsfhs.android.TerminDetailsFragment"
+        android:name="com.example.crsfhs.android.fragments.TerminDetailsFragment"
         android:label="fragment_termin_details"
         tools:layout="@layout/fragment_termin_details" >
         <action
@@ -107,7 +107,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_registrieren"
-        android:name="com.example.crsfhs.android.RegistrierenFragment"
+        android:name="com.example.crsfhs.android.fragments.RegistrierenFragment"
         android:label="fragment_registrieren"
         tools:layout="@layout/fragment_registrieren" >
         <action
@@ -116,7 +116,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_login"
-        android:name="com.example.crsfhs.android.LoginFragment"
+        android:name="com.example.crsfhs.android.fragments.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -129,7 +129,7 @@
     <action android:id="@+id/action_global_login" app:destination="@id/fragment_login" />
     <fragment
         android:id="@+id/fragment_zusammenfassung_reservierung"
-        android:name="com.example.crsfhs.android.ZusammenfassungReservierungFragment"
+        android:name="com.example.crsfhs.android.fragments.ZusammenfassungReservierungFragment"
         android:label="fragment_zusammenfassung_reservierung"
         tools:layout="@layout/fragment_zusammenfassung_reservierung" >
         <action
@@ -138,7 +138,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_wurde_reserviert"
-        android:name="com.example.crsfhs.android.WurdeReserviertFragment"
+        android:name="com.example.crsfhs.android.fragments.WurdeReserviertFragment"
         android:label="fragment_wurde_reserviert"
         tools:layout="@layout/fragment_wurde_reserviert" >
         <action
@@ -147,7 +147,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_pre_willkommensseite"
-        android:name="com.example.crsfhs.android.preWillkommensseiteFragment"
+        android:name="com.example.crsfhs.android.fragments.preWillkommensseiteFragment"
         android:label="fragment_pre_willkommensseite"
         tools:layout="@layout/fragment_pre_willkommensseite" >
         <action
@@ -156,7 +156,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_pre_wie_funktioniert_das"
-        android:name="com.example.crsfhs.android.preWieFunktioniertDasFragment"
+        android:name="com.example.crsfhs.android.fragments.preWieFunktioniertDasFragment"
         android:label="fragment_pre_wie_funktioniert_das"
         tools:layout="@layout/fragment_pre_wie_funktioniert_das" >
         <action
@@ -165,7 +165,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_pre_datenschutz"
-        android:name="com.example.crsfhs.android.preDatenschutzFragment"
+        android:name="com.example.crsfhs.android.fragments.preDatenschutzFragment"
         android:label="fragment_pre_datenschutz"
         tools:layout="@layout/fragment_pre_datenschutz" >
         <action
@@ -180,7 +180,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_datenschutz_anzeigen"
-        android:name="com.example.crsfhs.android.DatenschutzAnzeigenFragment"
+        android:name="com.example.crsfhs.android.fragments.DatenschutzAnzeigenFragment"
         android:label="fragment_datenschutz_anzeigen"
         tools:layout="@layout/fragment_datenschutz_anzeigen" />
 </navigation>

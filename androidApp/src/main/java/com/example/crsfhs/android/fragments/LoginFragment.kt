@@ -1,4 +1,4 @@
-package com.example.crsfhs.android
+package com.example.crsfhs.android.fragments
 
 import android.os.Bundle
 import android.text.Editable
@@ -9,19 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.example.crsfhs.android.activities.BASE_URL
+import com.example.crsfhs.android.R
 import com.example.crsfhs.android.activities.loggedInUser
-import com.example.crsfhs.android.api.ApiInterface
-import com.example.crsfhs.android.api.UserCheck
-import com.example.crsfhs.android.api.UserList
-import com.example.crsfhs.android.api.UserQuery
+import com.example.crsfhs.android.api.*
 import com.example.crsfhs.android.databinding.FragmentLoginBinding
 import com.example.crsfhs.android.services.Encryption.toSHA
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
@@ -88,13 +83,7 @@ class LoginFragment : Fragment() {
             listOf(UserQuery(binding.usernameEditText.text.toString()))
         )
 
-        val retrofitBuilder = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BASE_URL)
-            .build()
-            .create(ApiInterface::class.java)
-
-        val retrofitData = retrofitBuilder.checkUser(userCheck)
+        val retrofitData = DbApi.retrofitService.checkUser(userCheck)
 
         retrofitData.enqueue(object : Callback<UserList?> {
             override fun onResponse(call: Call<UserList?>, response: Response<UserList?>) {
@@ -112,7 +101,7 @@ class LoginFragment : Fragment() {
                     } else {
                         loggedInUser = response.body()!!.items[0].key
                         binding.loginButton.findNavController()
-                            .navigate(R.id.action_fragment_pre_datenschutz_to_fragment_login)
+                            .navigate(R.id.action_fragment_login_to_fragment_startseite)
                         Log.i("Login", "eingeloggt")
                     }
                 }

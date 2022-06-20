@@ -1,4 +1,4 @@
-package com.example.crsfhs.android
+package com.example.crsfhs.android.fragments
 
 import android.os.Bundle
 import android.text.Editable
@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.example.crsfhs.android.activities.BASE_URL
+import com.example.crsfhs.android.R
 import com.example.crsfhs.android.api.*
 import com.example.crsfhs.android.databinding.FragmentRegistrierenBinding
 import com.example.crsfhs.android.services.Encryption.toSHA
@@ -18,8 +18,6 @@ import com.example.crsfhs.android.services.Validation
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class RegistrierenFragment : Fragment() {
     private lateinit var binding: FragmentRegistrierenBinding
@@ -189,13 +187,7 @@ class RegistrierenFragment : Fragment() {
             listOf(UserQuery(binding.usernameEditText.text.toString()))
         )
 
-        val retrofitBuilder = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BASE_URL)
-            .build()
-            .create(ApiInterface::class.java)
-
-        val retrofitData = retrofitBuilder.checkUser(userCheck)
+        val retrofitData = DbApi.retrofitService.checkUser(userCheck)
 
         retrofitData.enqueue(object : Callback<UserList?> {
             override fun onResponse(call: Call<UserList?>, response: Response<UserList?>) {
@@ -228,13 +220,7 @@ class RegistrierenFragment : Fragment() {
             )
         )
 
-        val retrofitBuilder = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BASE_URL)
-            .build()
-            .create(ApiInterface::class.java)
-
-        val retrofitData = retrofitBuilder.storeUser(userItem)
+        val retrofitData = DbApi.retrofitService.storeUser(userItem)
 
         retrofitData.enqueue(object : Callback<UserItem?> {
             override fun onResponse(call: Call<UserItem?>, response: Response<UserItem?>) {

@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout17"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ZusammenfassungReservierungFragment">
+    tools:context=".fragments.ZusammenfassungReservierungFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
