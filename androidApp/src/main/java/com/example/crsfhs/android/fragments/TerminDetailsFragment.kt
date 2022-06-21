@@ -1,60 +1,92 @@
 package com.example.crsfhs.android.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.crsfhs.android.R
+import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
+import com.example.crsfhs.android.DatePickerFragment
+import com.example.crsfhs.android.databinding.FragmentTerminDetailsBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
+    private var _binding: FragmentTerminDetailsBinding? = null
+    private val binding get() = _binding!!
 
-/**
- * A simple [Fragment] subclass.
- * Use the [TerminDetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class TerminDetailsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+//opens up the datepicker and works with the output
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    )
+    {
+        super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentTerminDetailsBinding.bind(view)
+
+        binding.apply {
+            tdbtn1.setOnClickListener {
+                // create new instance of DatePickerFragment
+                val datePickerFragment = DatePickerFragment()
+                val supportFragmentManager = requireActivity().supportFragmentManager
+
+                // we have to implement setFragmentResultListener
+                supportFragmentManager.setFragmentResultListener(
+                    "REQUEST_KEY",
+                    viewLifecycleOwner
+                ) { resultKey, bundle ->
+                    if (resultKey == "REQUEST_KEY") {
+
+                        val date = bundle.getString("SELECTED_DATE")
+                        tvDate.text = date
+                    }
+                }
+
+                // show
+                datePickerFragment.show(supportFragmentManager, "DatePickerFragment")
+            }
+            // binding.tdbtn2.setOnClickListener {
+            //}
+
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_termin_details, container, false)
-    }
+//fills the dropdown menu with content
+    override fun onResume() {
+        super.onResume()
+        val zeit = resources.getStringArray(R.array.zeit)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TerminDetailsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TerminDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        val arrayAdapter = ArrayAdapter(requireContext(),R.layout.dropdownzeiten, zeit )
+        binding.autoCompleteTextView.setAdapter(arrayAdapter)
     }
+    override fun onCreateView(
+        inflater:LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ):View{
+        _binding = FragmentTerminDetailsBinding.inflate(inflater, container, false)
+
+        return binding.root
+        }
+
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+    /*private fun comment(){
+        val comment = binding.Kommentarzeile.addTextChangedListener(
+            Register.TextFieldValidation(
+                binding.Kommentarzeile
+            )
+        )
+        return comment
+    }*/
 }
+
+
+
+
+
+
