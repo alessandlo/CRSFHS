@@ -23,7 +23,7 @@ interface ApiInterface {
         "Content-Type: application/json"
     )
     @POST("users/items")
-    fun storeUser(@Body userItem: UserItem): Call<UserItem>
+    fun storeUser(@Body userItem: UserItem): Call<UserDetails>
 
     @Headers(
         "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",
@@ -37,12 +37,12 @@ interface ApiInterface {
         "Content-Type: application/json"
     )
     @GET("reservations/items/{key},{time}")
-    fun validateAppointment(@Path("key") salonKey: String, @Path("time")time: String): Call<UserDetails>
+    fun validateAppointment(@Path("key") salonKey: String, @Path("time")time: String): Call<ReservationsDetails>
 
     @Headers(
         "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",
         "Content-Type: application/json"
     )
     @POST("reservations/query")
-    fun saveAppointment(): Call<UserList>
+    fun saveAppointment(@Body reservationsItem: ReservationsItem): Call<ReservationsDetails>
 }

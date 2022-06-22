@@ -211,6 +211,7 @@ class RegistrierenFragment : Fragment() {
         val userItem = UserItem(
             UserDetails(
                 key = null,
+                active = true,
                 username = binding.usernameEditText.text.toString(),
                 gender = binding.genderSelection.text.toString(),
                 firstname = binding.firstnameEditText.text.toString(),
@@ -222,8 +223,8 @@ class RegistrierenFragment : Fragment() {
 
         val retrofitData = DbApi.retrofitService.storeUser(userItem)
 
-        retrofitData.enqueue(object : Callback<UserItem?> {
-            override fun onResponse(call: Call<UserItem?>, response: Response<UserItem?>) {
+        retrofitData.enqueue(object : Callback<UserDetails?> {
+            override fun onResponse(call: Call<UserDetails?>, response: Response<UserDetails?>) {
                 Toast.makeText(activity, getString(R.string.accountCreated), Toast.LENGTH_SHORT)
                     .show()
                 binding.registerButton.findNavController()
@@ -231,7 +232,7 @@ class RegistrierenFragment : Fragment() {
                 Log.i("Register", "Account created")
             }
 
-            override fun onFailure(call: Call<UserItem?>, t: Throwable) {
+            override fun onFailure(call: Call<UserDetails?>, t: Throwable) {
                 Log.e("Register", "onFailure: " + t.message)
             }
         })
