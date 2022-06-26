@@ -84,9 +84,3 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
         return comment
     }*/
 }
-
-
-
-
-
-

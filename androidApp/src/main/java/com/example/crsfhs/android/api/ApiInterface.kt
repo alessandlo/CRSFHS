@@ -36,6 +36,20 @@ interface ApiInterface {
         "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",
         "Content-Type: application/json"
     )
+    @POST("reservations/query")
+    fun getReservartionsByUserkey(@Body reservationByUser: ReservationByUser): Call<ReservationsList>
+
+    @Headers(
+        "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",
+        "Content-Type: application/json"
+    )
+    @GET("hairdressers/items/{key}")
+    fun getHairdresser(@Path("key") hairdresserKey: String): Call<HairdresserDetails>
+
+    @Headers(
+        "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",
+        "Content-Type: application/json"
+    )
     @GET("reservations/items/{key},{time}")
     fun validateAppointment(@Path("key") salonKey: String, @Path("time")time: String): Call<ReservationsDetails>
 

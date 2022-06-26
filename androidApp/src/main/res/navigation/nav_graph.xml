@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragment_login">
+    app:startDestination="@id/fragment_meine_reservierungen">
 
     <fragment
         android:id="@+id/fragment_startseite"
@@ -38,8 +38,8 @@
     <fragment
         android:id="@+id/fragment_meine_reservierungen"
         android:name="com.example.crsfhs.android.fragments.MeineReservierungenFragment"
-        android:label="fragment_meine_reservierungen"
-        tools:layout="@layout/fragment_meine_reservierungen" >
+        android:label="Meine Reservierungen"
+        tools:layout="@layout/fragment_meine_reservierungen">
         <action
             android:id="@+id/action_mr_to_mrv"
             app:destination="@id/fragment_meine_reservierungen_verwalten" />

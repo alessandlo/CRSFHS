@@ -12,7 +12,7 @@ data class ReservationsItem(
 data class ReservationsDetails(
     val appointment: ReservationsAppointment,
     val hairdresser_key: String,
-    val key: String,
+    val key: String?,
     val user_key: String
 )
 
@@ -25,4 +25,12 @@ data class ReservationsAppointment(
 
 data class ReservationsPaging(
     val size: Int
+)
+
+data class ReservationByUser(
+    val query: List<ReservationQuery>
+)
+
+data class ReservationQuery(
+    val user_key: String
 )

@@ -1,11 +1,18 @@
 package com.example.crsfhs.android.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.crsfhs.android.ReservationAdapter
+import com.example.crsfhs.android.api.*
 import com.example.crsfhs.android.databinding.FragmentMeineReservierungenBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MeineReservierungenFragment : Fragment() {
     private lateinit var binding: FragmentMeineReservierungenBinding
@@ -17,6 +24,54 @@ class MeineReservierungenFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentMeineReservierungenBinding.inflate(inflater, container, false)
 
+        getData()
+
         return binding.root
+    }
+
+    private fun getData() {
+        val userkey = ReservationByUser(listOf(ReservationQuery("6fv97g84s9ud")))
+        val retrofitData = DbApi.retrofitService.getReservartionsByUserkey(userkey)
+
+        retrofitData.enqueue(object : Callback<ReservationsList?> {
+            override fun onResponse(
+                call: Call<ReservationsList?>,
+                response: Response<ReservationsList?>
+            ) {
+                val testlist: MutableList<Appointment> = mutableListOf()
+                response.body()!!.items.forEach {
+                    val retrofitData2 = DbApi.retrofitService.getHairdresser(it.hairdresser_key)
+                    retrofitData2.enqueue(object : Callback<HairdresserDetails?> {
+                        override fun onResponse(
+                            call2: Call<HairdresserDetails?>,
+                            response2: Response<HairdresserDetails?>
+                        ) {
+                            testlist.add(
+                                Appointment(
+                                    hairdresserDetails = response2.body()!!,
+                                    reservationsDetails = it
+                                )
+                            )
+
+                            val result = response.body()?.items
+                            result.let {
+                                val adapter = ReservationAdapter(testlist)
+                                val recyclerView = binding.reservationsRv
+                                recyclerView.layoutManager = LinearLayoutManager(activity)
+                                recyclerView.adapter = adapter
+                            }
+                        }
+
+                        override fun onFailure(call: Call<HairdresserDetails?>, t: Throwable) {
+                            Log.e("Hairdresser", "onFailure: " + t.message)
+                        }
+                    })
+                }
+            }
+
+            override fun onFailure(call: Call<ReservationsList?>, t: Throwable) {
+                Log.e("Reservation", "onFailure: " + t.message)
+            }
+        })
     }
 }

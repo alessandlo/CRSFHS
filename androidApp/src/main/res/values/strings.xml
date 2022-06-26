@@ -46,4 +46,9 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="hairdresserName">Friseurname</string>
+    <string name="address">Adresse</string>
+    <string name="status">Status</string>
+    <string name="appointment">Termin</string>
+    <string name="image">Bild</string>
 </resources>
