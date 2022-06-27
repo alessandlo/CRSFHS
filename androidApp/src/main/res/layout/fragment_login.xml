@@ -18,6 +18,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/resHairvationimageView"
+        android:layout_width="360dp"
+        android:layout_height="235dp"
+        android:layout_marginTop="68dp"
+        android:src="@drawable/fiverr_reshairvation_r1_02_final"
+        app:layout_constraintBottom_toTopOf="@+id/usernameContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.342" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/usernameContainer"
         android:layout_width="match_parent"
