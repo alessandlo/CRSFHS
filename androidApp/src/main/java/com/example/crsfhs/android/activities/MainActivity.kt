@@ -28,6 +28,15 @@ private val idSets = setOf(
     R.id.fragment_meine_reservierungen,
     R.id.fragment_meine_favoriten
 )
+
+private val idSetsHairsalon = setOf(
+    R.id.fragment_hairsalon_bevorstehende_reservierungen,
+    R.id.fragment_hairsalon_profil_anpassen,
+    R.id.fragment_hairsalon_bewertungen,
+    R.id.fragment_hairsalon_res_verwalten
+)
+
+
 private lateinit var appBarConfig: AppBarConfiguration
 
 class MainActivity : AppCompatActivity() {
@@ -48,6 +57,7 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //setContentView(R.layout.hairsalon_activity_main)
 
         // Navi Drawer
         val toolbar: Toolbar = findViewById(R.id.toolbar)
@@ -59,6 +69,14 @@ class MainActivity : AppCompatActivity() {
         appBarConfig = AppBarConfiguration(idSets, drawerLayout)
         setupActionBarWithNavController(navController, appBarConfig)
         navView.setupWithNavController(navController)
+
+/*        // Hairsalon
+        drawerLayout = findViewById(R.id.hairsalon_drawer_layout)
+        navView = findViewById(R.id.hairsalon_nav_view)
+        navController = findNavController(R.id.hairsalon_nav_host)
+        appBarConfig = AppBarConfiguration(idSetsHairsalon, drawerLayout)
+        setupActionBarWithNavController(navController, appBarConfig)
+        navView.setupWithNavController(navController)*/
     }
 
     // Navi Drawer
@@ -66,4 +84,10 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host)
         return navController.navigateUp(appBarConfig) || super.onSupportNavigateUp()
     }
+
+/*    // Hairsalon Navi Drawer
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.hairsalon_nav_host)
+        return navController.navigateUp(appBarConfig) || super.onSupportNavigateUp()
+    }*/
 }
