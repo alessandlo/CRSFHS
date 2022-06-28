@@ -13,10 +13,16 @@ data class HairdresserDetails(
     val key: String,
     val active: Boolean,
     val name: String,
+    val img: HairdresserImages,
     val address: HairdresserAddress,
     val openings: HairdresserOpenings,
     val phone: String,
     val services: HairdresserServices
+)
+
+data class HairdresserImages(
+    val icon: String,
+    val logo: String,
 )
 
 data class HairdresserAddress(
@@ -27,13 +33,18 @@ data class HairdresserAddress(
 )
 
 data class HairdresserOpenings(
-    val Di: String,
-    val Do: String,
-    val Fr: String,
-    val Mi: String,
-    val Mo: String,
-    val Sa: String,
-    val So: String
+    val Di: HairdresserOpeningsTime,
+    val Do: HairdresserOpeningsTime,
+    val Fr: HairdresserOpeningsTime,
+    val Mi: HairdresserOpeningsTime,
+    val Mo: HairdresserOpeningsTime,
+    val Sa: HairdresserOpeningsTime,
+    val So: HairdresserOpeningsTime
+)
+
+data class HairdresserOpeningsTime(
+    val time_from: String,
+    val time_to: String
 )
 
 data class HairdresserServices(
