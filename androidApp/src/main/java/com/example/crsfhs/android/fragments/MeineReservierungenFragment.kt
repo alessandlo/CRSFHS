@@ -38,7 +38,7 @@ class MeineReservierungenFragment : Fragment() {
                 call: Call<ReservationsList?>,
                 response: Response<ReservationsList?>
             ) {
-                val testlist: MutableList<Appointment> = mutableListOf()
+                val appointmentList: MutableList<Appointment> = mutableListOf()
                 response.body()!!.items.forEach {
                     val retrofitData2 = DbApi.retrofitService.getHairdresser(it.hairdresser_key)
                     retrofitData2.enqueue(object : Callback<HairdresserDetails?> {
@@ -46,7 +46,7 @@ class MeineReservierungenFragment : Fragment() {
                             call2: Call<HairdresserDetails?>,
                             response2: Response<HairdresserDetails?>
                         ) {
-                            testlist.add(
+                            appointmentList.add(
                                 Appointment(
                                     hairdresserDetails = response2.body()!!,
                                     reservationsDetails = it
@@ -55,7 +55,7 @@ class MeineReservierungenFragment : Fragment() {
 
                             val result = response.body()?.items
                             result.let {
-                                val adapter = ReservationAdapter(testlist)
+                                val adapter = ReservationAdapter(appointmentList)
                                 val recyclerView = binding.reservationsRv
                                 recyclerView.layoutManager = LinearLayoutManager(activity)
                                 recyclerView.adapter = adapter
