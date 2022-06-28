@@ -56,13 +56,18 @@ class MainActivity : AppCompatActivity() {
         // FIRST TIME END
 
         super.onCreate(savedInstanceState)
+
+        // Customer
         setContentView(R.layout.activity_main)
+
+        // Hairsalon
         //setContentView(R.layout.hairsalon_activity_main)
 
         // Navi Drawer
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        // Customer
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
         navController = findNavController(R.id.nav_host)
@@ -70,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfig)
         navView.setupWithNavController(navController)
 
-/*        // Hairsalon
+/*      // Hairsalon
         drawerLayout = findViewById(R.id.hairsalon_drawer_layout)
         navView = findViewById(R.id.hairsalon_nav_view)
         navController = findNavController(R.id.hairsalon_nav_host)
@@ -79,7 +84,7 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)*/
     }
 
-    // Navi Drawer
+    // Customer Navi Drawer
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host)
         return navController.navigateUp(appBarConfig) || super.onSupportNavigateUp()
