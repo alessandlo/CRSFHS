@@ -1,5 +1,7 @@
 package com.example.crsfhs.android.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,8 +28,11 @@ class preDatenschutzFragment : Fragment() {
         }
 
         binding.showDatapolicyButton.setOnClickListener {
-            binding.showDatapolicyButton.findNavController()
-                .navigate(R.id.action_fragment_pre_datenschutz_to_fragment_datenschutz_anzeigen)
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("https://reshairvation.sunnyshaiba.de/")
+            startActivity(intent)
+            /*binding.showDatapolicyButton.findNavController()
+                .navigate(R.id.action_fragment_pre_datenschutz_to_fragment_datenschutz_anzeigen)*/
         }
 
         return binding.root
