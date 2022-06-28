@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragment_login">
+    app:startDestination="@id/fragment_meine_reservierungen">
+
 
     <fragment
         android:id="@+id/fragment_startseite"
@@ -151,7 +154,7 @@
         android:label="fragment_pre_willkommensseite"
         tools:layout="@layout/fragment_pre_willkommensseite" >
         <action
-            android:id="@+id/action_willkommensseite_to_wie_funktioniert_das"
+            android:id="@+id/action_willkommensseite_to_wie_funktioniert_das1"
             app:destination="@id/fragment_pre_wie_funktioniert_das" />
     </fragment>
     <fragment
@@ -160,7 +163,7 @@
         android:label="fragment_pre_wie_funktioniert_das"
         tools:layout="@layout/fragment_pre_wie_funktioniert_das" >
         <action
-            android:id="@+id/action_wie_funktioniert_das_to_datenschutz"
+            android:id="@+id/action_wie_funktioniert_das_to_datenschutz1"
             app:destination="@id/fragment_pre_datenschutz" />
     </fragment>
     <fragment
@@ -169,7 +172,7 @@
         android:label="fragment_pre_datenschutz"
         tools:layout="@layout/fragment_pre_datenschutz" >
         <action
-            android:id="@+id/action_datenschutz_to_startseite"
+            android:id="@+id/action_datenschutz_to_startseite1"
             app:destination="@id/fragment_startseite" />
         <action
             android:id="@+id/action_fragment_pre_datenschutz_to_fragment_login"

@@ -22,7 +22,7 @@ class preWieFunktioniertDasFragment : Fragment() {
 
         binding.continueButton.setOnClickListener {
             binding.continueButton.findNavController()
-                .navigate(R.id.action_wie_funktioniert_das_to_datenschutz)
+                .navigate(R.id.preDatenschutzFragment)
         }
 
         return binding.root
