@@ -22,15 +22,27 @@
         android:layout_width="0dp"
         android:layout_height="42dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:hint="@string/searchbarHint"
         android:inputType="textPersonName"
         android:textColorHighlight="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/searchbar_filter"
         app:layout_constraintStart_toEndOf="@+id/searchbar_image"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_min="200dp" />
+
+    <ImageView
+        android:id="@+id/searchbar_filter"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:tint="#9E9E9E"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_filter" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
