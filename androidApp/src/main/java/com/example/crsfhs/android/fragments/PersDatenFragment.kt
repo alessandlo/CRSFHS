@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.crsfhs.android.R
+import com.example.crsfhs.android.activities.loggedInUserKey
+import com.example.crsfhs.android.activities.userLoggedIn
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,16 +27,19 @@ class PersDatenFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
+
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if(!userLoggedIn) { // umleiten auf Login, wenn nicht eingeloggt
+            findNavController().navigate(R.id.action_global_fragment_login)
+        }
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_pers_daten, container, false)
     }

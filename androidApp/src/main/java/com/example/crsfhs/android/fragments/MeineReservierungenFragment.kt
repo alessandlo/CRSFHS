@@ -6,8 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.crsfhs.android.R
 import com.example.crsfhs.android.ReservationAdapter
+import com.example.crsfhs.android.activities.loggedInUserKey
+import com.example.crsfhs.android.activities.userLoggedIn
 import com.example.crsfhs.android.api.*
 import com.example.crsfhs.android.databinding.FragmentMeineReservierungenBinding
 import retrofit2.Call
@@ -24,12 +29,18 @@ class MeineReservierungenFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentMeineReservierungenBinding.inflate(inflater, container, false)
 
-        getData()
+        if(!userLoggedIn) { // umleiten auf Login, wenn nicht eingeloggt
+            findNavController().navigate(R.id.action_global_fragment_login)
 
+            println(loggedInUserKey)
+        }
+        else {
+            getData(loggedInUserKey)
+        }
         return binding.root
     }
 
-    private fun getData() {
+    private fun getData(userKey: String?) {
         val userkey = ReservationByUser(listOf(ReservationQuery("6fv97g84s9ud")))
         val retrofitData = DbApi.retrofitService.getReservartionsByUserkey(userkey)
 

@@ -1,5 +1,7 @@
 package com.example.crsfhs.android.fragments
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,6 +13,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.crsfhs.android.R
+import com.example.crsfhs.android.activities.MainActivity
 import com.example.crsfhs.android.api.*
 import com.example.crsfhs.android.databinding.FragmentRegistrierenBinding
 import com.example.crsfhs.android.services.Encryption.toSHA
@@ -21,6 +24,8 @@ import retrofit2.Response
 
 class RegistrierenFragment : Fragment() {
     private lateinit var binding: FragmentRegistrierenBinding
+    private lateinit var mainPref: SharedPreferences
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +41,14 @@ class RegistrierenFragment : Fragment() {
                 checkUser()
             }
         }
+
+
+        mainPref = (activity as MainActivity).getSharedPreferences("PREFERENCE",
+            Context.MODE_PRIVATE
+        )
+
+        val UserLoggedIn = mainPref.getBoolean("isLoggedIn", true)
+        println("UserLoggedIn: $UserLoggedIn")
 
         return binding.root
     }

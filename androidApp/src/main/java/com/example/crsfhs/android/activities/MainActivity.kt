@@ -1,25 +1,34 @@
 package com.example.crsfhs.android.activities
 
+import android.content.Context
+import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.navOptions
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.crsfhs.android.R
+import com.example.crsfhs.android.fragments.preWillkommensseiteFragment
 import com.google.android.material.navigation.NavigationView
 
-var loggedInUser: String? = null
+var loggedInUserKey: String? = null
+var userLoggedIn: Boolean = false
 
 // Navigation Components:
 private lateinit var drawerLayout: DrawerLayout
 private lateinit var navView: NavigationView
-private lateinit var navController: NavController
+lateinit var navController: NavController
+
+
 
 // AppBarConfiguration: Hier mehr Fragemente hinzufügen, wenn wir das Menü erweitern sollten
 private val idSets = setOf(
@@ -33,7 +42,8 @@ private val idSetsHairsalon = setOf(
     R.id.fragment_hairsalon_bevorstehende_reservierungen,
     R.id.fragment_hairsalon_profil_anpassen,
     R.id.fragment_hairsalon_bewertungen,
-    R.id.fragment_hairsalon_res_verwalten
+    R.id.fragment_hairsalon_res_verwalten,
+    R.id.abmeldenFragment
 )
 
 
@@ -42,20 +52,9 @@ private lateinit var appBarConfig: AppBarConfiguration
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        // FIRST TIME LOGIK START
-        val isFirstRun: Boolean = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
-            .getBoolean("isFirstRun", true)
+        val context: Context = applicationContext
 
-        if (isFirstRun) {
-            //show sign up activity
-            startActivity(Intent(this@MainActivity, FirstTimeMainActivity::class.java))
-        }
-
-        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
-            .putBoolean("isFirstRun", false).apply()
-        // FIRST TIME END
-
-        super.onCreate(savedInstanceState)
+            super.onCreate(savedInstanceState)
 
         // Customer
         setContentView(R.layout.activity_main)
@@ -74,6 +73,34 @@ class MainActivity : AppCompatActivity() {
         appBarConfig = AppBarConfiguration(idSets, drawerLayout)
         setupActionBarWithNavController(navController, appBarConfig)
         navView.setupWithNavController(navController)
+
+        // FIRST TIME LOGIK START
+        val isFirstRun: Boolean = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+            .getBoolean("isFirstRun", true)
+
+        //var UserLoggedIn: Boolean = false;
+
+            if (isFirstRun) {
+            getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                .getBoolean("userLoggedIn", false)
+            navController.navigate(R.id.action_fragment_startseite_to_fragment_pre_willkommensseite)
+            //startActivity(Intent(this@MainActivity, FirstTimeMainActivity::class.java))
+
+            }
+
+        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
+            .putBoolean("isFirstRun", false).apply()
+        // FIRST TIME END
+
+        // set global var
+        loggedInUserKey = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+            .getString("loggedInUserKey", "empty")
+        userLoggedIn = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+            .getBoolean("userLoggedIn", false)
+
+        println("Folgender User ist eingeloggt: $loggedInUserKey")
+        println("MainActivity: User ist eingeloggt $userLoggedIn")
+
 
 /*      // Hairsalon
         drawerLayout = findViewById(R.id.hairsalon_drawer_layout)
