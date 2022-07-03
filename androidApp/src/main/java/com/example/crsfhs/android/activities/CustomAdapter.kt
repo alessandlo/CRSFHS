@@ -30,10 +30,12 @@ class CustomAdapter(private val dataSet: ArrayList<HairdresserDetails>) : Recycl
             hairdresser_name = view.findViewById(R.id.hairdresser_name)
             hairdresser_icon = view.findViewById(R.id.hairdresser_icon)
 
+            /*
             hairdresser_icon.setImageResource(R.drawable.test)
             hairdresser_icon.setBackgroundResource(R.drawable.rounded_corners_image)
             hairdresser_icon.scaleType = ImageView.ScaleType.CENTER_CROP
             hairdresser_icon.clipToOutline = true
+             */
         }
     }
 

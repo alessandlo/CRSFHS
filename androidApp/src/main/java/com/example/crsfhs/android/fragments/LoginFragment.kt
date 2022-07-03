@@ -35,8 +35,6 @@ class LoginFragment : Fragment() {
 
         mainPref = (activity as MainActivity).getSharedPreferences("PREFERENCE", MODE_PRIVATE)
 
-
-
         setupListeners()
 
         binding.guestButton.setOnClickListener {

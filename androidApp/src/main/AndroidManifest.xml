@@ -3,11 +3,18 @@
     package="com.example.crsfhs.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:allowBackup="false"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBoDQ2oZe6SFJU-E0NcIOWUlskX77ytfYg" />
+
         <activity
             android:name=".activities.FirstTimeMainActivity"
             android:exported="false" />

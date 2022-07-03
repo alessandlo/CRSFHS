@@ -69,7 +69,7 @@
     <fragment
         android:id="@+id/fragment_meine_reservierungen_verwalten"
         android:name="com.example.crsfhs.android.fragments.MeineReservierungenVerwaltenFragment"
-        android:label="fragment_meine_reservierungen_verwalten"
+        android:label="Reservierungen verwalten"
         tools:layout="@layout/fragment_meine_reservierungen_verwalten" />
     <fragment
         android:id="@+id/fragment_passwort_aendern"
