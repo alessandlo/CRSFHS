@@ -42,11 +42,6 @@ data class HairdresserOpenings(
     val So: HairdresserOpeningsTime
 )
 
-data class HairdresserOpeningsTime(
-    val time_from: String,
-    val time_to: String
-)
-
 data class HairdresserServices(
     val female: List<HairdresserFemale>?,
     val male: List<HairdresserMale>?
@@ -66,4 +61,16 @@ data class HairdresserFemale(
 
 data class HairdresserPaging(
     val size: Int
+)
+data class OpeningTimes(
+    val query: List<HairdresserQuery>
+)
+
+class HairdresserQuery (
+   val key : String
+        )
+
+data class HairdresserOpeningsTime(
+    val time_from: String,
+    val time_to: String
 )

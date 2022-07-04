@@ -59,4 +59,11 @@ interface ApiInterface {
     )
     @POST("reservations/query")
     fun saveAppointment(@Body reservationsItem: ReservationsItem): Call<ReservationsDetails>
+
+    @Headers(
+        "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",
+        "Content-Type: application/json"
+    )
+    @GET("hairdressers/items/{key},{openings}")
+    fun getTimes(@Path("key") salonKey: String, @Path ("openings") date : String): Call<HairdresserOpeningsTime>
 }
