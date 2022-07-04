@@ -1,5 +1,6 @@
 package com.example.crsfhs.android
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,10 +8,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.crsfhs.android.api.*
+import com.example.crsfhs.android.api.Appointment
 
-class ReservationAdapter(private val appointmentList: MutableList<Appointment>) :
-    RecyclerView.Adapter<ReservationAdapter.ReservationViewHolder>() {
+class ReservationAdapter(
+    private val appointmentList: ArrayList<Appointment>,
+    private val listener: (Appointment) -> Unit
+) : RecyclerView.Adapter<ReservationAdapter.ReservationViewHolder>() {
+
     inner class ReservationViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         fun bindData(reservationsDetails: Appointment) {
@@ -32,9 +36,21 @@ class ReservationAdapter(private val appointmentList: MutableList<Appointment>) 
                         reservationsDetails.reservationsDetails.appointment.time_to
 
             image.load(reservationsDetails.hairdresserDetails.img.icon)
+
+            if (reservationsDetails.reservationsDetails.appointment.status == "aktiv") {
+                status.text = "✓ aktiv"
+                //status.setTextColor(Color.GREEN)
+            } else if (reservationsDetails.reservationsDetails.appointment.status == "vergangen") {
+                status.text = "✓ vergangen"
+                //status.setTextColor(Color.BLUE)
+            } else if (reservationsDetails.reservationsDetails.appointment.status == "storniert") {
+                status.text = "✗ storniert"
+                //status.setTextColor(Color.RED)
+            }
+
             name.text = reservationsDetails.hairdresserDetails.name
             address.text = hairdresserAddress
-            status.text = reservationsDetails.reservationsDetails.appointment.status
+            //status.text = reservationsDetails.reservationsDetails.appointment.status
             appointment.text = appointmentReservation
         }
     }
@@ -46,7 +62,9 @@ class ReservationAdapter(private val appointmentList: MutableList<Appointment>) 
     }
 
     override fun onBindViewHolder(holder: ReservationViewHolder, position: Int) {
-        holder.bindData(appointmentList[position])
+        val appointmentItem = appointmentList[position]
+        holder.bindData(appointmentItem)
+        holder.itemView.setOnClickListener { listener(appointmentItem) }
     }
 
     override fun getItemCount(): Int {

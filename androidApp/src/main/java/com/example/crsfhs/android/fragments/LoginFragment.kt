@@ -1,5 +1,7 @@
 package com.example.crsfhs.android.fragments
 
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,7 +12,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.crsfhs.android.R
-import com.example.crsfhs.android.activities.loggedInUser
+import com.example.crsfhs.android.activities.MainActivity
+import com.example.crsfhs.android.activities.loggedInUserKey
+import com.example.crsfhs.android.activities.userLoggedIn
 import com.example.crsfhs.android.api.*
 import com.example.crsfhs.android.databinding.FragmentLoginBinding
 import com.example.crsfhs.android.services.Encryption.toSHA
@@ -20,6 +24,7 @@ import retrofit2.Response
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
+    private lateinit var mainPref: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,6 +32,8 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
+
+        mainPref = (activity as MainActivity).getSharedPreferences("PREFERENCE", MODE_PRIVATE)
 
         setupListeners()
 
@@ -99,10 +106,17 @@ class LoginFragment : Fragment() {
                         binding.passwordEditText.requestFocus()
                         Log.i("Login", "falsches Passwort")
                     } else {
-                        loggedInUser = response.body()!!.items[0].key
+
+                        // SHARED PREF.
+                        mainPref.edit().putBoolean("userLoggedIn", true).apply()
+                        userLoggedIn = true
+
+                        loggedInUserKey = response.body()!!.items[0].key
+                        mainPref.edit().putString("loggedInUserKey", loggedInUserKey).apply()
+
                         binding.loginButton.findNavController()
                             .navigate(R.id.action_fragment_login_to_fragment_startseite)
-                        Log.i("Login", "eingeloggt")
+                        Log.i("Login", "eingeloggt als $loggedInUserKey")
                     }
                 }
             }

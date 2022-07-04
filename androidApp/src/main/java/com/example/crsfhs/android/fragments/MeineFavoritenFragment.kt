@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.crsfhs.android.R
+import com.example.crsfhs.android.activities.userLoggedIn
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,6 +36,11 @@ class MeineFavoritenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if(!userLoggedIn) { // umleiten auf Login, wenn nicht eingeloggt
+            findNavController().navigate(R.id.action_global_fragment_login)
+        }
+
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_meine_favoriten, container, false)
     }

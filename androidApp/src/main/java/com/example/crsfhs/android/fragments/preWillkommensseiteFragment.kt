@@ -22,7 +22,7 @@ class preWillkommensseiteFragment : Fragment() {
 
         binding.goButton.setOnClickListener {
             binding.goButton.findNavController()
-                .navigate(R.id.preWieFunktioniertDasFragment)
+                .navigate(R.id.action_willkommensseite_to_wie_funktioniert_das1)
         }
 
         return binding.root

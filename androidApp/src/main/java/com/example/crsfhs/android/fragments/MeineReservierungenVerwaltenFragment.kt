@@ -1,60 +1,92 @@
 package com.example.crsfhs.android.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.crsfhs.android.R
+import androidx.fragment.app.Fragment
+import com.example.crsfhs.android.databinding.FragmentMeineReservierungenVerwaltenBinding
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MeineReservierungenVerwaltenFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class MeineReservierungenVerwaltenFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+class MeineReservierungenVerwaltenFragment : Fragment(), OnMapReadyCallback {
+    private lateinit var binding: FragmentMeineReservierungenVerwaltenBinding
+    private var mapView: MapView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_meine_reservierungen_verwalten, container, false)
+        binding = FragmentMeineReservierungenVerwaltenBinding.inflate(inflater, container, false)
+
+        mapView = binding.mapView
+        mapView?.onCreate(savedInstanceState)
+        mapView?.getMapAsync(this)
+
+        setData()
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MeineReservierungenVerwaltenFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MeineReservierungenVerwaltenFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    fun setData() {
+        val address =
+            "${arguments?.getString("hairdresser_street")} " +
+                    "${arguments?.getString("hairdresser_number")}, " +
+                    "${arguments?.getString("hairdresser_postcode")} " +
+                    "${arguments?.getString("hairdresser_city")}"
+
+        val appointment =
+            "${arguments?.getString("appointment_date")} · " +
+                    "${arguments?.getString("appointment_time_from")}-" +
+                    "${arguments?.getString("appointment_time_to")}"
+
+        binding.hairdresserName.text = arguments?.getString("hairdresser_name")
+        binding.reservationStatus.text = arguments?.getString("appointment_status")
+        binding.hairdresserAddress.text = address
+        binding.reservationAppointment.text = appointment
     }
+
+    override fun onResume() {
+        super.onResume()
+        mapView?.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView?.onPause()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mapView?.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mapView?.onStop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView?.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView?.onLowMemory()
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        val mark = LatLng(50.1165, 8.6850)
+        googleMap.addMarker(
+            MarkerOptions().position(mark).title(arguments?.getString("hairdresser_name"))
+        )
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mark, 15F))
+    }
+
 }
