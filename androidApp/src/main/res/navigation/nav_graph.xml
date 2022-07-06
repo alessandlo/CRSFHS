@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragment_termin_details">
+    app:startDestination="@id/fragment_startseite">
 
 
     <fragment
@@ -69,8 +69,12 @@
     <fragment
         android:id="@+id/fragment_meine_reservierungen_verwalten"
         android:name="com.example.crsfhs.android.fragments.MeineReservierungenVerwaltenFragment"
-        android:label="Reservierungen verwalten"
-        tools:layout="@layout/fragment_meine_reservierungen_verwalten" />
+        android:label="Reservierung verwalten"
+        tools:layout="@layout/fragment_meine_reservierungen_verwalten" >
+        <action
+            android:id="@+id/action_fragment_meine_reservierungen_verwalten_to_fragment_meine_reservierungen"
+            app:destination="@id/fragment_meine_reservierungen" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_passwort_aendern"
         android:name="com.example.crsfhs.android.fragments.PasswortAendernFragment"

@@ -29,21 +29,14 @@
         <item>weiblich</item>
         <item>divers</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="letsgo">LOSLEGEN</string>
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome!"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
     <string name="hairdresserName">Friseurname</string>
     <string name="address">Adresse</string>
     <string name="status">Status</string>
     <string name="appointment">Termin</string>
     <string name="image">Bild</string>
+    <string name="accept">Ja</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="cancelAppointment">Termin stornieren?</string>
+    <string name="cancelAppointment_text">Sind Sie sicher, dass Sie den Termin stornieren möchten?</string>
 </resources>

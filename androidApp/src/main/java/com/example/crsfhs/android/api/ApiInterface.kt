@@ -57,6 +57,13 @@ interface ApiInterface {
         "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",
         "Content-Type: application/json"
     )
+    @PATCH("reservations/items/{key}")
+    fun changeStatus(@Path("key") salonKey: String, @Body status: Status): Call<Status>
+
+    @Headers(
+        "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",
+        "Content-Type: application/json"
+    )
     @GET("reservations/items/{key},{time}")
     fun validateAppointment(@Path("key") salonKey: String, @Path("time")time: String): Call<ReservationsDetails>
 

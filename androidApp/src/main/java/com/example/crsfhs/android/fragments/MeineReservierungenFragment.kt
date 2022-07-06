@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -20,6 +19,8 @@ import com.example.crsfhs.android.databinding.FragmentMeineReservierungenBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class MeineReservierungenFragment : Fragment() {
     private lateinit var binding: FragmentMeineReservierungenBinding
@@ -53,6 +54,13 @@ class MeineReservierungenFragment : Fragment() {
                 val appointmentList: ArrayList<Appointment> = ArrayList()
 
                 response.body()!!.items.forEach {
+                    if (it.appointment.status == "aktiv") {
+                        val key = it.key
+                        val date = it.appointment.date
+                        val time = it.appointment.time_to
+                        changeStatus(key!!, date, time)
+                    }
+
                     val retrofitData2 = DbApi.retrofitService.getHairdresser(it.hairdresser_key)
                     retrofitData2.enqueue(object : Callback<HairdresserDetails?> {
                         override fun onResponse(
@@ -67,12 +75,13 @@ class MeineReservierungenFragment : Fragment() {
                             )
 
                             appointmentList.sortByDescending { appointment ->
-                                appointment.reservationsDetails.appointment.date
+                                appointment.reservationsDetails.appointment.date.plus(appointment.reservationsDetails.appointment.time_to)
                             }
 
                             appointmentList.let {
                                 val adapter = ReservationAdapter(appointmentList) { appointment ->
                                     val bundle = bundleOf(
+                                        "reservation_key" to appointment.reservationsDetails.key,
                                         "hairdresser_name" to appointment.hairdresserDetails.name,
                                         "appointment_date" to appointment.reservationsDetails.appointment.date,
                                         "appointment_time_from" to appointment.reservationsDetails.appointment.time_from,
@@ -103,5 +112,31 @@ class MeineReservierungenFragment : Fragment() {
                 Log.e("Reservation", "onFailure: " + t.message)
             }
         })
+    }
+
+    private fun changeStatus(key: String, date: String, time: String) {
+        val current = LocalDateTime.now()
+        val appointmentDateTime =
+            LocalDateTime.parse("$date $time", DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))
+
+        if (current.isAfter(appointmentDateTime)) {
+            val retrofitData =
+                DbApi.retrofitService.changeStatus(key, Status(null, SetStatus("vergangen")))
+
+            retrofitData.enqueue(object : Callback<Status?> {
+                override fun onResponse(
+                    call: Call<Status?>,
+                    response: Response<Status?>
+                ) {
+                    Log.i("Status", "vergangen")
+                }
+
+                override fun onFailure(call: Call<Status?>, t: Throwable) {
+                    Log.e("Status", "onFailure: " + t.message)
+                }
+            })
+        }
+        //Log.i("Current DateTime", current.toString())
+        //Log.i("DateTime", appointmentDateTime.toString())
     }
 }

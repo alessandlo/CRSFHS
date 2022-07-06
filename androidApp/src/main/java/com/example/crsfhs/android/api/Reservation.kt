@@ -1,5 +1,7 @@
 package com.example.crsfhs.android.api
 
+import com.squareup.moshi.Json
+
 data class ReservationsList(
     val items: List<ReservationsDetails>,
     val paging: ReservationsPaging
@@ -33,4 +35,13 @@ data class ReservationByUser(
 
 data class ReservationQuery(
     val user_key: String
+)
+
+data class Status(
+    val key: String?,
+    val set: SetStatus
+)
+
+data class SetStatus(
+    @Json(name = "appointment.status") val appointmentStatus: String
 )

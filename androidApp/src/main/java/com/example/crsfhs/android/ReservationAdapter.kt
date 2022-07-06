@@ -1,5 +1,7 @@
 package com.example.crsfhs.android
 
+import android.graphics.BlendMode
+import android.graphics.BlendModeColorFilter
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -37,15 +39,25 @@ class ReservationAdapter(
 
             image.load(reservationsDetails.hairdresserDetails.img.icon)
 
-            if (reservationsDetails.reservationsDetails.appointment.status == "aktiv") {
-                status.text = "✓ aktiv"
-                //status.setTextColor(Color.GREEN)
-            } else if (reservationsDetails.reservationsDetails.appointment.status == "vergangen") {
-                status.text = "✓ vergangen"
-                //status.setTextColor(Color.BLUE)
-            } else if (reservationsDetails.reservationsDetails.appointment.status == "storniert") {
-                status.text = "✗ storniert"
-                //status.setTextColor(Color.RED)
+            when (reservationsDetails.reservationsDetails.appointment.status) {
+                "aktiv" -> {
+                    status.text = "✓ aktiv"
+                    status.background.colorFilter =
+                        BlendModeColorFilter(Color.parseColor("#FF009688"), BlendMode.SRC_IN)
+                    status.setTextColor(Color.parseColor("#FF009688"))
+                }
+                "vergangen" -> {
+                    status.text = "✓ vergangen"
+                    status.background.colorFilter =
+                        BlendModeColorFilter(Color.parseColor("#FF2196F3"), BlendMode.SRC_IN)
+                    status.setTextColor(Color.parseColor("#FF2196F3"))
+                }
+                "storniert" -> {
+                    status.text = "✗ storniert"
+                    status.background.colorFilter =
+                        BlendModeColorFilter(Color.parseColor("#FFF44336"), BlendMode.SRC_IN)
+                    status.setTextColor(Color.parseColor("#FFF44336"))
+                }
             }
 
             name.text = reservationsDetails.hairdresserDetails.name
