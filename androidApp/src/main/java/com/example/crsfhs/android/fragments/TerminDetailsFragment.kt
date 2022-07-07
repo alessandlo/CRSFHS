@@ -54,7 +54,7 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                 // show
                 datePickerFragment.show(supportFragmentManager, "DatePickerFragment")
                 binding.autoCompleteTextView.setOnItemClickListener { parent, view, position, id ->
-                    var selectedtime = parent.getItemAtPosition(position).toString() // get selected timeslot
+                    val selectedtime = parent.getItemAtPosition(position).toString() // get selected timeslot
                     tdbtn2.setOnClickListener {         //jump to next fragment and transfer appointment details
                         findNavController().navigate(R.id.action_termin_details_to_zusammenfassung, Bundle().apply {
                             putString("date", tvDate.text.toString())
@@ -70,19 +70,56 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
 
     private fun getTime(date : String){
 
-        val retrofitData = DbApi.retrofitService.getTimes("asru6sxqrifl", date)
-        retrofitData.enqueue(object : Callback<HairdresserOpeningsTime> {
+        //val retrofitData = DbApi.retrofitService.getTimes("asru6sxqrifl", date)
+        val retrofitData = DbApi.retrofitService.getHairdresser("asru6sxqrifl")
+        retrofitData.enqueue(object : Callback<HairdresserDetails> {
             override fun onResponse(
-                call: Call<HairdresserOpeningsTime?>,
-                response: Response<HairdresserOpeningsTime?>
+                call: Call<HairdresserDetails?>,
+                response: Response<HairdresserDetails?>
             ) {
-                var openingtime  = "10:00"//response.body()?.time_from!! //Kommentar sollte die eigentliche Variable sein, gibt aber null zurück deswegen statisch for now
-                val closingtime = "17:00"//response.body()?.time_to  //Kommentar sollte die eigentliche Variable sein, gibt aber null zurück deswegen statisch for now
+                var openingtime: String? = null
+                var closingtime: String? = null
+
+                when(date){
+                    "Mo" -> {
+                        openingtime = response.body()!!.openings.Mo.time_from
+                        closingtime = response.body()!!.openings.Mo.time_to
+                    }
+                    "Di" -> {
+                        openingtime = response.body()!!.openings.Di.time_from
+                        closingtime = response.body()!!.openings.Di.time_to
+                    }
+                    "Mi" -> {
+                        openingtime = response.body()!!.openings.Mi.time_from
+                        closingtime = response.body()!!.openings.Mi.time_to
+                    }
+                    "Do" -> {
+                        openingtime = response.body()!!.openings.Do.time_from
+                        closingtime = response.body()!!.openings.Do.time_to
+                    }
+                    "Fr" -> {
+                        openingtime = response.body()!!.openings.Fr.time_from
+                        closingtime = response.body()!!.openings.Fr.time_to
+                    }
+                    "Sa" -> {
+                        openingtime = response.body()!!.openings.Sa.time_from
+                        closingtime = response.body()!!.openings.Sa.time_to
+                    }
+                    "So" -> {
+                        openingtime = response.body()!!.openings.So.time_from
+                        closingtime = response.body()!!.openings.So.time_to
+                    }
+                }
+
+                Log.i("Zeiten", openingtime + " " + closingtime)
+
+                //var openingtime  = "10:00"//response.body()?.time_from!! //Kommentar sollte die eigentliche Variable sein, gibt aber null zurück deswegen statisch for now
+                //val closingtime = "17:00"//response.body()?.time_to  //Kommentar sollte die eigentliche Variable sein, gibt aber null zurück deswegen statisch for now
                 
                 var counter = 0
                 val timeslots = ArrayList<String>()
-                var timestamp = openingtime.take(2).toInt()
-                while("$timestamp:00" < closingtime) // While schleife um Zeiten einzutragen in ArrayList
+                var timestamp = openingtime!!.take(2).toInt()
+                while("$timestamp:00" < closingtime!!) // While schleife um Zeiten einzutragen in ArrayList
                     if(counter % 2 == 0 && counter > 0){ // für gerade Zeiten (Bsp. 11:00)
                         timestamp++ // erhöht stunde um 1
                         openingtime = timestamp.toString()
@@ -91,20 +128,20 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                         timeslots.add(time) // neuer eintrag in ArrayList
                         counter++
                     }else if(counter % 2 !== 0){ // für ungerade Zeiten (Bsp. 11:30)
-                        openingtime = openingtime.take(2)
+                        openingtime = openingtime!!.take(2)
                         val time = "$openingtime:30"
                         timeslots.add(time)
                         counter++
                     }else{ // für die Öffnungszeit (hier 10:00)
                         val time = openingtime
-                        timeslots.add(time)
+                        timeslots.add(time!!)
                         counter++
                     }
             onResume(timeslots) // Fun aufrufen um dropdown menu zu füllen
             }
 
 
-            override fun onFailure(call: Call<HairdresserOpeningsTime>, t: Throwable) {
+            override fun onFailure(call: Call<HairdresserDetails>, t: Throwable) {
                 Log.e("Load Time", "onFailure: " + t.message)
             }
         })

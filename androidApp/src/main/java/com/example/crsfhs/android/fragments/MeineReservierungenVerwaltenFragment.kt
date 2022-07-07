@@ -143,10 +143,8 @@ class MeineReservierungenVerwaltenFragment : Fragment(), OnMapReadyCallback {
         MaterialAlertDialogBuilder(context!!)
             .setTitle(resources.getString(R.string.cancelAppointment))
             .setMessage(resources.getString(R.string.cancelAppointment_text))
-            .setNegativeButton(resources.getString(R.string.cancel)) { dialog, which ->
-                // cancel
-            }
-            .setPositiveButton(resources.getString(R.string.accept)) { dialog, which ->
+            .setNegativeButton(resources.getString(R.string.cancel), null)
+            .setPositiveButton(resources.getString(R.string.accept)) { _, _ ->
                 val retrofitData = DbApi.retrofitService.changeStatus(key, Status(null, SetStatus("storniert")))
 
                 retrofitData.enqueue(object : Callback<Status?> {
