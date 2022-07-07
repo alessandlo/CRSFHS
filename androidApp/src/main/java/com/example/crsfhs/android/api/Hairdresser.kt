@@ -17,7 +17,8 @@ data class HairdresserDetails(
     val address: HairdresserAddress,
     val openings: HairdresserOpenings,
     val phone: String,
-    val services: HairdresserServices
+    val rating: String,
+    val services: List<HairdresserServices>
 )
 
 data class HairdresserImages(
@@ -43,20 +44,10 @@ data class HairdresserOpenings(
 )
 
 data class HairdresserServices(
-    val female: List<HairdresserFemale>?,
-    val male: List<HairdresserMale>?
-)
-
-data class HairdresserMale(
     val name: String,
     val price: String,
-    val time: Int
-)
-
-data class HairdresserFemale(
-    val name: String,
-    val price: String,
-    val time: Int
+    val time: Int,
+    val gender: String
 )
 
 data class HairdresserPaging(
