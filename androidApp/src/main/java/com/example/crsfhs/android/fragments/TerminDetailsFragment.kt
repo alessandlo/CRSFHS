@@ -1,6 +1,5 @@
 package com.example.crsfhs.android.fragments
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.crsfhs.android.DatePickerFragment
 import com.example.crsfhs.android.R
 import com.example.crsfhs.android.api.*
@@ -46,20 +46,26 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
 
                         val date = bundle.getString("SELECTED_DATE") // Day + Date > printed above button
                         val day = date!!.take(2) // shortened string to just abbreviation of day
-                        Log.d(TAG, day  )
 
                         tvDate.text = date
                         getTime(day)
                     }
                 }
-
                 // show
                 datePickerFragment.show(supportFragmentManager, "DatePickerFragment")
+                binding.autoCompleteTextView.setOnItemClickListener { parent, view, position, id ->
+                    var selectedtime = parent.getItemAtPosition(position).toString() // get selected timeslot
+                    tdbtn2.setOnClickListener {         //jump to next fragment and transfer appointment details
+                        findNavController().navigate(R.id.action_termin_details_to_zusammenfassung, Bundle().apply {
+                            putString("date", tvDate.text.toString())
+                            putString("time", selectedtime)
+                            putString("comment", Kommentarzeile.text.toString())
+                        })
+                    }
+                }
             }
-
         }
     }
-
 
 
     private fun getTime(date : String){
@@ -72,7 +78,6 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
             ) {
                 var openingtime  = "10:00"//response.body()?.time_from!! //Kommentar sollte die eigentliche Variable sein, gibt aber null zurück deswegen statisch for now
                 val closingtime = "17:00"//response.body()?.time_to  //Kommentar sollte die eigentliche Variable sein, gibt aber null zurück deswegen statisch for now
-                Log.d(TAG, openingtime)
                 
                 var counter = 0
                 val timeslots = ArrayList<String>()
