@@ -1,5 +1,7 @@
 package com.example.crsfhs.android.fragments
 
+import android.content.ContentValues.TAG
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -130,29 +132,23 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
 
                if(openingtime == "-" && closingtime == "-"){
                     Toast.makeText(requireActivity(),"Der Friseur hat am "+ date +" geschlossen!", Toast.LENGTH_LONG).show()
-                }else{
-                var counter = 0
-                val timeslots = ArrayList<String>()
-                var timestamp = openingtime!!.take(2).toInt()
-                while("$timestamp:00" < closingtime!!) // While schleife um Zeiten einzutragen in ArrayList
-                    if(counter % 2 == 0 && counter > 0){ // für gerade Zeiten (Bsp. 11:00)
-                        timestamp++ // erhöht stunde um 1
-                        openingtime = timestamp.toString()
-                        openingtime = openingtime.take(2)
-                        val time = "$openingtime:00"
-                        timeslots.add(time) // neuer eintrag in ArrayList
-                        counter++
-                    }else if(counter % 2 !== 0){ // für ungerade Zeiten (Bsp. 11:30)
-                        openingtime = openingtime!!.take(2)
-                        val time = "$openingtime:30"
-                        timeslots.add(time)
-                        counter++
-                    }else{ // für die Öffnungszeit (hier 10:00)
-                        val time = openingtime
-                        timeslots.add(time!!)
-                        counter++
-                    }
-            onResume(timeslots) // Fun aufrufen um dropdown menu zu füllen
+                } else{
+
+                    val timeslots = ArrayList<String>()
+                   var timestamp = openingtime
+                   while(openingtime!! < closingtime!!.toString()){ //Liste mit Zeiten füllen mit Zeiten im 30 min Takt
+                       timeslots.add(openingtime)
+                       val df = SimpleDateFormat("HH:mm")
+                       val d = df.parse(timestamp)
+                       val cal = Calendar.getInstance()
+                       cal.setTime(d)
+                       cal.add(Calendar.MINUTE, 30)
+                       timestamp = df.format(cal.getTime())
+                       openingtime = timestamp.toString()
+                       Log.d(TAG, openingtime)
+
+                   }
+                    onResume(timeslots) // Fun aufrufen um dropdown menu zu füllen
             }}
 
 
