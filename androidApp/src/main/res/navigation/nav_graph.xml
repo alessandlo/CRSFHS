@@ -60,8 +60,8 @@
     <fragment
         android:id="@+id/fragment_meine_favoriten"
         android:name="com.example.crsfhs.android.fragments.MeineFavoritenFragment"
-        android:label="fragment_meine_favoriten"
-        tools:layout="@layout/fragment_meine_favoriten" >
+        android:label="Meine Favoriten"
+        tools:layout="@layout/fragment_meine_favoriten">
         <action
             android:id="@+id/action_fragment_meine_favoriten_to_fragment_login"
             app:destination="@id/fragment_login" />

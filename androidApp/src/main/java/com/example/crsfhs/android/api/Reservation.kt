@@ -3,22 +3,22 @@ package com.example.crsfhs.android.api
 import com.squareup.moshi.Json
 
 data class ReservationsList(
-    val items: List<ReservationsDetails>,
+    val items: List<ReservationDetails>,
     val paging: ReservationsPaging
 )
 
-data class ReservationsItem(
-    val item: ReservationsDetails
+data class ReservationItem(
+    val item: ReservationDetails
 )
 
-data class ReservationsDetails(
-    val appointment: ReservationsAppointment,
+data class ReservationDetails(
+    val appointment: ReservationAppointment,
     val hairdresser_key: String,
     val key: String?,
     val user_key: String
 )
 
-data class ReservationsAppointment(
+data class ReservationAppointment(
     val date: String,
     val status: String,
     val time_from: String,

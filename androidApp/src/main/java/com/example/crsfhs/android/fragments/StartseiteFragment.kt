@@ -25,7 +25,7 @@ class StartseiteFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentStartseiteBinding.inflate(inflater, container, false)
 
         val hairdresser: ArrayList<HairdresserDetails> = getAllHairdressers()
@@ -57,7 +57,7 @@ class StartseiteFragment : Fragment() {
                 }
                 list.let {
                     val recyclerView = binding.rv
-                    recyclerView.layoutManager = LinearLayoutManager(activity)
+                    recyclerView.layoutManager = LinearLayoutManager(context)
 
                     adapter = CustomAdapter(it)
 

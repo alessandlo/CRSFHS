@@ -53,13 +53,14 @@ data class HairdresserServices(
 data class HairdresserPaging(
     val size: Int
 )
+
 data class OpeningTimes(
     val query: List<HairdresserQuery>
 )
 
-class HairdresserQuery (
-   val key : String
-        )
+class HairdresserQuery(
+    val key: String
+)
 
 data class HairdresserOpeningsTime(
     val time_from: String,

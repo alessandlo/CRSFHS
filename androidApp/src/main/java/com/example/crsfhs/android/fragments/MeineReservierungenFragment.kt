@@ -28,7 +28,7 @@ class MeineReservierungenFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentMeineReservierungenBinding.inflate(inflater, container, false)
 
@@ -44,7 +44,7 @@ class MeineReservierungenFragment : Fragment() {
 
     private fun getData() {
         val userkey = ReservationByUser(listOf(ReservationQuery(loggedInUserKey!!)))
-        val retrofitData = DbApi.retrofitService.getReservartionsByUserkey(userkey)
+        val retrofitData = DbApi.retrofitService.getReservationsByUserkey(userkey)
 
         retrofitData.enqueue(object : Callback<ReservationsList?> {
             override fun onResponse(
@@ -70,23 +70,23 @@ class MeineReservierungenFragment : Fragment() {
                             appointmentList.add(
                                 Appointment(
                                     hairdresserDetails = response2.body()!!,
-                                    reservationsDetails = it
+                                    reservationDetails = it
                                 )
                             )
 
                             appointmentList.sortByDescending { appointment ->
-                                appointment.reservationsDetails.appointment.date.plus(appointment.reservationsDetails.appointment.time_to)
+                                appointment.reservationDetails.appointment.date.plus(appointment.reservationDetails.appointment.time_to)
                             }
 
                             appointmentList.let {
                                 val adapter = ReservationAdapter(appointmentList) { appointment ->
                                     val bundle = bundleOf(
-                                        "reservation_key" to appointment.reservationsDetails.key,
+                                        "reservation_key" to appointment.reservationDetails.key,
                                         "hairdresser_name" to appointment.hairdresserDetails.name,
-                                        "appointment_date" to appointment.reservationsDetails.appointment.date,
-                                        "appointment_time_from" to appointment.reservationsDetails.appointment.time_from,
-                                        "appointment_time_to" to appointment.reservationsDetails.appointment.time_to,
-                                        "appointment_status" to appointment.reservationsDetails.appointment.status,
+                                        "appointment_date" to appointment.reservationDetails.appointment.date,
+                                        "appointment_time_from" to appointment.reservationDetails.appointment.time_from,
+                                        "appointment_time_to" to appointment.reservationDetails.appointment.time_to,
+                                        "appointment_status" to appointment.reservationDetails.appointment.status,
                                         "hairdresser_city" to appointment.hairdresserDetails.address.city,
                                         "hairdresser_number" to appointment.hairdresserDetails.address.number,
                                         "hairdresser_postcode" to appointment.hairdresserDetails.address.postcode,
@@ -96,7 +96,7 @@ class MeineReservierungenFragment : Fragment() {
                                         .navigate(R.id.action_mr_to_mrv, bundle)
                                 }
                                 val recyclerView = binding.reservationsRv
-                                recyclerView.layoutManager = LinearLayoutManager(activity)
+                                recyclerView.layoutManager = LinearLayoutManager(context)
                                 recyclerView.adapter = adapter
                             }
                         }

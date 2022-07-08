@@ -37,7 +37,7 @@ interface ApiInterface {
         "Content-Type: application/json"
     )
     @POST("reservations/query")
-    fun getReservartionsByUserkey(@Body reservationByUser: ReservationByUser): Call<ReservationsList>
+    fun getReservationsByUserkey(@Body reservationByUser: ReservationByUser): Call<ReservationsList>
 
     @Headers(
         "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",
@@ -64,15 +64,22 @@ interface ApiInterface {
         "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",
         "Content-Type: application/json"
     )
+    @POST("favorites/query")
+    fun getFavoritesByUserkey(@Body favoritesByUser: FavoritesByUser): Call<FavoritesList>
+
+    @Headers(
+        "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",
+        "Content-Type: application/json"
+    )
     @GET("reservations/items/{key},{time}")
-    fun validateAppointment(@Path("key") salonKey: String, @Path("time")time: String): Call<ReservationsDetails>
+    fun validateAppointment(@Path("key") salonKey: String, @Path("time")time: String): Call<ReservationDetails>
 
     @Headers(
         "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",
         "Content-Type: application/json"
     )
     @POST("reservations/query")
-    fun saveAppointment(@Body reservationsItem: ReservationsItem): Call<ReservationsDetails>
+    fun saveAppointment(@Body reservationsItem: ReservationItem): Call<ReservationDetails>
 
     @Headers(
         "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",

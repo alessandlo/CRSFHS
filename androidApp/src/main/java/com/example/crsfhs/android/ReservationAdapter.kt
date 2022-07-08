@@ -33,13 +33,13 @@ class ReservationAdapter(
                         reservationsDetails.hairdresserDetails.address.city
 
             val appointmentReservation =
-                "${reservationsDetails.reservationsDetails.appointment.date} · " +
-                        "${reservationsDetails.reservationsDetails.appointment.time_from}-" +
-                        reservationsDetails.reservationsDetails.appointment.time_to
+                "${reservationsDetails.reservationDetails.appointment.date} · " +
+                        "${reservationsDetails.reservationDetails.appointment.time_from}-" +
+                        reservationsDetails.reservationDetails.appointment.time_to
 
             image.load(reservationsDetails.hairdresserDetails.img.icon)
 
-            when (reservationsDetails.reservationsDetails.appointment.status) {
+            when (reservationsDetails.reservationDetails.appointment.status) {
                 "aktiv" -> {
                     status.text = "✓ aktiv"
                     status.background.colorFilter =
@@ -62,14 +62,13 @@ class ReservationAdapter(
 
             name.text = reservationsDetails.hairdresserDetails.name
             address.text = hairdresserAddress
-            //status.text = reservationsDetails.reservationsDetails.appointment.status
             appointment.text = appointmentReservation
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReservationViewHolder {
         return ReservationViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.reservation_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_reservation, parent, false)
         )
     }
 

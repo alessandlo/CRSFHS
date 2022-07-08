@@ -39,4 +39,5 @@
     <string name="cancel">Abbrechen</string>
     <string name="cancelAppointment">Termin stornieren?</string>
     <string name="cancelAppointment_text">Sind Sie sicher, dass Sie den Termin stornieren möchten?</string>
+    <string name="rating">Bewertung</string>
 </resources>
