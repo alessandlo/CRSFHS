@@ -42,7 +42,7 @@
         android:id="@+id/meine_pers_daten_vorname"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
@@ -56,8 +56,9 @@
 
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/meine_pers_daten_vorname_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="56dp"
             android:maxLength="30" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,6 +80,7 @@
 
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/meine_pers_daten_nachname_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:maxLength="30" />
@@ -102,11 +104,12 @@
         app:layout_constraintTop_toBottomOf="@+id/meine_pers_daten_nachname"
         app:layout_constraintVertical_bias="0.013"
         app:prefixText="+49"
-        app:prefixTextColor="#62A0A2"
+        app:prefixTextColor="#ffc039"
         app:startIconDrawable="@drawable/ic_baseline_phone_24">
 
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/meine_pers_daten_tel_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="number"
@@ -114,7 +117,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passwordContainer"
+        android:id="@+id/password_container"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -130,15 +133,15 @@
         app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/passwordEditText"
+            android:id="@+id/password_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password"
+            android:hint="Aktuelles Passwort"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passwordContainer2"
+        android:id="@+id/password_container_2"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -150,14 +153,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordContainer"
+        app:layout_constraintTop_toBottomOf="@+id/password_container"
         app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/passwordEditText2"
+            android:id="@+id/password_text_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Passwort wiederholen"
+            android:hint="Neues Passwort"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -170,7 +173,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordContainer2"
+        app:layout_constraintTop_toBottomOf="@+id/password_container_2"
         app:layout_constraintVertical_bias="0.484" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
