@@ -33,7 +33,7 @@ class MeineReservierungenVerwaltenFragment : Fragment(), OnMapReadyCallback {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentMeineReservierungenVerwaltenBinding.inflate(inflater, container, false)
 

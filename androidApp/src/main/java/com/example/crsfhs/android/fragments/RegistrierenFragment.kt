@@ -31,7 +31,7 @@ class RegistrierenFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRegistrierenBinding.inflate(inflater, container, false)
 
         setupListeners()
@@ -226,6 +226,7 @@ class RegistrierenFragment : Fragment() {
                 key = null,
                 active = true,
                 username = binding.usernameEditText.text.toString(),
+                role = "user",
                 gender = binding.genderSelection.text.toString(),
                 firstname = binding.firstnameEditText.text.toString(),
                 lastname = binding.lastnameEditText.text.toString(),

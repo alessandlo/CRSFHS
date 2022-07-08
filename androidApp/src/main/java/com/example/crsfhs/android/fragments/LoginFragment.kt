@@ -30,7 +30,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         mainPref = (activity as MainActivity).getSharedPreferences("PREFERENCE", MODE_PRIVATE)
@@ -113,6 +113,9 @@ class LoginFragment : Fragment() {
 
                         loggedInUserKey = response.body()!!.items[0].key
                         mainPref.edit().putString("loggedInUserKey", loggedInUserKey).apply()
+
+                        //user Rolle
+                        val role = response.body()!!.items[0].role
 
                         binding.loginButton.findNavController()
                             .navigate(R.id.action_fragment_login_to_fragment_startseite)

@@ -13,6 +13,7 @@ data class UserDetails(
     val key: String?,
     val active: Boolean,
     val username: String,
+    val role: String,
     val gender: String,
     val firstname: String,
     val lastname: String,
