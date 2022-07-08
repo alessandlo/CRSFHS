@@ -78,7 +78,7 @@ interface ApiInterface {
         "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",
         "Content-Type: application/json"
     )
-    @POST("reservations/query")
+    @POST("reservations/items")
     fun saveAppointment(@Body reservationsItem: ReservationItem): Call<ReservationDetails>
 
     @Headers(

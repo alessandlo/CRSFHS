@@ -6,15 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.crsfhs.android.DatePickerFragment
 import com.example.crsfhs.android.R
+import com.example.crsfhs.android.activities.userLoggedIn
 import com.example.crsfhs.android.api.*
 import com.example.crsfhs.android.databinding.FragmentTerminDetailsBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
@@ -46,9 +50,19 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
 
                         val date = bundle.getString("SELECTED_DATE") // Day + Date > printed above button
                         val day = date!!.take(2) // shortened string to just abbreviation of day
-
-                        tvDate.text = date
-                        getTime(day)
+                        val dateFrag = date.substring(4, 6)
+                        val dateFrag2 = date.substring(7, 9)
+                        val dateFrag3 = date.substring(10, 14)
+                        val newDate = dateFrag3+"-"+dateFrag2+"-"+dateFrag
+                        val current = LocalDate.now()
+                        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                        val today = current.format(formatter)
+                        if(newDate < today){ //checks if the date is in the past
+                            Toast.makeText(requireActivity(),"Das eingegeben Datum liegt in der Vergangenheit", Toast.LENGTH_LONG).show()
+                        }else {
+                            tvDate.text = date
+                            getTime(day)
+                        }
                     }
                 }
                 // show
@@ -56,6 +70,10 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                 binding.autoCompleteTextView.setOnItemClickListener { parent, view, position, id ->
                     val selectedtime = parent.getItemAtPosition(position).toString() // get selected timeslot
                     tdbtn2.setOnClickListener {         //jump to next fragment and transfer appointment details
+                        if (!userLoggedIn) { // umleiten auf Login, wenn nicht eingeloggt
+                            findNavController().navigate(R.id.action_fragment_termin_details_to_fragment_login)
+                        }
+                        else
                         findNavController().navigate(R.id.action_termin_details_to_zusammenfassung, Bundle().apply {
                             putString("date", tvDate.text.toString())
                             putString("time", selectedtime)
@@ -70,7 +88,6 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
 
     private fun getTime(date : String){
 
-        //val retrofitData = DbApi.retrofitService.getTimes("asru6sxqrifl", date)
         val retrofitData = DbApi.retrofitService.getHairdresser("asru6sxqrifl")
         retrofitData.enqueue(object : Callback<HairdresserDetails> {
             override fun onResponse(
@@ -111,11 +128,9 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                     }
                 }
 
-                Log.i("Zeiten", openingtime + " " + closingtime)
-
-                //var openingtime  = "10:00"//response.body()?.time_from!! //Kommentar sollte die eigentliche Variable sein, gibt aber null zurück deswegen statisch for now
-                //val closingtime = "17:00"//response.body()?.time_to  //Kommentar sollte die eigentliche Variable sein, gibt aber null zurück deswegen statisch for now
-                
+               if(openingtime == "-" && closingtime == "-"){
+                    Toast.makeText(requireActivity(),"Der Friseur hat am "+ date +" geschlossen!", Toast.LENGTH_LONG).show()
+                }else{
                 var counter = 0
                 val timeslots = ArrayList<String>()
                 var timestamp = openingtime!!.take(2).toInt()
@@ -138,7 +153,7 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                         counter++
                     }
             onResume(timeslots) // Fun aufrufen um dropdown menu zu füllen
-            }
+            }}
 
 
             override fun onFailure(call: Call<HairdresserDetails>, t: Throwable) {
