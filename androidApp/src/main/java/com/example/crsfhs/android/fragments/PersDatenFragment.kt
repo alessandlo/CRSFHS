@@ -24,17 +24,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class PersDatenFragment : Fragment() {
     private lateinit var binding: FragmentPersDatenBinding
     val tRetrofitData = DbApi.retrofitService.getUser(loggedInUserKey.toString())
     private lateinit var currentPassword: String
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
     }
 
     override fun onDestroyView() {
@@ -45,8 +41,7 @@ class PersDatenFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
+    ): View {
         binding = FragmentPersDatenBinding.inflate(inflater, container, false)
 
         setupListeners()
@@ -54,7 +49,6 @@ class PersDatenFragment : Fragment() {
         if (!userLoggedIn) { // umleiten auf Login, wenn nicht eingeloggt
             findNavController().navigate(R.id.action_global_fragment_login)
         } else {
-
             println("getUser(): $tRetrofitData")
 
             tRetrofitData.enqueue(object : Callback<UserDetails> {
@@ -64,9 +58,9 @@ class PersDatenFragment : Fragment() {
                     //println("getUser(): email. " + response.body()!!.email)
 
                     when (response.body()!!.gender) {
-                        "männlich" -> binding.radioButton3.isChecked = true
-                        "weiblich" -> binding.radioButton2.isChecked = true
-                        "divers" -> binding.radioButton.isChecked = true
+                        "männlich" -> binding.genderSelection.setText("männlich", false)
+                        "weiblich" -> binding.genderSelection.setText("weiblich", false)
+                        "divers" -> binding.genderSelection.setText("divers", false)
                     }
 
                     currentPassword = response.body()!!.password
@@ -79,16 +73,12 @@ class PersDatenFragment : Fragment() {
                 override fun onFailure(call: Call<UserDetails>, t: Throwable) {
                     Log.e("Hairdresser", "onFailure: " + t.message)
                 }
-
-            }
-            )
+            })
         }
         // testing
 
 
         binding.goButton.setOnClickListener {
-
-
             if (isValidate()) {
                 updtUser()
                 //binding.passwordText2.apply { setText("") }
@@ -106,16 +96,10 @@ class PersDatenFragment : Fragment() {
 
     private fun updtUser() {
         var pw = currentPassword
-        var gender = ""
+        //var gender = ""
         if (binding.passwordText2.text.toString().isNotEmpty()) {
             pw = binding.passwordText2.text.toString().toSHA()
         }
-
-
-        if (binding.radioButton3.isChecked) gender = "männlich"
-        else if (binding.radioButton2.isChecked) gender = "weiblich"
-        else if (binding.radioButton.isChecked) gender = "divers"
-
 
         val retrofitData = DbApi.retrofitService.updateUser(
             loggedInUserKey.toString(),
@@ -125,7 +109,7 @@ class PersDatenFragment : Fragment() {
                     firstname = binding.meinePersDatenVornameText.text.toString(),
                     lastname = binding.meinePersDatenNachnameText.text.toString(),
                     phone = binding.meinePersDatenTelText.text.toString(),
-                    gender = gender,
+                    gender = binding.genderSelection.text.toString(),
                     password = pw
                 )
             )
@@ -295,6 +279,4 @@ class PersDatenFragment : Fragment() {
         }
         return true
     }
-
-
 }

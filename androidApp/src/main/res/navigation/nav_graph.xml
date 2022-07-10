@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/fragment_startseite">
 
-
     <fragment
         android:id="@+id/fragment_startseite"
         android:name="com.example.crsfhs.android.fragments.StartseiteFragment"
         android:label="Startseite"
-        tools:layout="@layout/fragment_startseite" >
+        tools:layout="@layout/fragment_startseite">
         <action
             android:id="@+id/action_startseite_to_mr"
             app:destination="@id/fragment_meine_reservierungen" />
@@ -70,7 +68,7 @@
         android:id="@+id/fragment_meine_reservierungen_verwalten"
         android:name="com.example.crsfhs.android.fragments.MeineReservierungenVerwaltenFragment"
         android:label="Reservierung verwalten"
-        tools:layout="@layout/fragment_meine_reservierungen_verwalten" >
+        tools:layout="@layout/fragment_meine_reservierungen_verwalten">
         <action
             android:id="@+id/action_fragment_meine_reservierungen_verwalten_to_fragment_meine_reservierungen"
             app:destination="@id/fragment_meine_reservierungen" />
@@ -84,7 +82,7 @@
         android:id="@+id/fragment_suchfilter"
         android:name="com.example.crsfhs.android.fragments.SuchfilterFragment"
         android:label="fragment_suchfilter"
-        tools:layout="@layout/fragment_suchfilter" >
+        tools:layout="@layout/fragment_suchfilter">
         <action
             android:id="@+id/action_suchfilter_to_suchergebnisse"
             app:destination="@id/fragment_suchergebnisse" />
@@ -93,7 +91,7 @@
         android:id="@+id/fragment_suchergebnisse"
         android:name="com.example.crsfhs.android.fragments.SuchergebnisseFragment"
         android:label="fragment_suchergebnisse"
-        tools:layout="@layout/fragment_suchergebnisse" >
+        tools:layout="@layout/fragment_suchergebnisse">
         <action
             android:id="@+id/action_suchergebnisse_to_friseursalon"
             app:destination="@id/fragment_friseursalon" />
@@ -140,7 +138,9 @@
             android:id="@+id/action_fragment_login_to_fragment_startseite"
             app:destination="@id/fragment_startseite" />
     </fragment>
-    <action android:id="@+id/action_global_login" app:destination="@id/fragment_login" />
+    <action
+        android:id="@+id/action_global_login"
+        app:destination="@id/fragment_login" />
     <fragment
         android:id="@+id/fragment_zusammenfassung_reservierung"
         android:name="com.example.crsfhs.android.fragments.ZusammenfassungReservierungFragment"
@@ -181,7 +181,7 @@
         android:id="@+id/fragment_pre_datenschutz"
         android:name="com.example.crsfhs.android.fragments.preDatenschutzFragment"
         android:label=" "
-        tools:layout="@layout/fragment_pre_datenschutz" >
+        tools:layout="@layout/fragment_pre_datenschutz">
         <action
             android:id="@+id/action_datenschutz_to_startseite1"
             app:destination="@id/fragment_startseite" />
@@ -189,11 +189,18 @@
             android:id="@+id/action_fragment_pre_datenschutz_to_fragment_login"
             app:destination="@id/fragment_login" />
     </fragment>
-    <action android:id="@+id/action_global_fragment_startseite" app:destination="@id/fragment_startseite" />
-    <action android:id="@+id/action_global_fragment_login" app:destination="@id/fragment_login" />
+    <action
+        android:id="@+id/action_global_fragment_startseite"
+        app:destination="@id/fragment_startseite" />
+    <action
+        android:id="@+id/action_global_fragment_login"
+        app:destination="@id/fragment_login" />
     <fragment
         android:id="@+id/abmeldenFragment"
         android:name="com.example.crsfhs.android.AbmeldenFragment"
         android:label="fragment_abmelden"
-        tools:layout="@layout/fragment_abmelden" /><action android:id="@+id/action_global_abmeldenFragment" app:destination="@id/abmeldenFragment"/>
+        tools:layout="@layout/fragment_abmelden" />
+    <action
+        android:id="@+id/action_global_abmeldenFragment"
+        app:destination="@id/abmeldenFragment" />
 </navigation>

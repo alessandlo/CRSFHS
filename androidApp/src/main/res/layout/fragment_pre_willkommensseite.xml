@@ -9,50 +9,57 @@
 
     <ImageView
         android:id="@+id/resHairvationimageView"
-        android:layout_width="360dp"
-        android:layout_height="235dp"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
+        android:contentDescription="Logo"
         android:src="@drawable/fiverr_reshairvation_r1_02_final"
-        app:layout_constraintBottom_toTopOf="@+id/welcomeTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.528" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/welcomeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="5dp"
         android:fontFamily="@font/roboto_bold"
         android:text="Willkommen bei resHairvation"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38" />
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/welcomeTextView2"
+        app:layout_constraintEnd_toEndOf="@+id/resHairvationimageView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/resHairvationimageView"
+        app:layout_constraintTop_toBottomOf="@+id/resHairvationimageView"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/welcomeTextView2"
-        android:layout_width="320dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
         android:text="Die führende Reservierungsapp eröffnet ganz neue Möglichkeiten für Friseursalonbesuche in deiner Stadt."
         android:textAlignment="center"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/goButton"
+        app:layout_constraintEnd_toEndOf="@+id/resHairvationimageView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/resHairvationimageView"
         app:layout_constraintTop_toBottomOf="@+id/welcomeTextView" />
 
     <Button
         android:id="@+id/goButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
         android:text="@string/letsgo"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9" />
+        app:layout_constraintEnd_toEndOf="@+id/resHairvationimageView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/resHairvationimageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

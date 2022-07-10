@@ -40,4 +40,7 @@
     <string name="cancelAppointment">Termin stornieren?</string>
     <string name="cancelAppointment_text">Sind Sie sicher, dass Sie den Termin stornieren möchten?</string>
     <string name="rating">Bewertung</string>
+    <string name="phone">Telefon</string>
+    <string name="actualPassword">Aktuelles Passwort</string>
+    <string name="newPassword">Neues Passwort</string>
 </resources>

@@ -1,179 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout4"
+    android:id="@+id/mydataLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.PersDatenFragment">
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <RadioButton
-            android:id="@+id/radioButton3"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Herr" />
-
-        <RadioButton
-            android:id="@+id/radioButton2"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Frau" />
-
-        <RadioButton
-            android:id="@+id/radioButton"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Divers" />
-    </RadioGroup>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/meine_pers_daten_vorname"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:hint="Vorname"
-        app:endIconMode="clear_text"
-        app:helperTextTextColor="#F44336"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup">
+        android:layout_height="wrap_content">
 
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/meine_pers_daten_vorname_text"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:maxLength="30" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/meine_pers_daten_nachname"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:hint="Nachname"
-        app:endIconMode="clear_text"
-        app:helperTextTextColor="#F44336"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meine_pers_daten_vorname">
-
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/meine_pers_daten_nachname_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:maxLength="30" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/meine_pers_daten_tel"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:hint="Telefon"
-        app:endIconMode="clear_text"
-        app:helperTextTextColor="#F44336"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meine_pers_daten_nachname"
-        app:layout_constraintVertical_bias="0.013"
-        app:prefixText="+49"
-        app:prefixTextColor="#ffc039"
-        app:startIconDrawable="@drawable/ic_baseline_phone_24">
-
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/meine_pers_daten_tel_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="number"
-            android:maxLength="30" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password_container"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        app:endIconMode="password_toggle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meine_pers_daten_tel"
-        app:startIconDrawable="@drawable/ic_baseline_lock_24">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password_text"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/genderContainer"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Aktuelles Passwort"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="30dp"
+            android:hint="@string/gender"
+            app:layout_constraintBottom_toTopOf="@+id/meine_pers_daten_vorname"
+            app:layout_constraintEnd_toEndOf="@+id/meine_pers_daten_vorname"
+            app:layout_constraintStart_toStartOf="@+id/meine_pers_daten_vorname"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password_container_2"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        app:endIconMode="password_toggle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_container"
-        app:startIconDrawable="@drawable/ic_baseline_lock_24">
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/genderSelection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                app:simpleItems="@array/genderList" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password_text_2"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/meine_pers_daten_vorname"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="30dp"
+            android:hint="@string/firstname"
+            app:endIconMode="clear_text"
+            app:helperTextTextColor="#F44336"
+            app:layout_constraintBottom_toTopOf="@+id/meine_pers_daten_nachname"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/meine_pers_daten_vorname_text"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:maxLength="30" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/meine_pers_daten_nachname"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Neues Passwort"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginBottom="30dp"
+            android:hint="@string/lastname"
+            app:endIconMode="clear_text"
+            app:helperTextTextColor="#F44336"
+            app:layout_constraintBottom_toTopOf="@+id/meine_pers_daten_tel"
+            app:layout_constraintEnd_toEndOf="@+id/meine_pers_daten_vorname"
+            app:layout_constraintStart_toStartOf="@+id/meine_pers_daten_vorname">
 
-    <Button
-        android:id="@+id/goButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="DATEN ÜBERNEHMEN"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_container_2"
-        app:layout_constraintVertical_bias="0.484" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/meine_pers_daten_nachname_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:maxLength="30" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/meine_pers_daten_tel"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:hint="@string/phone"
+            app:endIconMode="clear_text"
+            app:helperTextTextColor="#F44336"
+            app:layout_constraintBottom_toTopOf="@+id/password_container"
+            app:layout_constraintEnd_toEndOf="@+id/meine_pers_daten_vorname"
+            app:layout_constraintStart_toStartOf="@+id/meine_pers_daten_vorname"
+            app:prefixText="+49"
+            app:prefixTextColor="#ffc039"
+            app:startIconDrawable="@drawable/ic_baseline_phone_24"
+            tools:layout_editor_absoluteY="190dp">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/meine_pers_daten_tel_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number"
+                android:maxLength="30" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_container"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            app:endIconMode="password_toggle"
+            app:layout_constraintBottom_toTopOf="@+id/password_container_2"
+            app:layout_constraintEnd_toEndOf="@+id/meine_pers_daten_vorname"
+            app:layout_constraintStart_toStartOf="@+id/meine_pers_daten_vorname"
+            app:startIconDrawable="@drawable/ic_baseline_lock_24"
+            tools:layout_editor_absoluteY="283dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/actualPassword"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_container_2"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            app:endIconMode="password_toggle"
+            app:layout_constraintBottom_toTopOf="@+id/goButton"
+            app:layout_constraintEnd_toEndOf="@+id/meine_pers_daten_vorname"
+            app:layout_constraintStart_toStartOf="@+id/meine_pers_daten_vorname"
+            app:startIconDrawable="@drawable/ic_baseline_lock_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password_text_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/newPassword"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/goButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:text="DATEN ÜBERNEHMEN"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/meine_pers_daten_vorname"
+            app:layout_constraintStart_toStartOf="@+id/meine_pers_daten_vorname" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
