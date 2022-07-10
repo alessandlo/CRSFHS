@@ -80,4 +80,11 @@ interface ApiInterface {
     )
     @POST("reservations/items")
     fun saveAppointment(@Body reservationsItem: ReservationItem): Call<ReservationDetails>
+
+    @Headers(
+        "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",
+        "Content-Type: application/json"
+    )
+    @PATCH("users/items/{key}")
+    fun updateUser(@Path("key") userKey: String, @Body updateUserDetails: UpdateUserDetailsSet): Call<UpdateUserDetailsSet>
 }

@@ -21,6 +21,20 @@ data class UserDetails(
     val password: String
 )
 
+data class UpdateUserDetailsSet (
+    val key: String?,
+    val set: UpdateUserDetails
+)
+
+data class UpdateUserDetails(
+    val firstname: String,
+    val lastname: String,
+    // val tel: String,
+    val gender: String,
+    val password: String
+)
+
+
 data class UserPaging(
     val size: Int
 )
