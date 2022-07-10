@@ -11,7 +11,7 @@ data class ReviewItem(
 
 data class ReviewDetails(
     val date: String,
-    val descriptions: String,
+    val description: String,
     val hairdresser_key: String,
     val key: String,
     val rating: String,
@@ -20,4 +20,12 @@ data class ReviewDetails(
 
 data class ReviewPaging(
     val size: Int
+)
+
+data class ReviewByUser(
+    val query: List<ReviewQuery>
+)
+
+data class ReviewQuery(
+    val user_key: String
 )

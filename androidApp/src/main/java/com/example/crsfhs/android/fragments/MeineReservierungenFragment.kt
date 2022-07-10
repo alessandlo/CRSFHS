@@ -29,7 +29,6 @@ class MeineReservierungenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentMeineReservierungenBinding.inflate(inflater, container, false)
 
         if (!userLoggedIn) { // umleiten auf Login, wenn nicht eingeloggt

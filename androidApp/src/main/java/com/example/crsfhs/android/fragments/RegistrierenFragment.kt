@@ -243,7 +243,7 @@ class RegistrierenFragment : Fragment() {
                 Toast.makeText(activity, getString(R.string.accountCreated), Toast.LENGTH_SHORT)
                     .show()
                 binding.registerButton.findNavController()
-                    .navigate(R.id.action_fragment_registrieren_to_fragment_startseite)
+                    .navigate(R.id.action_fragment_registrieren_to_fragment_login)
                 Log.i("Register", "Account created")
             }
 

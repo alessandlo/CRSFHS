@@ -19,6 +19,7 @@
             android:icon="@drawable/ic_baseline_favorite_24"
             android:title="Meine Favoriten" />
         <item
+            android:id="@+id/fragment_reviews"
             android:icon="@drawable/ic_baseline_star_rate_24"
             android:title="Meine Bewertungen" />
         <item

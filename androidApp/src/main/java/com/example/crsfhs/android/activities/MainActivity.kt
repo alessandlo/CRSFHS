@@ -35,7 +35,8 @@ private val idSets = setOf(
     R.id.fragment_startseite,
     R.id.fragment_pers_daten,
     R.id.fragment_meine_reservierungen,
-    R.id.fragment_meine_favoriten
+    R.id.fragment_meine_favoriten,
+    R.id.fragment_reviews
 )
 
 private val idSetsHairsalon = setOf(

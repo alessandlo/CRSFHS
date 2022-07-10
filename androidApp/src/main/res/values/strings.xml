@@ -43,4 +43,6 @@
     <string name="phone">Telefon</string>
     <string name="actualPassword">Aktuelles Passwort</string>
     <string name="newPassword">Neues Passwort</string>
+    <string name="description">Beschreibung</string>
+    <string name="date">Datum</string>
 </resources>

@@ -30,6 +30,9 @@
             app:destination="@id/fragment_pre_willkommensseite"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_fragment_startseite_to_fragment_reviews"
+            app:destination="@id/fragment_reviews" />
     </fragment>
     <fragment
         android:id="@+id/fragment_pers_daten"
@@ -123,8 +126,8 @@
         android:label="Registrieren"
         tools:layout="@layout/fragment_registrieren">
         <action
-            android:id="@+id/action_fragment_registrieren_to_fragment_startseite"
-            app:destination="@id/fragment_startseite" />
+            android:id="@+id/action_fragment_registrieren_to_fragment_login"
+            app:destination="@id/fragment_login" />
     </fragment>
     <fragment
         android:id="@+id/fragment_login"
@@ -203,4 +206,13 @@
     <action
         android:id="@+id/action_global_abmeldenFragment"
         app:destination="@id/abmeldenFragment" />
+    <fragment
+        android:id="@+id/fragment_reviews"
+        android:name="com.example.crsfhs.android.fragments.ReviewFragment"
+        android:label="Meine Bewertungen"
+        tools:layout="@layout/fragment_reviews" >
+        <action
+            android:id="@+id/action_fragment_reviews_to_fragment_login"
+            app:destination="@id/fragment_login" />
+    </fragment>
 </navigation>
