@@ -124,7 +124,7 @@ class PersDatenFragment : Fragment() {
                 UpdateUserDetails(
                     firstname = binding.meinePersDatenVornameText.text.toString(),
                     lastname = binding.meinePersDatenNachnameText.text.toString(),
-                    // tel
+                    phone = binding.meinePersDatenTelText.text.toString(),
                     gender = gender,
                     password = pw
                 )

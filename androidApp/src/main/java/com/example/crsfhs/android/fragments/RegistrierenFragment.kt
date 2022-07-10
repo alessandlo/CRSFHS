@@ -231,7 +231,8 @@ class RegistrierenFragment : Fragment() {
                 firstname = binding.firstnameEditText.text.toString(),
                 lastname = binding.lastnameEditText.text.toString(),
                 email = binding.emailEditText.text.toString(),
-                password = binding.passwordEditText.text.toString().toSHA()
+                password = binding.passwordEditText.text.toString().toSHA(),
+                phone = null
             )
         )
 

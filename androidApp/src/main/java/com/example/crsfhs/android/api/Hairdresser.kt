@@ -31,7 +31,9 @@ data class HairdresserAddress(
     val city: String,
     val number: String,
     val postcode: String,
-    val street: String
+    val street: String,
+    val latitude: String,
+    val longitude: String
 )
 
 data class HairdresserOpenings(

@@ -48,6 +48,7 @@ class MeineReservierungenVerwaltenFragment : Fragment(), OnMapReadyCallback {
     }
 
     fun setData() {
+        /*
         coordinates = Location.getLocationFromAddress(
             context!!,
             arguments!!.getString("hairdresser_street") + " " +
@@ -55,6 +56,7 @@ class MeineReservierungenVerwaltenFragment : Fragment(), OnMapReadyCallback {
                     arguments!!.getString("hairdresser_postcode") + " " +
                     arguments!!.getString("hairdresser_city")
         )
+         */
 
         val address =
             "${arguments!!.getString("hairdresser_street")} " +
@@ -128,12 +130,17 @@ class MeineReservierungenVerwaltenFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        val mark: LatLng
+        val mark = LatLng(
+            arguments!!.getString("hairdresser_latitude")!!.toDouble(),
+            arguments!!.getString("hairdresser_longitude")!!.toDouble()
+        )
+        /*
         mark = if (coordinates != null) {
             coordinates!!
         } else {
             LatLng(0.0, 0.0)
         }
+         */
 
         googleMap.addMarker(
             MarkerOptions().position(mark).title(arguments!!.getString("hairdresser_name"))

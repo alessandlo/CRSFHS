@@ -95,7 +95,9 @@ class MeineReservierungenFragment : Fragment() {
                                         "hairdresser_city" to appointment.hairdresserDetails.address.city,
                                         "hairdresser_number" to appointment.hairdresserDetails.address.number,
                                         "hairdresser_postcode" to appointment.hairdresserDetails.address.postcode,
-                                        "hairdresser_street" to appointment.hairdresserDetails.address.street
+                                        "hairdresser_street" to appointment.hairdresserDetails.address.street,
+                                        "hairdresser_latitude" to appointment.hairdresserDetails.address.latitude,
+                                        "hairdresser_longitude" to appointment.hairdresserDetails.address.longitude
                                     )
                                     binding.root.findNavController()
                                         .navigate(R.id.action_mr_to_mrv, bundle)

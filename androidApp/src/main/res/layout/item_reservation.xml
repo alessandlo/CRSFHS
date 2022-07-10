@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp">
 
         <ImageView
             android:id="@+id/hairdresserIcon"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginStart="10dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:contentDescription="@string/image"
@@ -27,7 +28,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:autoSizeTextType="uniform"
             android:maxLines="1"
             android:text="@string/hairdresserName"
@@ -53,20 +53,36 @@
             android:id="@+id/reservationStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:autoSizeMinTextSize="10dp"
+            android:autoSizeTextType="uniform"
             android:background="@drawable/textview_round"
+            android:maxLines="1"
             android:paddingHorizontal="5dp"
             android:text="@string/status"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/hairdresserIcon"
+            app:layout_constraintEnd_toStartOf="@+id/reservationAppointment"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="@+id/hairdresserName" />
+
 
         <TextView
             android:id="@+id/reservationAppointment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:autoSizeMinTextSize="10dp"
+            android:autoSizeTextType="uniform"
             android:background="@drawable/textview_round"
+            android:maxLines="1"
             android:paddingHorizontal="5dp"
             android:text="@string/appointment"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/reservationStatus"
-            app:layout_constraintEnd_toEndOf="@+id/hairdresserName" />
+            app:layout_constraintEnd_toEndOf="@+id/hairdresserName"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/reservationStatus" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

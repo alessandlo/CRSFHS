@@ -18,7 +18,8 @@ data class UserDetails(
     val firstname: String,
     val lastname: String,
     val email: String,
-    val password: String
+    val password: String,
+    val phone: String?
 )
 
 data class UpdateUserDetailsSet (
@@ -29,7 +30,7 @@ data class UpdateUserDetailsSet (
 data class UpdateUserDetails(
     val firstname: String,
     val lastname: String,
-    // val tel: String,
+    val phone: String,
     val gender: String,
     val password: String
 )
