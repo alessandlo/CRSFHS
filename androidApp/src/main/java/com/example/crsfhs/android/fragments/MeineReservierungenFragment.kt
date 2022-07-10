@@ -75,7 +75,12 @@ class MeineReservierungenFragment : Fragment() {
                             )
 
                             appointmentList.sortByDescending { appointment ->
-                                appointment.reservationDetails.appointment.date.plus(appointment.reservationDetails.appointment.time_to)
+                                val date = appointment.reservationDetails.appointment.date
+                                val time = appointment.reservationDetails.appointment.time_to
+                                val appointmentDateTime =
+                                    LocalDateTime.parse("$date $time", DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))
+
+                                appointmentDateTime
                             }
 
                             appointmentList.let {

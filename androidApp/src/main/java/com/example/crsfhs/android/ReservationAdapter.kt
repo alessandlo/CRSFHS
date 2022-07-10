@@ -1,8 +1,6 @@
 package com.example.crsfhs.android
 
-import android.graphics.BlendMode
-import android.graphics.BlendModeColorFilter
-import android.graphics.Color
+import android.graphics.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,19 +41,19 @@ class ReservationAdapter(
                 "aktiv" -> {
                     status.text = "✓ aktiv"
                     status.background.colorFilter =
-                        BlendModeColorFilter(Color.parseColor("#FF009688"), BlendMode.SRC_IN)
+                        PorterDuffColorFilter(Color.parseColor("#FF009688"), PorterDuff.Mode.SRC_IN)
                     status.setTextColor(Color.parseColor("#FF009688"))
                 }
                 "vergangen" -> {
                     status.text = "✓ vergangen"
                     status.background.colorFilter =
-                        BlendModeColorFilter(Color.parseColor("#FF2196F3"), BlendMode.SRC_IN)
+                        PorterDuffColorFilter(Color.parseColor("#FF2196F3"), PorterDuff.Mode.SRC_IN)
                     status.setTextColor(Color.parseColor("#FF2196F3"))
                 }
                 "storniert" -> {
                     status.text = "✗ storniert"
                     status.background.colorFilter =
-                        BlendModeColorFilter(Color.parseColor("#FFF44336"), BlendMode.SRC_IN)
+                        PorterDuffColorFilter(Color.parseColor("#FFF44336"), PorterDuff.Mode.SRC_IN)
                     status.setTextColor(Color.parseColor("#FFF44336"))
                 }
             }

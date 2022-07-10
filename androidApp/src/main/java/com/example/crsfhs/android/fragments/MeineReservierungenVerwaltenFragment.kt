@@ -1,8 +1,6 @@
 package com.example.crsfhs.android.fragments
 
-import android.graphics.BlendMode
-import android.graphics.BlendModeColorFilter
-import android.graphics.Color
+import android.graphics.*
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -28,7 +26,7 @@ import retrofit2.Response
 
 class MeineReservierungenVerwaltenFragment : Fragment(), OnMapReadyCallback {
     private lateinit var binding: FragmentMeineReservierungenVerwaltenBinding
-    private lateinit var coordinates: LatLng
+    private var coordinates: LatLng? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +38,7 @@ class MeineReservierungenVerwaltenFragment : Fragment(), OnMapReadyCallback {
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync(this)
 
-        binding.cancelButton.setOnClickListener{
+        binding.cancelButton.setOnClickListener {
             cancelAppointment(arguments!!.getString("reservation_key")!!)
         }
 
@@ -56,7 +54,7 @@ class MeineReservierungenVerwaltenFragment : Fragment(), OnMapReadyCallback {
                     arguments!!.getString("hairdresser_number") + " " +
                     arguments!!.getString("hairdresser_postcode") + " " +
                     arguments!!.getString("hairdresser_city")
-        )!!
+        )
 
         val address =
             "${arguments!!.getString("hairdresser_street")} " +
@@ -73,13 +71,13 @@ class MeineReservierungenVerwaltenFragment : Fragment(), OnMapReadyCallback {
             "aktiv" -> {
                 binding.reservationStatus.text = "✓ aktiv"
                 binding.reservationStatus.background.colorFilter =
-                    BlendModeColorFilter(Color.parseColor("#FF009688"), BlendMode.SRC_IN)
+                    PorterDuffColorFilter(Color.parseColor("#FF009688"), PorterDuff.Mode.SRC_IN)
                 binding.reservationStatus.setTextColor(Color.parseColor("#FF009688"))
             }
             "vergangen" -> {
                 binding.reservationStatus.text = "✓ vergangen"
                 binding.reservationStatus.background.colorFilter =
-                    BlendModeColorFilter(Color.parseColor("#FF2196F3"), BlendMode.SRC_IN)
+                    PorterDuffColorFilter(Color.parseColor("#FF2196F3"), PorterDuff.Mode.SRC_IN)
                 binding.reservationStatus.setTextColor(Color.parseColor("#FF2196F3"))
                 binding.cancelButton.visibility = View.GONE
                 binding.seperator.visibility = View.GONE
@@ -87,7 +85,7 @@ class MeineReservierungenVerwaltenFragment : Fragment(), OnMapReadyCallback {
             "storniert" -> {
                 binding.reservationStatus.text = "✗ storniert"
                 binding.reservationStatus.background.colorFilter =
-                    BlendModeColorFilter(Color.parseColor("#FFF44336"), BlendMode.SRC_IN)
+                    PorterDuffColorFilter(Color.parseColor("#FFF44336"), PorterDuff.Mode.SRC_IN)
                 binding.reservationStatus.setTextColor(Color.parseColor("#FFF44336"))
                 binding.cancelButton.visibility = View.GONE
                 binding.seperator.visibility = View.GONE
@@ -95,7 +93,6 @@ class MeineReservierungenVerwaltenFragment : Fragment(), OnMapReadyCallback {
         }
 
         binding.hairdresserName.text = arguments!!.getString("hairdresser_name")
-        //binding.reservationStatus.text = arguments?.getString("appointment_status")
         binding.hairdresserAddress.text = address
         binding.reservationAppointment.text = appointment
     }
@@ -131,21 +128,27 @@ class MeineReservierungenVerwaltenFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        val mark = coordinates
+        val mark: LatLng
+        mark = if (coordinates != null) {
+            coordinates!!
+        } else {
+            LatLng(0.0, 0.0)
+        }
+
         googleMap.addMarker(
             MarkerOptions().position(mark).title(arguments!!.getString("hairdresser_name"))
         )
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mark, 15F))
     }
 
-    private fun cancelAppointment(key: String){
-
+    private fun cancelAppointment(key: String) {
         MaterialAlertDialogBuilder(context!!)
             .setTitle(resources.getString(R.string.cancelAppointment))
             .setMessage(resources.getString(R.string.cancelAppointment_text))
             .setNegativeButton(resources.getString(R.string.cancel), null)
             .setPositiveButton(resources.getString(R.string.accept)) { _, _ ->
-                val retrofitData = DbApi.retrofitService.changeStatus(key, Status(null, SetStatus("storniert")))
+                val retrofitData =
+                    DbApi.retrofitService.changeStatus(key, Status(null, SetStatus("storniert")))
 
                 retrofitData.enqueue(object : Callback<Status?> {
                     override fun onResponse(
