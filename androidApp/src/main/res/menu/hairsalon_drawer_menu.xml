@@ -25,6 +25,7 @@
             android:icon="@drawable/ic_baseline_contact_mail_24"
             android:title="Kontakt" />
         <item
+            android:id="@+id/hairsalonAbmeldenFragment2"
             android:icon="@drawable/ic_baseline_power_settings_new_24"
             android:title="Abmelden" />
     </group>

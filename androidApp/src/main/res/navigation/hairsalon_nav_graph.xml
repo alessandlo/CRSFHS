@@ -35,4 +35,9 @@
         android:name="com.example.crsfhs.android.HairsalonProfilAnpassenFragment"
         android:label="fragment_hairsalon_profil_anpassen"
         tools:layout="@layout/fragment_hairsalon_profil_anpassen" />
+    <fragment
+        android:id="@+id/hairsalonAbmeldenFragment2"
+        android:name="com.example.crsfhs.android.HairsalonAbmeldenFragment"
+        android:label="fragment_hairsalon_abmelden"
+        tools:layout="@layout/fragment_hairsalon_abmelden" />
 </navigation>

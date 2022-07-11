@@ -1,6 +1,7 @@
 package com.example.crsfhs.android
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
@@ -8,7 +9,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.example.crsfhs.android.activities.MainActivity
 import com.example.crsfhs.android.activities.loggedInUserKey
@@ -22,10 +22,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [AbmeldenFragment.newInstance] factory method to
+ * Use the [HairsalonAbmeldenFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AbmeldenFragment : Fragment() {
+class HairsalonAbmeldenFragment : Fragment() {
     private lateinit var mainPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,17 +52,19 @@ class AbmeldenFragment : Fragment() {
 
             // set shared Pref
             mainPref.edit().putBoolean("userLoggedIn", false
-                ).apply()
+            ).apply()
             mainPref.edit().putString("loggedInUserKey", "empty").apply()
             mainPref.edit().putString("loggedInUserRole", "empty").apply()
 
 
             val handler: Handler = Handler()
             handler.postDelayed({
-                findNavController().navigate(R.id.action_global_fragment_login)
+                (activity as MainActivity).finish()
+                startActivity(Intent(activity as MainActivity, MainActivity::class.java))
+                // findNavController().navigate(R.id.action_global_fragment_login)
             }, 999)
         }
-        else findNavController().navigate(R.id.action_global_fragment_login)
+
 
 
         // Inflate the layout for this fragment

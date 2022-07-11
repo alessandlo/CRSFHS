@@ -22,6 +22,7 @@ import com.google.android.material.navigation.NavigationView
 
 var loggedInUserKey: String? = null
 var userLoggedIn: Boolean = false
+var loggedInUserRole: String? = null
 
 // Navigation Components:
 private lateinit var drawerLayout: DrawerLayout
@@ -57,23 +58,41 @@ class MainActivity : AppCompatActivity() {
 
             super.onCreate(savedInstanceState)
 
-        // Customer
-        setContentView(R.layout.activity_main)
+        // toDo: wegmachen, testing
+        //loggedInUserRole = "hairdresser"
 
-        // Hairsalon
-        //setContentView(R.layout.hairsalon_activity_main)
+        if(loggedInUserRole == "hairdresser") {
+            // Hairsalon
+            setContentView(R.layout.hairsalon_activity_main)
+        }
+        else {
+            // Customer
+            setContentView(R.layout.activity_main)
+        }
 
         // Navi Drawer
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        // Customer
-        drawerLayout = findViewById(R.id.drawer_layout)
-        navView = findViewById(R.id.nav_view)
-        navController = findNavController(R.id.nav_host)
-        appBarConfig = AppBarConfiguration(idSets, drawerLayout)
-        setupActionBarWithNavController(navController, appBarConfig)
-        navView.setupWithNavController(navController)
+        if(loggedInUserRole == "hairdresser") {
+            // Hairsalon
+            drawerLayout = findViewById(R.id.hairsalon_drawer_layout)
+            navView = findViewById(R.id.hairsalon_nav_view)
+            navController = findNavController(R.id.hairsalon_nav_host)
+            appBarConfig = AppBarConfiguration(idSetsHairsalon, drawerLayout)
+            setupActionBarWithNavController(navController, appBarConfig)
+            navView.setupWithNavController(navController)
+        }
+        else {
+            // Customer
+            drawerLayout = findViewById(R.id.drawer_layout)
+            navView = findViewById(R.id.nav_view)
+            navController = findNavController(R.id.nav_host)
+            appBarConfig = AppBarConfiguration(idSets, drawerLayout)
+            setupActionBarWithNavController(navController, appBarConfig)
+            navView.setupWithNavController(navController)
+        }
+
 
         // FIRST TIME LOGIK START
         val isFirstRun: Boolean = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
@@ -98,29 +117,19 @@ class MainActivity : AppCompatActivity() {
             .getString("loggedInUserKey", "empty")
         userLoggedIn = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
             .getBoolean("userLoggedIn", false)
+        loggedInUserRole = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+            .getString("loggedInUserRole", "empty")
 
         println("Folgender User ist eingeloggt: $loggedInUserKey")
-        println("MainActivity: User ist eingeloggt $userLoggedIn")
+        println("MainActivity: Ist User eingeloggt? $userLoggedIn")
+        println("Rolle des Users: $loggedInUserRole")
 
-
-/*      // Hairsalon
-        drawerLayout = findViewById(R.id.hairsalon_drawer_layout)
-        navView = findViewById(R.id.hairsalon_nav_view)
-        navController = findNavController(R.id.hairsalon_nav_host)
-        appBarConfig = AppBarConfiguration(idSetsHairsalon, drawerLayout)
-        setupActionBarWithNavController(navController, appBarConfig)
-        navView.setupWithNavController(navController)*/
     }
 
     // Customer Navi Drawer
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host)
         return navController.navigateUp(appBarConfig) || super.onSupportNavigateUp()
     }
 
-/*    // Hairsalon Navi Drawer
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.hairsalon_nav_host)
-        return navController.navigateUp(appBarConfig) || super.onSupportNavigateUp()
-    }*/
+
 }

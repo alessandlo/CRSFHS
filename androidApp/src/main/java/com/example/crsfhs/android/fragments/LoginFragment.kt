@@ -1,6 +1,7 @@
 package com.example.crsfhs.android.fragments
 
 import android.content.Context.MODE_PRIVATE
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
@@ -14,6 +15,7 @@ import androidx.navigation.findNavController
 import com.example.crsfhs.android.R
 import com.example.crsfhs.android.activities.MainActivity
 import com.example.crsfhs.android.activities.loggedInUserKey
+import com.example.crsfhs.android.activities.loggedInUserRole
 import com.example.crsfhs.android.activities.userLoggedIn
 import com.example.crsfhs.android.api.*
 import com.example.crsfhs.android.databinding.FragmentLoginBinding
@@ -108,18 +110,25 @@ class LoginFragment : Fragment() {
                     } else {
 
                         // SHARED PREF.
+                        // login status
                         mainPref.edit().putBoolean("userLoggedIn", true).apply()
                         userLoggedIn = true
 
+                        // login user key
                         loggedInUserKey = response.body()!!.items[0].key
                         mainPref.edit().putString("loggedInUserKey", loggedInUserKey).apply()
 
-                        //user Rolle
-                        val role = response.body()!!.items[0].role
+                        // user role
+                        loggedInUserRole = response.body()!!.items[0].role
+                        mainPref.edit().putString("loggedInUserRole", loggedInUserRole).apply()
+                        Log.i("Role", "die Rolle ist: $loggedInUserRole")
 
                         binding.loginButton.findNavController()
                             .navigate(R.id.action_fragment_login_to_fragment_startseite)
                         Log.i("Login", "eingeloggt als $loggedInUserKey")
+
+                        (activity as MainActivity).finish()
+                        startActivity(Intent(activity as MainActivity, MainActivity::class.java))
                     }
                 }
             }
