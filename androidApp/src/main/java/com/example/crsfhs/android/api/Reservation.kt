@@ -42,6 +42,16 @@ data class Status(
     val set: SetStatus
 )
 
+data class ReservationBySalon(
+    val query: List<CheckApt>
+)
+data class CheckApt(
+    val hairdresser_key: String,
+    @Json(name = "appointment.date")val date: String,
+    @Json(name = "appointment.status")val status: String,
+    @Json(name = "appointment.time_from")val time_from: String
+)
+
 data class SetStatus(
     @Json(name = "appointment.status") val appointmentStatus: String
 )

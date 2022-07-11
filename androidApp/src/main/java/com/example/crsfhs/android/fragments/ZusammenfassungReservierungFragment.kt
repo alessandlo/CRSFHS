@@ -29,7 +29,7 @@ class ZusammenfassungReservierungFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        getInfo()
         return inflater.inflate(R.layout.fragment_zusammenfassung_reservierung, container, false)
     }
 
@@ -50,11 +50,15 @@ class ZusammenfassungReservierungFragment : Fragment() {
                 cal.add(Calendar.MINUTE, 30)
                 val time_to = df.format(cal.getTime())
                 val formattedDate = textView2.text.toString().substring(4, 14)
-                Log.d(TAG, formattedDate)
 
                 val reservationItem = ReservationItem(
                     ReservationDetails(
-                        appointment = ReservationAppointment(formattedDate, "aktiv",textView3.text.toString(), time_to),
+                        appointment = ReservationAppointment(
+                            formattedDate,
+                            "aktiv",
+                            textView3.text.toString(),
+                            time_to
+                        ),
                         hairdresser_key = "asru6sxqrifl",
                         key = null,
                         user_key = loggedInUserKey.toString()
@@ -62,7 +66,10 @@ class ZusammenfassungReservierungFragment : Fragment() {
                 )
                 val retrofitData = DbApi.retrofitService.saveAppointment(reservationItem)
                 retrofitData.enqueue(object : Callback<ReservationDetails?> {
-                    override fun onResponse(call: Call<ReservationDetails?>, response: Response<ReservationDetails?>) {
+                    override fun onResponse(
+                        call: Call<ReservationDetails?>,
+                        response: Response<ReservationDetails?>
+                    ) {
                         Toast.makeText(activity, "Termin erstellt!", Toast.LENGTH_SHORT).show()
                         Log.i("Reserve", "Appointment created")
                         findNavController().navigate(R.id.action_zusammenfassung_to_wurde_reserviert)
@@ -77,6 +84,35 @@ class ZusammenfassungReservierungFragment : Fragment() {
             }
 
         }
+    }
+//receives the Information on the Hairdresser for the Reservation
+    private fun getInfo() {
+
+        val retrofitData = DbApi.retrofitService.getHairdresser("asru6sxqrifl")
+        retrofitData.enqueue(object : Callback<HairdresserDetails> {
+            override fun onResponse(
+                call: Call<HairdresserDetails?>,
+                response: Response<HairdresserDetails?>
+            ) {
+                val name = response.body()?.name
+                setName(name!!)
+                val street = response.body()?.address?.street
+                val number = response.body()?.address?.number
+                val zip = response.body()?.address?.postcode
+                val city = response.body()?.address?.city
+                val address = street + " " + number + ", " + zip + ", " + city
+                setAddress(address)
+            }
+            override fun onFailure(call: Call<HairdresserDetails>, t: Throwable) {
+                Log.e("Load Time", "onFailure: " + t.message)
+            }
+        })
+    }
+    private fun setAddress(address: String) {
+        binding.textView10.setText(address)
+    }
+    private fun setName(name : String) {
+        binding.textView11.setText(name)
     }
 }
 

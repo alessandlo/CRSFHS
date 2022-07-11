@@ -22,10 +22,13 @@ import retrofit2.Response
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.collections.ArrayList
+
 
 class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
     private var _binding: FragmentTerminDetailsBinding? = null
     private val binding get() = _binding!!
+    var blocker = true
 
 
 //opens up the datepicker and works with the output
@@ -63,7 +66,7 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                             Toast.makeText(requireActivity(),"Das eingegeben Datum liegt in der Vergangenheit", Toast.LENGTH_LONG).show()
                         }else {
                             tvDate.text = date
-                            getTime(day)
+                            getTime(day, date.substring(4, 14))
                         }
                     }
                 }
@@ -88,7 +91,7 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
     }
 
 
-    private fun getTime(date : String){
+    private fun getTime(day : String, date: String ){
 
         val retrofitData = DbApi.retrofitService.getHairdresser("asru6sxqrifl")
         retrofitData.enqueue(object : Callback<HairdresserDetails> {
@@ -99,7 +102,7 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                 var openingtime: String? = null
                 var closingtime: String? = null
 
-                when(date){
+                when(day){
                     "Mo" -> {
                         openingtime = response.body()!!.openings.Mo.time_from
                         closingtime = response.body()!!.openings.Mo.time_to
@@ -137,7 +140,10 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                     val timeslots = ArrayList<String>()
                    var timestamp = openingtime
                    while(openingtime!! < closingtime!!.toString()){ //Liste mit Zeiten füllen mit Zeiten im 30 min Takt
-                       timeslots.add(openingtime)
+
+                       if(checkTime(date, openingtime)) {
+                           timeslots.add(openingtime)
+                       }
                        val df = SimpleDateFormat("HH:mm")
                        val d = df.parse(timestamp)
                        val cal = Calendar.getInstance()
@@ -145,7 +151,6 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                        cal.add(Calendar.MINUTE, 30)
                        timestamp = df.format(cal.getTime())
                        openingtime = timestamp.toString()
-                       Log.d(TAG, openingtime)
 
                    }
                     onResume(timeslots) // Fun aufrufen um dropdown menu zu füllen
@@ -177,5 +182,32 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    //In progress( not finished)
+    private fun checkTime(date : String, time : String): Boolean {
+        var blocker = true
+        val checkapt = ReservationBySalon(
+            listOf(CheckApt(
+                hairdresser_key = "asru6sxqrifl",
+                date = date,
+                status = "aktiv",
+                time_from = time)
+        ))
+        val retrofitData = DbApi.retrofitService.validateAppointment(checkapt)
+        retrofitData.enqueue(object : Callback<ReservationsList?> {
+
+            override fun onResponse(
+                call: Call<ReservationsList?>,
+                response: Response<ReservationsList?>
+            ) {
+                if(response.body()?.paging.toString() > 0.toString()){
+                }
+            }
+
+            override fun onFailure(call: Call<ReservationsList?>, t: Throwable) {
+                Log.e("Reserve", "onFailure: " + t.message)
+            }
+        })
+        return blocker
     }
 }

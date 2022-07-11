@@ -78,8 +78,8 @@ interface ApiInterface {
         "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",
         "Content-Type: application/json"
     )
-    @GET("reservations/items/{key}")
-    fun validateAppointment(@Path("key") salonKey: String): Call<ReservationDetails>
+    @POST("reservations/query")
+    fun validateAppointment(@Body checkapt: ReservationBySalon): Call<ReservationsList>
 
     @Headers(
         "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",
