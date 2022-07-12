@@ -20,9 +20,6 @@
             android:name=".activities.FirstTimeMainActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.Start"
-            android:exported="false" />
-        <activity
             android:name=".activities.MainActivity"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">
