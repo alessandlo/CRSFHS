@@ -8,9 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.crsfhs.android.FavoritesAdapter
+import com.example.crsfhs.android.adapter.FavoritesAdapter
 import com.example.crsfhs.android.R
-import com.example.crsfhs.android.ReservationAdapter
 import com.example.crsfhs.android.activities.loggedInUserKey
 import com.example.crsfhs.android.activities.userLoggedIn
 import com.example.crsfhs.android.api.*
@@ -38,7 +37,7 @@ class MeineFavoritenFragment : Fragment() {
     }
 
     private fun getData() {
-        val userkey = FavoritesByUser(listOf(FavoriteQuery(loggedInUserKey!!)))
+        val userkey = FavoritesByUser(listOf(FavoriteQueryUserkey(loggedInUserKey!!)))
         val retrofitData = DbApi.retrofitService.getFavoritesByUserkey(userkey)
 
         retrofitData.enqueue(object : Callback<FavoritesList?> {

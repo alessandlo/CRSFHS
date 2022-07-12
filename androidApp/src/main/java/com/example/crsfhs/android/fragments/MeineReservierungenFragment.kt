@@ -11,7 +11,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.crsfhs.android.R
-import com.example.crsfhs.android.ReservationAdapter
+import com.example.crsfhs.android.adapter.ReservationAdapter
 import com.example.crsfhs.android.activities.loggedInUserKey
 import com.example.crsfhs.android.activities.userLoggedIn
 import com.example.crsfhs.android.api.*

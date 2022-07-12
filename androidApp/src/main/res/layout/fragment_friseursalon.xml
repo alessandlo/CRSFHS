@@ -2,126 +2,135 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout7"
+    android:id="@+id/hairdresserLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.FriseursalonFragment">
 
+    <ImageView
+        android:id="@+id/hairdresserImage"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/favoriteButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@android:color/transparent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_baseline_favorite_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:id="@+id/hairdresserName"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="310dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Öffnungszeiten"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
-
-    <ImageView
-        android:id="@+id/hairsalon_picture"
-        android:layout_width="409dp"
-        android:layout_height="295dp"
-        android:layout_marginTop="-105dp"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.188" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:background="#FFC039"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="235dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="30dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/view2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/hairsalon_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="161dp"
-        android:fontFamily="@font/roboto_bold"
+        android:text="@string/hairdresserName"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hairsalon_picture" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="320dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/hairsalon_name" />
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="8dp"
-        android:background="#FFC039"
-        app:layout_constraintBottom_toTopOf="@+id/resbtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintTop_toBottomOf="@+id/hairdresserImage" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/locationImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
         android:src="@drawable/ic_baseline_pin_drop_24"
-        app:layout_constraintEnd_toStartOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hairsalon_name" />
+        app:layout_constraintEnd_toStartOf="@+id/hairdresserAddress"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/hairdresserName"
+        app:layout_constraintTop_toBottomOf="@+id/hairdresserName" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+        android:id="@+id/hairdresserAddress"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:text="@string/address"
+        app:layout_constraintBottom_toBottomOf="@+id/locationImage"
+        app:layout_constraintEnd_toEndOf="@+id/hairdresserName"
+        app:layout_constraintStart_toEndOf="@+id/locationImage"
+        app:layout_constraintTop_toTopOf="@+id/locationImage" />
+
+    <View
+        android:id="@+id/seperatorView"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="310dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Service"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        android:background="#FFC039"
+        app:layout_constraintEnd_toEndOf="@+id/hairdresserName"
+        app:layout_constraintStart_toStartOf="@+id/hairdresserName"
+        app:layout_constraintTop_toBottomOf="@+id/hairdresserAddress" />
+
+    <ScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/seperatorView2"
+        app:layout_constraintEnd_toEndOf="@+id/seperatorView"
+        app:layout_constraintStart_toStartOf="@+id/seperatorView"
+        app:layout_constraintTop_toBottomOf="@+id/seperatorView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/servicesText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/services"
+                android:textSize="20sp" />
+
+            <ListView
+                android:id="@+id/Services"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:nestedScrollingEnabled="true" />
+
+            <TextView
+                android:id="@+id/openingsText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/openings"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/hairdresserOpenings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/openings" />
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:id="@+id/seperatorView2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="16dp"
+        android:background="#FFC039"
+        app:layout_constraintBottom_toTopOf="@+id/resbtn"
+        app:layout_constraintEnd_toEndOf="@+id/seperatorView"
+        app:layout_constraintStart_toStartOf="@+id/seperatorView" />
 
     <Button
         android:id="@+id/sharebtn"
@@ -142,16 +151,5 @@
         android:text="RESERVIEREN"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <ListView
-        android:id="@+id/Services"
-        android:layout_width="198dp"
-        android:layout_height="134dp"
-        android:layout_marginEnd="200dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"></ListView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

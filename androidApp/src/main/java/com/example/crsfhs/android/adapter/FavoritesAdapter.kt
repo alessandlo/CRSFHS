@@ -1,4 +1,4 @@
-package com.example.crsfhs.android
+package com.example.crsfhs.android.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.example.crsfhs.android.R
 import com.example.crsfhs.android.api.HairdresserDetails
 
 class FavoritesAdapter(

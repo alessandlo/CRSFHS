@@ -1,35 +1,35 @@
 package com.example.crsfhs.android.fragments
 
-import android.content.ContentValues.TAG
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.ColorFilter
+import android.graphics.PorterDuffColorFilter
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.example.crsfhs.android.R
-import com.example.crsfhs.android.api.DbApi
-import com.example.crsfhs.android.api.HairdresserDetails
+import com.example.crsfhs.android.activities.loggedInUserKey
+import com.example.crsfhs.android.api.*
 import com.example.crsfhs.android.databinding.FragmentFriseursalonBinding
-import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class FriseursalonFragment : Fragment() {
-
     private lateinit var binding: FragmentFriseursalonBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFriseursalonBinding.inflate(inflater, container, false)
         val retrofitData = DbApi.retrofitService.getHairdresser("asru6sxqrifl")
         retrofitData.enqueue(object : Callback<HairdresserDetails> {
@@ -38,57 +38,70 @@ class FriseursalonFragment : Fragment() {
                 response: Response<HairdresserDetails?>
             ) {
                 // Name
-                val name = response.body()?.name
-                setName(name!!)
+                binding.hairdresserName.text = response.body()!!.name
+
                 //Addresse
-                val street = response.body()?.address?.street
-                val number = response.body()?.address?.number
-                val zip = response.body()?.address?.postcode
-                val city = response.body()?.address?.city
-                val address = street+ " "+ number +", "+ zip + ", "+ city
-                setText(address)
-                val openings= "Mo: \t"+ response.body()?.openings?.Mo?.time_from +"-"+ response.body()?.openings?.Mo?.time_to +"\n"+    //Montag Öffnungszeiten
-                        "Di:\t\t"+ response.body()?.openings?.Di?.time_from +"-"+ response.body()?.openings?.Di?.time_to +"\n"+   //Dienstag Öffnungszeiten
-                        "Mi:\t\t"+ response.body()?.openings?.Mi?.time_from +"-"+ response.body()?.openings?.Mi?.time_to +"\n"+   //Mittwoch Öffnungszeiten
-                        "Do:\t\t"+ response.body()?.openings?.Do?.time_from +"-"+ response.body()?.openings?.Do?.time_to +"\n"+   //Donnerstag Öffnungszeiten
-                        "Fr:\t\t"+ response.body()?.openings?.Fr?.time_from +"-"+ response.body()?.openings?.Fr?.time_to +"\n"+   //Freitag Öffnungszeiten
-                        "Sa:\t\t"+ response.body()?.openings?.Sa?.time_from +"-"+ response.body()?.openings?.Sa?.time_to +"\n"+   //Samstag Öffnungszeiten
-                        "So:\t\t"+ response.body()?.openings?.So?.time_from +"-"+ response.body()?.openings?.So?.time_to +"\n"    //Sonntag Öffnungszeiten
-                setOpenings(openings)
+                val street = response.body()!!.address.street
+                val number = response.body()!!.address.number
+                val zip = response.body()!!.address.postcode
+                val city = response.body()!!.address.city
+                binding.hairdresserAddress.text = "$street $number, $zip, $city"
+
+                val openings =
+                    "Mo: \t" + response.body()?.openings?.Mo?.time_from + "-" + response.body()?.openings?.Mo?.time_to + "\n" +    //Montag Öffnungszeiten
+                            "Di:\t\t" + response.body()?.openings?.Di?.time_from + "-" + response.body()?.openings?.Di?.time_to + "\n" +   //Dienstag Öffnungszeiten
+                            "Mi:\t\t" + response.body()?.openings?.Mi?.time_from + "-" + response.body()?.openings?.Mi?.time_to + "\n" +   //Mittwoch Öffnungszeiten
+                            "Do:\t\t" + response.body()?.openings?.Do?.time_from + "-" + response.body()?.openings?.Do?.time_to + "\n" +   //Donnerstag Öffnungszeiten
+                            "Fr:\t\t" + response.body()?.openings?.Fr?.time_from + "-" + response.body()?.openings?.Fr?.time_to + "\n" +   //Freitag Öffnungszeiten
+                            "Sa:\t\t" + response.body()?.openings?.Sa?.time_from + "-" + response.body()?.openings?.Sa?.time_to + "\n" +   //Samstag Öffnungszeiten
+                            "So:\t\t" + response.body()?.openings?.So?.time_from + "-" + response.body()?.openings?.So?.time_to + "\n"    //Sonntag Öffnungszeiten
+                binding.hairdresserOpenings.text = openings
+
                 //services
-                val services : ArrayList<String> = ArrayList(20)
+                val services: ArrayList<String> = ArrayList(20)
                 var gender = ""
                 response.body()!!.services.forEach {
                     val gender1 = it.gender
                     val name = it.name
                     val time = it.time
                     val price = it.price
-                    if(gender1 == "male"){
-                         gender = "Herren"
-                    }else{
-                        gender = "Damen"
+                    when (gender1) {
+                        "male" -> gender = "Herren"
+                        "female" -> gender = "Damen"
                     }
                     services.add("$name, $gender, $time Minuten, $price")
                 }
                 setServices(services)
+
                 //Image
                 val url = response.body()?.img?.logo
-                Picasso.get().load(url).into(view?.findViewById(R.id.hairsalon_picture))
+                binding.hairdresserImage.load(url)
+
+                if (loggedInUserKey != null) {
+                    checkFavorite(response.body()!!.key)
+                }
+                binding.favoriteButton.setOnClickListener {
+                    changeFavorite(response.body()!!.key)
+                }
             }
+
             override fun onFailure(call: Call<HairdresserDetails>, t: Throwable) {
                 Log.e("Load Time", "onFailure: " + t.message)
             }
         })
-        binding.sharebtn.setOnClickListener{
+        binding.sharebtn.setOnClickListener {
             // Text rausholen
-            val s = binding.hairsalonName.text.toString()
+            val s = binding.hairdresserName.text.toString()
 
             // Share Intent
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_SUBJECT, "Empfehlung geht raus!")
                 putExtra(Intent.EXTRA_TEXT, s)
-                putExtra(Intent.EXTRA_STREAM,Uri.parse("/drawable/fiverr_reshairvation_r1_02_final.png"))
+                putExtra(
+                    Intent.EXTRA_STREAM,
+                    Uri.parse("/drawable/fiverr_reshairvation_r1_02_final.png")
+                )
                 type = "*/*"
             }
 
@@ -98,11 +111,10 @@ class FriseursalonFragment : Fragment() {
         binding.resbtn.setOnClickListener {
             findNavController().navigate(R.id.action_friseursalon_to_termindetails)
         }
+
         // Inflate the layout for this fragment
         return binding.root
     }
-
-
 
     private fun setServices(services: ArrayList<String>) {
         val lv = view?.findViewById(R.id.Services) as ListView
@@ -110,16 +122,98 @@ class FriseursalonFragment : Fragment() {
         lv.adapter = adapter
     }
 
-    //Funktion um Textfeld mit dem Namen zu füllen
-    private fun setOpenings(openings: String) {
-        binding.textView9.setText(openings)
+    private fun checkFavorite(hairdresserKey: String) {
+        val userkeyHairdresserkey = FavoriteByUserAndHairdresser(
+            listOf(
+                FavoriteQueryUserkeyHairdresserkey(
+                    loggedInUserKey!!,
+                    hairdresserKey
+                )
+            )
+        )
+        val retrofitData =
+            DbApi.retrofitService.getFavoriteByUserkeyHairdresserkey(userkeyHairdresserkey)
+        retrofitData.enqueue(object : Callback<FavoritesList> {
+            override fun onResponse(
+                call: Call<FavoritesList?>,
+                response: Response<FavoritesList?>
+            ) {
+                if (response.body()!!.paging.size == 1) {
+                    binding.favoriteButton.setColorFilter(Color.RED)
+                } else {
+                    binding.favoriteButton.setColorFilter(Color.WHITE)
+                }
+            }
+
+            override fun onFailure(call: Call<FavoritesList>, t: Throwable) {
+                Log.e("Check Favorite", "onFailure: " + t.message)
+            }
+        })
     }
-    //Funktion um Textfeld mit der Adresse zu füllen
-    private fun setText(address: String) {
-        binding.textView2.setText(address)
-    }
-    //Funktion um Textfeld mit den Öffnungszeiten zu füllen
-    private fun setName(name : String) {
-        binding.hairsalonName.setText(name)
+
+    private fun changeFavorite(hairdresserKey: String) {
+        val userkeyHairdresserkey = FavoriteByUserAndHairdresser(
+            listOf(
+                FavoriteQueryUserkeyHairdresserkey(
+                    loggedInUserKey!!,
+                    hairdresserKey
+                )
+            )
+        )
+        val retrofitData =
+            DbApi.retrofitService.getFavoriteByUserkeyHairdresserkey(userkeyHairdresserkey)
+        retrofitData.enqueue(object : Callback<FavoritesList> {
+            override fun onResponse(
+                call: Call<FavoritesList?>,
+                response: Response<FavoritesList?>
+            ) {
+                when (response.body()!!.paging.size) {
+                    0 -> {
+                        val favoriteItem = FavoriteItem(
+                            FavoriteDetails(
+                                key = null,
+                                hairdresser_key = hairdresserKey,
+                                user_key = loggedInUserKey!!
+                            )
+                        )
+                        val retrofitData2 = DbApi.retrofitService.storeFavorite(favoriteItem)
+                        retrofitData2.enqueue(object : Callback<FavoriteDetails> {
+                            override fun onResponse(
+                                call: Call<FavoriteDetails?>,
+                                response: Response<FavoriteDetails?>
+                            ) {
+                                Log.i("Favorite", "stored")
+                                checkFavorite(hairdresserKey)
+                            }
+
+                            override fun onFailure(call: Call<FavoriteDetails>, t: Throwable) {
+                                Log.e("Check Favorite", "onFailure: " + t.message)
+                            }
+                        })
+                    }
+                    1 -> {
+                        val retrofitData2 =
+                            DbApi.retrofitService.deleteFavorite(response.body()!!.items[0].key!!)
+                        retrofitData2.enqueue(object : Callback<FavoritesKey> {
+                            override fun onResponse(
+                                call: Call<FavoritesKey?>,
+                                response: Response<FavoritesKey?>
+                            ) {
+                                Log.i("Favorite", "deleted")
+                                checkFavorite(hairdresserKey)
+                            }
+
+                            override fun onFailure(call: Call<FavoritesKey>, t: Throwable) {
+                                Log.e("Check Favorite", "onFailure: " + t.message)
+                            }
+                        })
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<FavoritesList>, t: Throwable) {
+                Log.e("Check Favorite", "onFailure: " + t.message)
+            }
+        })
     }
 }

@@ -5,13 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.crsfhs.android.R
-import com.example.crsfhs.android.ReviewAdapter
+import com.example.crsfhs.android.adapter.ReviewAdapter
 import com.example.crsfhs.android.activities.loggedInUserKey
 import com.example.crsfhs.android.activities.userLoggedIn
 import com.example.crsfhs.android.api.*
@@ -20,7 +18,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class ReviewFragment : Fragment() {

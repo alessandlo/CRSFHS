@@ -71,8 +71,29 @@ interface ApiInterface {
         "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",
         "Content-Type: application/json"
     )
+    @POST("favorites/items")
+    fun storeFavorite(@Body favoriteItem: FavoriteItem): Call<FavoriteDetails>
+
+    @Headers(
+        "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",
+        "Content-Type: application/json"
+    )
+    @DELETE("favorites/items/{key}")
+    fun deleteFavorite(@Path("key") favoriteKey: String): Call<FavoritesKey>
+
+    @Headers(
+        "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",
+        "Content-Type: application/json"
+    )
     @POST("favorites/query")
     fun getFavoritesByUserkey(@Body favoritesByUser: FavoritesByUser): Call<FavoritesList>
+
+    @Headers(
+        "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",
+        "Content-Type: application/json"
+    )
+    @POST("favorites/query")
+    fun getFavoriteByUserkeyHairdresserkey(@Body favoriteByUserAndHairdresser: FavoriteByUserAndHairdresser): Call<FavoritesList>
 
     @Headers(
         "X-API-Key:a0a1f9b4_2cTPcAgSHEb8ZtmiRBHx5TbRPyniXU2R",

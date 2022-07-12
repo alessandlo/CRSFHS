@@ -72,7 +72,7 @@ class ZusammenfassungReservierungFragment : Fragment() {
                     ) {
                         Toast.makeText(activity, "Termin erstellt!", Toast.LENGTH_SHORT).show()
                         Log.i("Reserve", "Appointment created")
-                        findNavController().navigate(R.id.action_zusammenfassung_to_wurde_reserviert)
+                        findNavController().navigate(R.id.action_fragment_zusammenfassung_reservierung_to_fragment_startseite)
                     }
 
                     override fun onFailure(call: Call<ReservationDetails?>, t: Throwable) {

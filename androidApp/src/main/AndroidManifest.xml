@@ -7,9 +7,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
-        android:allowBackup="false"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:icon="@drawable/fiverr_reshairvation_r1_02_final"
+        android:label="@string/appName">
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragment_startseite">
+    app:startDestination="@id/fragment_friseursalon">
 
     <fragment
         android:id="@+id/fragment_startseite"
@@ -40,9 +40,6 @@
         android:label="Persönliche Daten"
         tools:layout="@layout/fragment_pers_daten">
         <action
-            android:id="@+id/action_pers_daten_to_pw_aendern"
-            app:destination="@id/fragment_passwort_aendern" />
-        <action
             android:id="@+id/action_fragment_pers_daten_to_fragment_login"
             app:destination="@id/fragment_login" />
     </fragment>
@@ -76,11 +73,6 @@
             android:id="@+id/action_fragment_meine_reservierungen_verwalten_to_fragment_meine_reservierungen"
             app:destination="@id/fragment_meine_reservierungen" />
     </fragment>
-    <fragment
-        android:id="@+id/fragment_passwort_aendern"
-        android:name="com.example.crsfhs.android.fragments.PasswortAendernFragment"
-        android:label="fragment_passwort_aendern"
-        tools:layout="@layout/fragment_passwort_aendern" />
     <fragment
         android:id="@+id/fragment_suchfilter"
         android:name="com.example.crsfhs.android.fragments.SuchfilterFragment"
@@ -150,16 +142,7 @@
         android:label="Zusammenfassung"
         tools:layout="@layout/fragment_zusammenfassung_reservierung">
         <action
-            android:id="@+id/action_zusammenfassung_to_wurde_reserviert"
-            app:destination="@id/fragment_wurde_reserviert" />
-    </fragment>
-    <fragment
-        android:id="@+id/fragment_wurde_reserviert"
-        android:name="com.example.crsfhs.android.fragments.WurdeReserviertFragment"
-        android:label="Reservierung abgeschlossen"
-        tools:layout="@layout/fragment_wurde_reserviert">
-        <action
-            android:id="@+id/action_wurde_reserviert_to_startsetie"
+            android:id="@+id/action_fragment_zusammenfassung_reservierung_to_fragment_startseite"
             app:destination="@id/fragment_startseite" />
     </fragment>
     <fragment
@@ -200,7 +183,7 @@
         app:destination="@id/fragment_login" />
     <fragment
         android:id="@+id/abmeldenFragment"
-        android:name="com.example.crsfhs.android.AbmeldenFragment"
+        android:name="com.example.crsfhs.android.fragments.AbmeldenFragment"
         android:label="fragment_abmelden"
         tools:layout="@layout/fragment_abmelden" />
     <action
