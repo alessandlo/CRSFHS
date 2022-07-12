@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.example.crsfhs.android.DatePickerFragment
 import com.example.crsfhs.android.R
 import com.example.crsfhs.android.activities.userLoggedIn
@@ -40,6 +41,11 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentTerminDetailsBinding.bind(view)
 
+        // image + friseurname + Adresse
+        binding.hairdresserImage2.load(requireArguments().getString("imgLink"))
+        binding.hairdresserName3.text = requireArguments().getString("friseurname")
+        binding.hairdresserAddress3.text = requireArguments().getString("adresse")
+
         binding.apply {
             tdbtn1.setOnClickListener {
                 // create new instance of DatePickerFragment
@@ -65,7 +71,8 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                         if(newDate < today){ //checks if the date is in the past
                             Toast.makeText(requireActivity(),"Das eingegeben Datum liegt in der Vergangenheit", Toast.LENGTH_LONG).show()
                         }else {
-                            tvDate.text = date
+                            //tvDate.text = date
+                            binding.tdbtn1.text = date.toString()
                             getTime(day, date.substring(4, 14))
                         }
                     }
@@ -80,7 +87,7 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                         }
                         else
                         findNavController().navigate(R.id.action_termin_details_to_zusammenfassung, Bundle().apply {
-                            putString("date", tvDate.text.toString())
+                            putString("date", binding.tdbtn1.text.toString())
                             putString("time", selectedtime)
                             putString("comment", Kommentarzeile.text.toString())
                         })

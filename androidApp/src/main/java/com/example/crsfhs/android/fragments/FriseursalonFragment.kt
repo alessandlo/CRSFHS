@@ -25,12 +25,20 @@ import retrofit2.Response
 
 class FriseursalonFragment : Fragment() {
     private lateinit var binding: FragmentFriseursalonBinding
+    private lateinit var url: String
+    /*private lateinit var street: String
+    private lateinit var number: String
+    private lateinit var zip: String
+    private lateinit */
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentFriseursalonBinding.inflate(inflater, container, false)
+
+
+
         val retrofitData = DbApi.retrofitService.getHairdresser("asru6sxqrifl")
         retrofitData.enqueue(object : Callback<HairdresserDetails> {
             override fun onResponse(
@@ -74,7 +82,7 @@ class FriseursalonFragment : Fragment() {
                 setServices(services)
 
                 //Image
-                val url = response.body()?.img?.logo
+                url = response.body()?.img?.logo.toString()
                 binding.hairdresserImage.load(url)
 
                 if (loggedInUserKey != null) {
@@ -109,7 +117,12 @@ class FriseursalonFragment : Fragment() {
             startActivity(shareIntent)
         }
         binding.resbtn.setOnClickListener {
-            findNavController().navigate(R.id.action_friseursalon_to_termindetails)
+            findNavController().navigate(R.id.action_friseursalon_to_termindetails,
+            Bundle().apply {
+                putString("imgLink", url)
+                putString("friseurname", binding.hairdresserName.text.toString())
+                putString("adresse", binding.hairdresserAddress.text.toString())
+            })
         }
 
         // Inflate the layout for this fragment
