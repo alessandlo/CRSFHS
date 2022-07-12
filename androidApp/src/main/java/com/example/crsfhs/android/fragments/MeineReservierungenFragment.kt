@@ -85,6 +85,7 @@ class MeineReservierungenFragment : Fragment() {
                             appointmentList.let {
                                 val adapter = ReservationAdapter(appointmentList) { appointment ->
                                     val bundle = bundleOf(
+                                        "reservation_key" to appointment.reservationDetails.key,
                                         "reservation_service" to appointment.reservationDetails.appointment.service,
                                         "hairdresser_name" to appointment.hairdresserDetails.name,
                                         "appointment_date" to appointment.reservationDetails.appointment.date,
