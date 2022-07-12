@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.*
+import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -22,6 +23,7 @@ import com.example.crsfhs.android.databinding.FragmentStartseiteBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
 
 class StartseiteFragment : Fragment(), LocationListener{
     private lateinit var binding: FragmentStartseiteBinding
@@ -69,6 +71,8 @@ class StartseiteFragment : Fragment(), LocationListener{
         recyclerView.adapter = adapter
         addAllHairdressers(adapter)
 
+        //binding.searchbar.searchbarLayout.minHeight = binding.searchbar.searchbarLayout.height + 200
+
         val searchbar = binding.searchbar.searchbarText
         searchbar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -104,11 +108,20 @@ class StartseiteFragment : Fragment(), LocationListener{
     }
 
     override fun onLocationChanged(location: Location) {
-        val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
-
+        var addresses: List<Address>? = null
+        repeat(10) {
+            try {
+                addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
         this.location = location
-        address = addresses[0]
-        adapter.setCity(address.locality)
+        if (addresses != null){
+            address = addresses!![0]
+            adapter.setCity(address.locality)
+        }
+
     }
 
     override fun onProviderEnabled(provider: String) {
