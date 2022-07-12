@@ -11,7 +11,8 @@ import com.example.crsfhs.android.R
 import com.example.crsfhs.android.api.HairdresserDetails
 
 class FavoritesAdapter(
-    private val hairdresserList: ArrayList<HairdresserDetails>
+    private val hairdresserList: ArrayList<HairdresserDetails>,
+    private val listener: (String) -> Unit
 ) : RecyclerView.Adapter<FavoritesAdapter.FavoriteViewHolder>() {
 
     inner class FavoriteViewHolder(itemView: View) :
@@ -45,7 +46,7 @@ class FavoritesAdapter(
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
         val favoriteItem = hairdresserList[position]
         holder.bindData(favoriteItem)
-        //holder.itemView.setOnClickListener { listener(favoriteItem) }
+        holder.itemView.setOnClickListener { listener(favoriteItem.key) }
     }
 
     override fun getItemCount(): Int {
