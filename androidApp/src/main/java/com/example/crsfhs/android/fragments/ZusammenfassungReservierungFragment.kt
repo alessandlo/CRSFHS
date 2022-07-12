@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.example.crsfhs.android.R
 import com.example.crsfhs.android.activities.loggedInUserKey
 import com.example.crsfhs.android.api.*
@@ -38,25 +39,26 @@ class ZusammenfassungReservierungFragment : Fragment() {
         _binding = FragmentZusammenfassungReservierungBinding.bind(view)
 
         binding.apply {
-            textView2.text = requireArguments().getString("date").toString()
-            textView3.text = requireArguments().getString("time").toString()
-            textView4.text = requireArguments().getString("comment").toString()
+            textView2.text = "Datum: "+requireArguments().getString("date").toString()
+            textView3.text = "Uhrzeit: "+requireArguments().getString("time").toString()
+            textView4.text = "Kommentar: "+requireArguments().getString("comment").toString()
 
             button.setOnClickListener {         //jump to next fragment and transfer appointment details
                 val df = SimpleDateFormat("HH:mm")
-                val d = df.parse(textView3.text as String)
+                val d = df.parse(requireArguments().getString("time").toString())
                 val cal = Calendar.getInstance()
-                cal.setTime(d)
+                cal.time = d
                 cal.add(Calendar.MINUTE, 30)
                 val time_to = df.format(cal.getTime())
-                val formattedDate = textView2.text.toString().substring(4, 14)
+                val formattedDate = requireArguments().getString("date").toString().substring(4, 14)
+                Log.d(TAG, formattedDate)
 
                 val reservationItem = ReservationItem(
                     ReservationDetails(
                         appointment = ReservationAppointment(
                             formattedDate,
                             "aktiv",
-                            textView3.text.toString(),
+                            requireArguments().getString("time").toString(),
                             time_to
                         ),
                         hairdresser_key = "asru6sxqrifl",
@@ -70,7 +72,7 @@ class ZusammenfassungReservierungFragment : Fragment() {
                         call: Call<ReservationDetails?>,
                         response: Response<ReservationDetails?>
                     ) {
-                        Toast.makeText(activity, "Termin erstellt!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "Termin erstellt!", Toast.LENGTH_LONG).show()
                         Log.i("Reserve", "Appointment created")
                         findNavController().navigate(R.id.action_fragment_zusammenfassung_reservierung_to_fragment_startseite)
                     }
@@ -100,8 +102,10 @@ class ZusammenfassungReservierungFragment : Fragment() {
                 val number = response.body()?.address?.number
                 val zip = response.body()?.address?.postcode
                 val city = response.body()?.address?.city
-                val address = street + " " + number + ", " + zip + ", " + city
+                val address = "$street $number, $zip, $city"
                 setAddress(address)
+                val url = response.body()?.img?.logo
+                binding.imageView.load(url)
             }
             override fun onFailure(call: Call<HairdresserDetails>, t: Throwable) {
                 Log.e("Load Time", "onFailure: " + t.message)
@@ -109,10 +113,10 @@ class ZusammenfassungReservierungFragment : Fragment() {
         })
     }
     private fun setAddress(address: String) {
-        binding.textView10.setText(address)
+        binding.textView10.text = address
     }
     private fun setName(name : String) {
-        binding.textView11.setText(name)
+        binding.textView11.text = name
     }
 }
 
