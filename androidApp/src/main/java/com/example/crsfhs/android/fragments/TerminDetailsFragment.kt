@@ -79,21 +79,25 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                 }
                 // show
                 datePickerFragment.show(supportFragmentManager, "DatePickerFragment")
-                binding.autoCompleteTextView.setOnItemClickListener { parent, view, position, id ->
-                    val selectedtime = parent.getItemAtPosition(position).toString() // get selected timeslot
-                    tdbtn2.setOnClickListener {         //jump to next fragment and transfer appointment details
-                        if (!userLoggedIn) { // umleiten auf Login, wenn nicht eingeloggt
-                            findNavController().navigate(R.id.action_fragment_termin_details_to_fragment_login)
-                        }
-                        else
-                        findNavController().navigate(R.id.action_termin_details_to_zusammenfassung, Bundle().apply {
-                            putString("imgLink", requireArguments().getString("imgLink"))
-                            putString("friseurname", binding.hairdresserName3.text.toString())
-                            putString("adresse", binding.hairdresserAddress3.text.toString())
-                            putString("date", binding.tdbtn1.text.toString())
-                            putString("time", selectedtime)
-                            putString("comment", Kommentarzeile.text.toString())
-                        })
+                binding.Times.setOnItemClickListener { parent, view, position, id ->
+                    val selectedTime = parent.getItemAtPosition(position).toString() // get selected timeslot
+                    binding.autoCompleteTextView.setOnItemClickListener { parent, view, position, id ->
+                        val selectedService = parent.getItemAtPosition(position).toString()
+                        tdbtn2.setOnClickListener {
+                            //jump to next fragment and transfer appointment details
+                            if (!userLoggedIn) { // umleiten auf Login, wenn nicht eingeloggt
+                                findNavController().navigate(R.id.action_fragment_termin_details_to_fragment_login)
+                            }
+                            else
+                            findNavController().navigate(R.id.action_termin_details_to_zusammenfassung, Bundle().apply {
+                                putString("imgLink", requireArguments().getString("imgLink"))
+                                putString("friseurname", binding.hairdresserName3.text.toString())
+                                putString("adresse", binding.hairdresserAddress3.text.toString())
+                                putString("date", binding.tdbtn1.text.toString())
+                                putString("time", selectedTime)
+                                putString("service", selectedService)
+                            })
+                         }
                     }
                 }
             }
@@ -164,7 +168,14 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
 
                    }
                     onResume(timeslots) // Fun aufrufen um dropdown menu zu füllen
-            }}
+            }
+                val services: ArrayList<String> = ArrayList()
+                response.body()!!.services.forEach {
+                    val name = it.name
+                    services.add("$name")
+                }
+                onResume1(services)
+            }
 
 
             override fun onFailure(call: Call<HairdresserDetails>, t: Throwable) {
@@ -178,6 +189,12 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
         super.onResume()
 
         val arrayAdapter = ArrayAdapter(requireContext(),R.layout.dropdownzeiten, timeslots )
+        binding.Times.setAdapter(arrayAdapter)
+    }
+
+    fun onResume1(services : ArrayList<String>) {
+        super.onResume()
+        val arrayAdapter = ArrayAdapter(requireContext(),R.layout.servicelist, services )
         binding.autoCompleteTextView.setAdapter(arrayAdapter)
     }
     override fun onCreateView(

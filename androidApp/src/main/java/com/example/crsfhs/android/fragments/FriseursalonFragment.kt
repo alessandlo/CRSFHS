@@ -56,17 +56,17 @@ class FriseursalonFragment : Fragment() {
                 binding.hairdresserAddress.text = "$street $number, $zip, $city"
 
                 val openings =
-                    "Mo: \t" + response.body()?.openings?.Mo?.time_from + "-" + response.body()?.openings?.Mo?.time_to + "\n" +    //Montag Öffnungszeiten
-                            "Di:\t\t" + response.body()?.openings?.Di?.time_from + "-" + response.body()?.openings?.Di?.time_to + "\n" +   //Dienstag Öffnungszeiten
-                            "Mi:\t\t" + response.body()?.openings?.Mi?.time_from + "-" + response.body()?.openings?.Mi?.time_to + "\n" +   //Mittwoch Öffnungszeiten
-                            "Do:\t\t" + response.body()?.openings?.Do?.time_from + "-" + response.body()?.openings?.Do?.time_to + "\n" +   //Donnerstag Öffnungszeiten
-                            "Fr:\t\t" + response.body()?.openings?.Fr?.time_from + "-" + response.body()?.openings?.Fr?.time_to + "\n" +   //Freitag Öffnungszeiten
+                    "Mo: " + response.body()?.openings?.Mo?.time_from + "-" + response.body()?.openings?.Mo?.time_to + "\n" +    //Montag Öffnungszeiten
+                            "Di: \t\t" + response.body()?.openings?.Di?.time_from + "-" + response.body()?.openings?.Di?.time_to + "\n" +   //Dienstag Öffnungszeiten
+                            "Mi: \t\t" + response.body()?.openings?.Mi?.time_from + "-" + response.body()?.openings?.Mi?.time_to + "\n" +   //Mittwoch Öffnungszeiten
+                            "Do: \t" + response.body()?.openings?.Do?.time_from + "-" + response.body()?.openings?.Do?.time_to + "\n" +   //Donnerstag Öffnungszeiten
+                            "Fr: \t\t" + response.body()?.openings?.Fr?.time_from + "-" + response.body()?.openings?.Fr?.time_to + "\n" +   //Freitag Öffnungszeiten
                             "Sa:\t\t" + response.body()?.openings?.Sa?.time_from + "-" + response.body()?.openings?.Sa?.time_to + "\n" +   //Samstag Öffnungszeiten
                             "So:\t\t" + response.body()?.openings?.So?.time_from + "-" + response.body()?.openings?.So?.time_to + "\n"    //Sonntag Öffnungszeiten
                 binding.hairdresserOpenings.text = openings
 
                 //services
-                val services: ArrayList<String> = ArrayList(20)
+                val services: ArrayList<String> = ArrayList()
                 var gender = ""
                 response.body()!!.services.forEach {
                     val gender1 = it.gender

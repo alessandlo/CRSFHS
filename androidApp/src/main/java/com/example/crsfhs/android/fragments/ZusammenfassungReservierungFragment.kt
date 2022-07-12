@@ -45,7 +45,7 @@ class ZusammenfassungReservierungFragment : Fragment() {
         binding.apply {
             textView2.text = "Datum: "+requireArguments().getString("date").toString()
             textView3.text = "Uhrzeit: "+requireArguments().getString("time").toString()
-            textView4.text = "Kommentar: "+requireArguments().getString("comment").toString()
+            textView4.text = "Service: "+requireArguments().getString("service").toString()
 
 
 
@@ -66,7 +66,7 @@ class ZusammenfassungReservierungFragment : Fragment() {
                             status = "aktiv",
                             time_from = requireArguments().getString("time").toString(),
                             time_to = time_to,
-                            service = null
+                            service = requireArguments().getString("service").toString()
                         ),
                         hairdresser_key = "asru6sxqrifl",
                         key = null,
