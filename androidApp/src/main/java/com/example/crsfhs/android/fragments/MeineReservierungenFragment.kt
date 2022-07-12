@@ -42,7 +42,7 @@ class MeineReservierungenFragment : Fragment() {
     }
 
     private fun getData() {
-        val userkey = ReservationByUser(listOf(ReservationQuery(loggedInUserKey!!)))
+        val userkey = ReservationByUser(listOf(ReservationQueryUser(loggedInUserKey!!)))
         val retrofitData = DbApi.retrofitService.getReservationsByUserkey(userkey)
 
         retrofitData.enqueue(object : Callback<ReservationsList?> {
@@ -50,7 +50,7 @@ class MeineReservierungenFragment : Fragment() {
                 call: Call<ReservationsList?>,
                 response: Response<ReservationsList?>
             ) {
-                val appointmentList: ArrayList<Appointment> = ArrayList()
+                val appointmentList: ArrayList<AppointmentUser> = ArrayList()
 
                 response.body()!!.items.forEach {
                     if (it.appointment.status == "aktiv") {
@@ -67,7 +67,7 @@ class MeineReservierungenFragment : Fragment() {
                             response2: Response<HairdresserDetails?>
                         ) {
                             appointmentList.add(
-                                Appointment(
+                                AppointmentUser(
                                     hairdresserDetails = response2.body()!!,
                                     reservationDetails = it
                                 )
@@ -85,7 +85,7 @@ class MeineReservierungenFragment : Fragment() {
                             appointmentList.let {
                                 val adapter = ReservationAdapter(appointmentList) { appointment ->
                                     val bundle = bundleOf(
-                                        "reservation_key" to appointment.reservationDetails.key,
+                                        "reservation_service" to appointment.reservationDetails.appointment.service,
                                         "hairdresser_name" to appointment.hairdresserDetails.name,
                                         "appointment_date" to appointment.reservationDetails.appointment.date,
                                         "appointment_time_from" to appointment.reservationDetails.appointment.time_from,
@@ -142,7 +142,5 @@ class MeineReservierungenFragment : Fragment() {
                 }
             })
         }
-        //Log.i("Current DateTime", current.toString())
-        //Log.i("DateTime", appointmentDateTime.toString())
     }
 }

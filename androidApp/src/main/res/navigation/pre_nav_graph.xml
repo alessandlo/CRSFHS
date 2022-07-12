@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/preWieFunktioniertDasFragment"
         android:name="com.example.crsfhs.android.fragments.preWieFunktioniertDasFragment"
-        android:label="fragment_pre_wie_funktioniert_das"
-        tools:layout="@layout/fragment_pre_wie_funktioniert_das" >
+        android:label="@string/emptyString"
+        tools:layout="@layout/fragment_pre_wie_funktioniert_das">
         <action
             android:id="@+id/action_preWieFunktioniertDasFragment_to_preDatenschutzFragment"
             app:destination="@id/preDatenschutzFragment" />
@@ -17,8 +17,8 @@
     <fragment
         android:id="@+id/preWillkommensseiteFragment"
         android:name="com.example.crsfhs.android.fragments.preWillkommensseiteFragment"
-        android:label="fragment_pre_willkommensseite"
-        tools:layout="@layout/fragment_pre_willkommensseite" >
+        android:label="@string/emptyString"
+        tools:layout="@layout/fragment_pre_willkommensseite">
         <action
             android:id="@+id/action_willkommen_to_wie_funktioniert_das"
             app:destination="@id/preWieFunktioniertDasFragment" />
@@ -26,8 +26,8 @@
     <fragment
         android:id="@+id/preDatenschutzFragment"
         android:name="com.example.crsfhs.android.fragments.preDatenschutzFragment"
-        android:label="fragment_pre_datenschutz"
-        tools:layout="@layout/fragment_pre_datenschutz" >
+        android:label="@string/emptyString"
+        tools:layout="@layout/fragment_pre_datenschutz">
         <action
             android:id="@+id/action_preDatenschutzFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -35,8 +35,8 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.crsfhs.android.fragments.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        android:label="@string/emptyString"
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_fragment_login_to_fragment_startseite"
             app:destination="@id/startseiteFragment" />
@@ -47,11 +47,11 @@
     <fragment
         android:id="@+id/startseiteFragment"
         android:name="com.example.crsfhs.android.fragments.StartseiteFragment"
-        android:label="fragment_startseite"
+        android:label="@string/emptyString"
         tools:layout="@layout/fragment_startseite" />
     <fragment
         android:id="@+id/registrierenFragment"
         android:name="com.example.crsfhs.android.fragments.RegistrierenFragment"
-        android:label="fragment_registrieren"
+        android:label="@string/emptyString"
         tools:layout="@layout/fragment_registrieren" />
 </navigation>

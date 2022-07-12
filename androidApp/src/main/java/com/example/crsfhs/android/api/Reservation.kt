@@ -31,11 +31,19 @@ data class ReservationsPaging(
 )
 
 data class ReservationByUser(
-    val query: List<ReservationQuery>
+    val query: List<ReservationQueryUser>
 )
 
-data class ReservationQuery(
+data class ReservationQueryUser(
     val user_key: String
+)
+
+data class ReservationByHairdresser(
+    val query: List<ReservationQueryHairdresser>
+)
+
+data class ReservationQueryHairdresser(
+    val hairdresser_key: String
 )
 
 data class Status(

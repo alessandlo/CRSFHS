@@ -97,6 +97,7 @@ class MeineReservierungenVerwaltenFragment : Fragment(), OnMapReadyCallback {
         binding.hairdresserName.text = arguments!!.getString("hairdresser_name")
         binding.hairdresserAddress.text = address
         binding.reservationAppointment.text = appointment
+        binding.reservationService.text = arguments!!.getString("reservation_service")
     }
 
     override fun onResume() {

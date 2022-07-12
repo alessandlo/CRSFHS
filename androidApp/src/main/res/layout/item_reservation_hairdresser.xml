@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardUseCompatPadding="true">
@@ -10,41 +11,33 @@
         android:layout_height="wrap_content"
         android:padding="10dp">
 
-        <ImageView
-            android:id="@+id/hairdresserIcon"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:contentDescription="@string/image"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_gallery" />
-
         <TextView
-            android:id="@+id/hairdresserName"
+            android:id="@+id/customerName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginEnd="25dp"
             android:autoSizeTextType="uniform"
             android:maxLines="1"
-            android:text="@string/hairdresserName"
+            android:text="@string/customerName"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/hairdresserIcon"
-            app:layout_constraintTop_toTopOf="@+id/hairdresserIcon" />
+            app:layout_constraintEnd_toStartOf="@+id/imageButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/hairdresserAddress"
+            android:id="@+id/reservationService"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:autoSizeTextType="uniform"
             android:maxLines="1"
-            android:text="@string/address"
+            android:text="@string/services"
             app:layout_constraintBottom_toTopOf="@+id/reservationStatus"
-            app:layout_constraintEnd_toEndOf="@+id/hairdresserName"
-            app:layout_constraintStart_toStartOf="@+id/hairdresserName"
-            app:layout_constraintTop_toBottomOf="@+id/hairdresserName" />
+            app:layout_constraintEnd_toEndOf="@+id/customerName"
+            app:layout_constraintStart_toStartOf="@+id/customerName"
+            app:layout_constraintTop_toBottomOf="@+id/customerName" />
 
         <TextView
             android:id="@+id/reservationStatus"
@@ -58,10 +51,10 @@
             android:paddingHorizontal="5dp"
             android:text="@string/status"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/hairdresserIcon"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/reservationAppointment"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/hairdresserName" />
+            app:layout_constraintStart_toStartOf="@+id/customerName" />
 
         <TextView
             android:id="@+id/reservationAppointment"
@@ -76,9 +69,32 @@
             android:text="@string/appointment"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/reservationStatus"
-            app:layout_constraintEnd_toEndOf="@+id/hairdresserName"
+            app:layout_constraintEnd_toEndOf="@+id/customerName"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/reservationStatus" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/customerName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/customerName"
+            app:srcCompat="@drawable/ic_baseline_contact_mail_24"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/reservationAppointment"
+            app:layout_constraintEnd_toEndOf="@+id/imageButton"
+            app:layout_constraintTop_toTopOf="@+id/reservationAppointment"
+            app:srcCompat="@android:drawable/ic_delete"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

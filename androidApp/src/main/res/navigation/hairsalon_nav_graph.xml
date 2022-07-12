@@ -8,36 +8,28 @@
     <fragment
         android:id="@+id/fragment_hairsalon_bevorstehende_reservierungen"
         android:name="com.example.crsfhs.android.HairsalonBevorstehendeReservierungenFragment"
-        android:label="fragment_hairsalon_bevorstehende_reservierungen"
-        tools:layout="@layout/fragment_hairsalon_bevorstehende_reservierungen" >
+        android:label="Bevorstehende Reservierungen"
+        tools:layout="@layout/fragment_hairsalon_bevorstehende_reservierungen">
         <action
             android:id="@+id/action_hairsalonBevorstehendeReservierungenFragment_to_hairsalonProfilAnpassenFragment"
             app:destination="@id/fragment_hairsalon_profil_anpassen" />
         <action
             android:id="@+id/action_hairsalonBevorstehendeReservierungenFragment_to_hairsalonBewertungenFragment"
             app:destination="@id/fragment_hairsalon_bewertungen" />
-        <action
-            android:id="@+id/action_hairsalonBevorstehendeReservierungenFragment_to_hairsalonResVerwaltenFragment"
-            app:destination="@id/fragment_hairsalon_res_verwalten" />
     </fragment>
-    <fragment
-        android:id="@+id/fragment_hairsalon_res_verwalten"
-        android:name="com.example.crsfhs.android.HairsalonResVerwaltenFragment"
-        android:label="fragment_hairsalon_res_verwalten"
-        tools:layout="@layout/fragment_hairsalon_res_verwalten" />
     <fragment
         android:id="@+id/fragment_hairsalon_bewertungen"
         android:name="com.example.crsfhs.android.HairsalonBewertungenFragment"
-        android:label="fragment_hairsalon_bewertungen"
+        android:label="Meine Bewertungen"
         tools:layout="@layout/fragment_hairsalon_bewertungen" />
     <fragment
         android:id="@+id/fragment_hairsalon_profil_anpassen"
         android:name="com.example.crsfhs.android.HairsalonProfilAnpassenFragment"
-        android:label="fragment_hairsalon_profil_anpassen"
+        android:label="Profil anpassen"
         tools:layout="@layout/fragment_hairsalon_profil_anpassen" />
     <fragment
         android:id="@+id/hairsalonAbmeldenFragment2"
         android:name="com.example.crsfhs.android.HairsalonAbmeldenFragment"
-        android:label="fragment_hairsalon_abmelden"
+        android:label="@string/emptyString"
         tools:layout="@layout/fragment_hairsalon_abmelden" />
 </navigation>

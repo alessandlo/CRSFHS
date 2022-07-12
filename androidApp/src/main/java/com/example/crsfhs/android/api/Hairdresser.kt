@@ -69,3 +69,11 @@ data class HairdresserOpeningsTime(
     val time_from: String,
     val time_to: String
 )
+
+data class HairdresserByOwner(
+    val query: List<HairdresserQueryOwner>
+)
+
+data class HairdresserQueryOwner(
+    val owner_key: String
+)
