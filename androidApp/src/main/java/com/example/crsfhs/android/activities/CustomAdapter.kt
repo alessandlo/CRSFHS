@@ -61,6 +61,8 @@ class CustomAdapter(private val dataSet: ArrayList<HairdresserDetails>) : Recycl
         holder.hairdresser_rating.text = dataSetC[position].rating
         holder.hairdresser_icon.load(dataSetC[position].img.icon)
         holder.hairdresser_key.plus(dataSetC[position].key)
+
+        holder.itemView.setOnClickListener { println(holder.hairdresser_name.text)}
     }
 
     override fun getItemCount(): Int {
