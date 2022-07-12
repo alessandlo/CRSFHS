@@ -30,7 +30,7 @@ class ZusammenfassungReservierungFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        getInfo()
+        //getInfo()
         return inflater.inflate(R.layout.fragment_zusammenfassung_reservierung, container, false)
     }
 
@@ -38,10 +38,16 @@ class ZusammenfassungReservierungFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentZusammenfassungReservierungBinding.bind(view)
 
+        binding.hairdresserImage3.load(requireArguments().getString("imgLink"))
+        binding.hairdresserName2.text = requireArguments().getString("friseurname")
+        binding.hairdresserAddress2.text = requireArguments().getString("adresse")
+
         binding.apply {
             textView2.text = "Datum: "+requireArguments().getString("date").toString()
             textView3.text = "Uhrzeit: "+requireArguments().getString("time").toString()
             textView4.text = "Kommentar: "+requireArguments().getString("comment").toString()
+
+
 
             button.setOnClickListener {         //jump to next fragment and transfer appointment details
                 val df = SimpleDateFormat("HH:mm")
@@ -87,6 +93,8 @@ class ZusammenfassungReservierungFragment : Fragment() {
 
         }
     }
+
+    /*
 //receives the Information on the Hairdresser for the Reservation
     private fun getInfo() {
 
@@ -105,7 +113,7 @@ class ZusammenfassungReservierungFragment : Fragment() {
                 val address = "$street $number, $zip, $city"
                 setAddress(address)
                 val url = response.body()?.img?.logo
-                binding.imageView.load(url)
+                //binding.imageView.load(url)
             }
             override fun onFailure(call: Call<HairdresserDetails>, t: Throwable) {
                 Log.e("Load Time", "onFailure: " + t.message)
@@ -118,5 +126,7 @@ class ZusammenfassungReservierungFragment : Fragment() {
     private fun setName(name : String) {
         binding.textView11.text = name
     }
+    */
+
 }
 

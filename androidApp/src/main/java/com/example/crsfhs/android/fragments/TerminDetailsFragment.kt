@@ -87,6 +87,9 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                         }
                         else
                         findNavController().navigate(R.id.action_termin_details_to_zusammenfassung, Bundle().apply {
+                            putString("imgLink", requireArguments().getString("imgLink"))
+                            putString("friseurname", binding.hairdresserName3.text.toString())
+                            putString("adresse", binding.hairdresserAddress3.text.toString())
                             putString("date", binding.tdbtn1.text.toString())
                             putString("time", selectedtime)
                             putString("comment", Kommentarzeile.text.toString())
