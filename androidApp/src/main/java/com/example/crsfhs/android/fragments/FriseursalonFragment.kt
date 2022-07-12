@@ -97,7 +97,7 @@ class FriseursalonFragment : Fragment() {
                 Log.e("Load Time", "onFailure: " + t.message)
             }
         })
-        binding.sharebtn.setOnClickListener {
+        binding.shareButton.setOnClickListener {
             // Text rausholen
             val s = binding.hairdresserName.text.toString()
 
