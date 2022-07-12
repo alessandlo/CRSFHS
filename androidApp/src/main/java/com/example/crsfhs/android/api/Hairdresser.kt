@@ -11,7 +11,7 @@ data class HairdresserItem(
 
 data class HairdresserDetails(
     val key: String,
-    val user_key: String,
+    val owner_key: String,
     val active: Boolean,
     val name: String,
     val img: HairdresserImages,

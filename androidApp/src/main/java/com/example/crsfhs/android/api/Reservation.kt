@@ -22,7 +22,8 @@ data class ReservationAppointment(
     val date: String,
     val status: String,
     val time_from: String,
-    val time_to: String
+    val time_to: String,
+    val service: String?
 )
 
 data class ReservationsPaging(

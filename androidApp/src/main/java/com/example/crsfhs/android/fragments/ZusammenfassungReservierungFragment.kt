@@ -62,10 +62,11 @@ class ZusammenfassungReservierungFragment : Fragment() {
                 val reservationItem = ReservationItem(
                     ReservationDetails(
                         appointment = ReservationAppointment(
-                            formattedDate,
-                            "aktiv",
-                            requireArguments().getString("time").toString(),
-                            time_to
+                            date = formattedDate,
+                            status = "aktiv",
+                            time_from = requireArguments().getString("time").toString(),
+                            time_to = time_to,
+                            service = null
                         ),
                         hairdresser_key = "asru6sxqrifl",
                         key = null,
