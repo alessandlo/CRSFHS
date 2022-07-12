@@ -23,6 +23,7 @@ import com.google.android.material.navigation.NavigationView
 var loggedInUserKey: String? = null
 var userLoggedIn: Boolean = false
 var loggedInUserRole: String? = null
+var loggedInHairdresserKey: String? = null
 
 // Navigation Components:
 private lateinit var drawerLayout: DrawerLayout
@@ -44,7 +45,6 @@ private val idSetsHairsalon = setOf(
     R.id.fragment_hairsalon_bevorstehende_reservierungen,
     R.id.fragment_hairsalon_profil_anpassen,
     R.id.fragment_hairsalon_bewertungen,
-    R.id.fragment_hairsalon_res_verwalten,
     R.id.abmeldenFragment
 )
 
@@ -119,6 +119,7 @@ class MainActivity : AppCompatActivity() {
             .getBoolean("userLoggedIn", false)
         loggedInUserRole = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
             .getString("loggedInUserRole", "empty")
+       //loggedInHairdresserKey = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getString("loggedInHairdresserKey", "empty")
 
         println("Folgender User ist eingeloggt: $loggedInUserKey")
         println("MainActivity: Ist User eingeloggt? $userLoggedIn")

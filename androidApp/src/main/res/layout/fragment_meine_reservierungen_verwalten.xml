@@ -60,6 +60,16 @@
                 app:layout_constraintEnd_toEndOf="@+id/hairdresserName"
                 app:layout_constraintTop_toTopOf="@+id/reservationAppointment" />
 
+            <TextView
+                android:id="@+id/reservationService"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/services"
+                app:layout_constraintEnd_toEndOf="@+id/hairdresserName"
+                app:layout_constraintStart_toStartOf="@+id/hairdresserName"
+                app:layout_constraintTop_toBottomOf="@+id/reservationAppointment" />
+
             <View
                 android:id="@+id/seperator"
                 android:layout_width="match_parent"
@@ -81,7 +91,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reservationAppointment" />
+                app:layout_constraintTop_toBottomOf="@+id/reservationService" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

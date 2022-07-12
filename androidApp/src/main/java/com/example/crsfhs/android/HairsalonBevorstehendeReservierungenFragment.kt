@@ -1,63 +1,120 @@
 package com.example.crsfhs.android
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.crsfhs.android.adapter.ReservationAdapterHairdresser
+import com.example.crsfhs.android.api.*
+import com.example.crsfhs.android.databinding.FragmentHairsalonBevorstehendeReservierungenBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HairsalonBevorstehendeReservierungenFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HairsalonBevorstehendeReservierungenFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentHairsalonBevorstehendeReservierungenBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(
-            R.layout.fragment_hairsalon_bevorstehende_reservierungen,
-            container,
-            false
-        )
+    ): View {
+        binding =
+            FragmentHairsalonBevorstehendeReservierungenBinding.inflate(inflater, container, false)
+
+        getData()
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HairsalonBevorstehendeReservierungenFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HairsalonBevorstehendeReservierungenFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun getData() {
+        val hairdresserkey =
+            ReservationByHairdresser(listOf(ReservationQueryHairdresser("asru6sxqrifl")))
+        val retrofitData = DbApi.retrofitService.getReservationsByHairdresserkey(hairdresserkey)
+
+        retrofitData.enqueue(object : Callback<ReservationsList?> {
+            override fun onResponse(
+                call: Call<ReservationsList?>,
+                response: Response<ReservationsList?>
+            ) {
+                val appointmentList: ArrayList<AppointmentHairdresser> = ArrayList()
+
+                response.body()!!.items.forEach {
+                    if (it.appointment.status == "aktiv") {
+                        val key = it.key
+                        val date = it.appointment.date
+                        val time = it.appointment.time_to
+                        changeStatus(key!!, date, time)
+                    }
+
+                    val retrofitData2 = DbApi.retrofitService.getUser(it.user_key)
+                    retrofitData2.enqueue(object : Callback<UserDetails?> {
+                        override fun onResponse(
+                            call2: Call<UserDetails?>,
+                            response2: Response<UserDetails?>
+                        ) {
+                            appointmentList.add(
+                                AppointmentHairdresser(
+                                    userDetails = response2.body()!!,
+                                    reservationDetails = it
+                                )
+                            )
+
+                            appointmentList.sortByDescending { appointment ->
+                                val date = appointment.reservationDetails.appointment.date
+                                val time = appointment.reservationDetails.appointment.time_to
+                                val appointmentDateTime =
+                                    LocalDateTime.parse("$date $time", DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))
+
+                                appointmentDateTime
+                            }
+
+                            appointmentList.let {
+                                val adapter = ReservationAdapterHairdresser(appointmentList)
+                                val recyclerView = binding.reservationsRv
+                                recyclerView.layoutManager = LinearLayoutManager(context)
+                                recyclerView.adapter = adapter
+                            }
+                        }
+
+                        override fun onFailure(call: Call<UserDetails?>, t: Throwable) {
+                            Log.e("Hairdresser", "onFailure: " + t.message)
+                        }
+                    })
                 }
             }
+
+            override fun onFailure(call: Call<ReservationsList?>, t: Throwable) {
+                Log.e("Reservation", "onFailure: " + t.message)
+            }
+        })
+    }
+
+    private fun changeStatus(key: String, date: String, time: String) {
+        val current = LocalDateTime.now()
+        val appointmentDateTime =
+            LocalDateTime.parse("$date $time", DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))
+
+        if (current.isAfter(appointmentDateTime)) {
+            val retrofitData =
+                DbApi.retrofitService.changeStatus(key, Status(null, SetStatus("vergangen")))
+
+            retrofitData.enqueue(object : Callback<Status?> {
+                override fun onResponse(
+                    call: Call<Status?>,
+                    response: Response<Status?>
+                ) {
+                    Log.i("Status", "vergangen")
+                }
+
+                override fun onFailure(call: Call<Status?>, t: Throwable) {
+                    Log.e("Status", "onFailure: " + t.message)
+                }
+            })
+        }
     }
 }

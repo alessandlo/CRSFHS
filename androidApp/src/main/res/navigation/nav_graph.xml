@@ -23,9 +23,6 @@
             android:id="@+id/action_startseite_to_meine_fav"
             app:destination="@id/fragment_meine_favoriten" />
         <action
-            android:id="@+id/action_startseite_to_suchfilter"
-            app:destination="@id/fragment_suchfilter" />
-        <action
             android:id="@+id/action_fragment_startseite_to_fragment_pre_willkommensseite"
             app:destination="@id/fragment_pre_willkommensseite"
             app:popUpTo="@id/nav_graph"
@@ -33,6 +30,9 @@
         <action
             android:id="@+id/action_fragment_startseite_to_fragment_reviews"
             app:destination="@id/fragment_reviews" />
+        <action
+            android:id="@+id/action_fragment_startseite_to_fragment_friseursalon"
+            app:destination="@id/fragment_friseursalon" />
     </fragment>
     <fragment
         android:id="@+id/fragment_pers_daten"
@@ -74,24 +74,6 @@
             app:destination="@id/fragment_meine_reservierungen" />
     </fragment>
     <fragment
-        android:id="@+id/fragment_suchfilter"
-        android:name="com.example.crsfhs.android.fragments.SuchfilterFragment"
-        android:label="fragment_suchfilter"
-        tools:layout="@layout/fragment_suchfilter">
-        <action
-            android:id="@+id/action_suchfilter_to_suchergebnisse"
-            app:destination="@id/fragment_suchergebnisse" />
-    </fragment>
-    <fragment
-        android:id="@+id/fragment_suchergebnisse"
-        android:name="com.example.crsfhs.android.fragments.SuchergebnisseFragment"
-        android:label="fragment_suchergebnisse"
-        tools:layout="@layout/fragment_suchergebnisse">
-        <action
-            android:id="@+id/action_suchergebnisse_to_friseursalon"
-            app:destination="@id/fragment_friseursalon" />
-    </fragment>
-    <fragment
         android:id="@+id/fragment_friseursalon"
         android:name="com.example.crsfhs.android.fragments.FriseursalonFragment"
         android:label="Präsentationsseite"
@@ -115,7 +97,7 @@
     <fragment
         android:id="@+id/fragment_registrieren"
         android:name="com.example.crsfhs.android.fragments.RegistrierenFragment"
-        android:label="Registrieren"
+        android:label="@string/emptyString"
         tools:layout="@layout/fragment_registrieren">
         <action
             android:id="@+id/action_fragment_registrieren_to_fragment_login"
@@ -124,7 +106,7 @@
     <fragment
         android:id="@+id/fragment_login"
         android:name="com.example.crsfhs.android.fragments.LoginFragment"
-        android:label="Login"
+        android:label="@string/emptyString"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_fragment_login_to_fragment_registrieren"
@@ -148,7 +130,7 @@
     <fragment
         android:id="@+id/fragment_pre_willkommensseite"
         android:name="com.example.crsfhs.android.fragments.preWillkommensseiteFragment"
-        android:label=" "
+        android:label="@string/emptyString"
         tools:layout="@layout/fragment_pre_willkommensseite">
         <action
             android:id="@+id/action_willkommensseite_to_wie_funktioniert_das1"
@@ -157,7 +139,7 @@
     <fragment
         android:id="@+id/fragment_pre_wie_funktioniert_das"
         android:name="com.example.crsfhs.android.fragments.preWieFunktioniertDasFragment"
-        android:label=" "
+        android:label="@string/emptyString"
         tools:layout="@layout/fragment_pre_wie_funktioniert_das">
         <action
             android:id="@+id/action_wie_funktioniert_das_to_datenschutz1"
@@ -166,7 +148,7 @@
     <fragment
         android:id="@+id/fragment_pre_datenschutz"
         android:name="com.example.crsfhs.android.fragments.preDatenschutzFragment"
-        android:label=" "
+        android:label="@string/emptyString"
         tools:layout="@layout/fragment_pre_datenschutz">
         <action
             android:id="@+id/action_datenschutz_to_startseite1"
@@ -184,7 +166,7 @@
     <fragment
         android:id="@+id/abmeldenFragment"
         android:name="com.example.crsfhs.android.fragments.AbmeldenFragment"
-        android:label="fragment_abmelden"
+        android:label="@string/emptyString"
         tools:layout="@layout/fragment_abmelden" />
     <action
         android:id="@+id/action_global_abmeldenFragment"

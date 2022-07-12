@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="appName">resHairvation</string>
+    <string name="emptyString" />
     <string name="searchbarHint">Hier suchen…</string>
     <string name="password">Passwort</string>
     <string name="username">Benutzername</string>
@@ -45,8 +46,7 @@
     <string name="newPassword">Neues Passwort</string>
     <string name="description">Beschreibung</string>
     <string name="date">Datum</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="services">Dienstleistungen</string>
     <string name="openings">Öffnungszeiten</string>
+    <string name="customerName">Kundenname</string>
 </resources>
