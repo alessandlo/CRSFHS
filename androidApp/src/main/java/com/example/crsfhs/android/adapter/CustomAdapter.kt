@@ -1,15 +1,15 @@
-package com.example.crsfhs.android.activities
+package com.example.crsfhs.android.adapter
 
-import android.annotation.SuppressLint
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Filter
+import android.widget.Filterable
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.crsfhs.android.R
-import com.example.crsfhs.android.api.Appointment
 import com.example.crsfhs.android.api.HairdresserDetails
 
 class CustomAdapter(private val dataSet: ArrayList<HairdresserDetails>,
