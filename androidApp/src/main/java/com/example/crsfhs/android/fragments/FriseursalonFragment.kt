@@ -37,15 +37,14 @@ class FriseursalonFragment : Fragment() {
     ): View {
         binding = FragmentFriseursalonBinding.inflate(inflater, container, false)
 
-
-
-        val retrofitData = DbApi.retrofitService.getHairdresser("asru6sxqrifl")
+        val retrofitData = DbApi.retrofitService.getHairdresser(requireArguments().getString("hairsalon_key")!!)
         retrofitData.enqueue(object : Callback<HairdresserDetails> {
             override fun onResponse(
                 call: Call<HairdresserDetails?>,
                 response: Response<HairdresserDetails?>
             ) {
                 // Name
+                println(response.message())
                 binding.hairdresserName.text = response.body()!!.name
 
                 //Addresse

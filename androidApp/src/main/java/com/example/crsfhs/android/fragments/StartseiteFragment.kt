@@ -16,8 +16,10 @@ import androidx.fragment.app.Fragment
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.ContextCompat.getSystemServiceName
+import androidx.core.os.bundleOf
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.crsfhs.android.R
 import com.example.crsfhs.android.activities.CustomAdapter
@@ -65,7 +67,12 @@ class StartseiteFragment : Fragment(), LocationListener{
         val recyclerView = binding.rv
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        adapter = CustomAdapter(hairdresser)
+        adapter = CustomAdapter(hairdresser) { key ->
+            val bundle = bundleOf(
+                "hairsalon_key" to key
+            )
+            binding.root.findNavController().navigate(R.id.action_fragment_startseite_to_fragment_friseur, bundle)
+        }
         recyclerView.adapter = adapter
         addAllHairdressers(adapter)
 

@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_fragment_startseite_to_fragment_reviews"
             app:destination="@id/fragment_reviews" />
+        <action
+            android:id="@+id/action_fragment_startseite_to_fragment_friseur"
+            app:destination="@id/fragment_friseursalon" />
     </fragment>
     <fragment
         android:id="@+id/fragment_pers_daten"

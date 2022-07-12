@@ -9,9 +9,12 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.crsfhs.android.R
+import com.example.crsfhs.android.api.Appointment
 import com.example.crsfhs.android.api.HairdresserDetails
 
-class CustomAdapter(private val dataSet: ArrayList<HairdresserDetails>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>(), Filterable {
+class CustomAdapter(private val dataSet: ArrayList<HairdresserDetails>,
+                    private val listener: (String) -> Unit
+) : RecyclerView.Adapter<CustomAdapter.ViewHolder>(), Filterable {
     private val dataSetC: ArrayList<HairdresserDetails> = ArrayList<HairdresserDetails>()
     private var city: String
 
@@ -25,7 +28,7 @@ class CustomAdapter(private val dataSet: ArrayList<HairdresserDetails>) : Recycl
         val hairdresser_name: TextView
         val hairdresser_icon: ImageView
         val hairdresser_rating: TextView
-        val hairdresser_key: String
+        var hairdresser_key: String
 
         init {
             hairdresser_location = view.findViewById(R.id.hairdresserAddress)
@@ -60,9 +63,9 @@ class CustomAdapter(private val dataSet: ArrayList<HairdresserDetails>) : Recycl
         holder.hairdresser_location.text = hairdresserAddress
         holder.hairdresser_rating.text = dataSetC[position].rating
         holder.hairdresser_icon.load(dataSetC[position].img.icon)
-        holder.hairdresser_key.plus(dataSetC[position].key)
+        holder.hairdresser_key = dataSetC[position].key
 
-        holder.itemView.setOnClickListener { println(holder.hairdresser_name.text)}
+        holder.itemView.setOnClickListener { listener(holder.hairdresser_key) }
     }
 
     override fun getItemCount(): Int {
