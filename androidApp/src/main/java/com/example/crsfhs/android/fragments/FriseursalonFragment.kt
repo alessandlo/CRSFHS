@@ -121,6 +121,7 @@ class FriseursalonFragment : Fragment() {
                 putString("imgLink", url)
                 putString("friseurname", binding.hairdresserName.text.toString())
                 putString("adresse", binding.hairdresserAddress.text.toString())
+                putString("hairsalon_key", requireArguments().getString("hairsalon_key")!!)
             })
         }
 

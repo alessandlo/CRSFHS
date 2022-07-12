@@ -68,7 +68,7 @@ class ZusammenfassungReservierungFragment : Fragment() {
                             time_to = time_to,
                             service = requireArguments().getString("service").toString()
                         ),
-                        hairdresser_key = "asru6sxqrifl",
+                        hairdresser_key =  requireArguments().getString("hairsalon_key")!!,
                         key = null,
                         user_key = loggedInUserKey.toString()
                     )
@@ -94,40 +94,5 @@ class ZusammenfassungReservierungFragment : Fragment() {
 
         }
     }
-
-    /*
-//receives the Information on the Hairdresser for the Reservation
-    private fun getInfo() {
-
-        val retrofitData = DbApi.retrofitService.getHairdresser("asru6sxqrifl")
-        retrofitData.enqueue(object : Callback<HairdresserDetails> {
-            override fun onResponse(
-                call: Call<HairdresserDetails?>,
-                response: Response<HairdresserDetails?>
-            ) {
-                val name = response.body()?.name
-                setName(name!!)
-                val street = response.body()?.address?.street
-                val number = response.body()?.address?.number
-                val zip = response.body()?.address?.postcode
-                val city = response.body()?.address?.city
-                val address = "$street $number, $zip, $city"
-                setAddress(address)
-                val url = response.body()?.img?.logo
-                //binding.imageView.load(url)
-            }
-            override fun onFailure(call: Call<HairdresserDetails>, t: Throwable) {
-                Log.e("Load Time", "onFailure: " + t.message)
-            }
-        })
-    }
-    private fun setAddress(address: String) {
-        binding.textView10.text = address
-    }
-    private fun setName(name : String) {
-        binding.textView11.text = name
-    }
-    */
-
 }
 

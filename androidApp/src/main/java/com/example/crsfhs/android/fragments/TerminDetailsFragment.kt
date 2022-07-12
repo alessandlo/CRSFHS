@@ -96,6 +96,7 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                                 putString("date", binding.tdbtn1.text.toString())
                                 putString("time", selectedTime)
                                 putString("service", selectedService)
+                                putString("hairsalon_key",  requireArguments().getString("hairsalon_key")!!)
                             })
                          }
                     }
@@ -107,7 +108,7 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
 
     private fun getTime(day : String, date: String ){
 
-        val retrofitData = DbApi.retrofitService.getHairdresser("asru6sxqrifl")
+        val retrofitData = DbApi.retrofitService.getHairdresser(requireArguments().getString("hairsalon_key")!!)
         retrofitData.enqueue(object : Callback<HairdresserDetails> {
             override fun onResponse(
                 call: Call<HairdresserDetails?>,
@@ -154,8 +155,8 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                     val timeslots = ArrayList<String>()
                    var timestamp = openingtime
                    while(openingtime!! < closingtime!!.toString()){ //Liste mit Zeiten füllen mit Zeiten im 30 min Takt
-
-                       if(checkTime(date, openingtime)) {
+                       // checkTime(date, openingtime)
+                       if(true) {
                            timeslots.add(openingtime)
                        }
                        val df = SimpleDateFormat("HH:mm")
@@ -211,11 +212,11 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
         _binding = null
     }
     //In progress( not finished)
-    private fun checkTime(date : String, time : String): Boolean {
+   /* private fun checkTime(date : String, time : String): Boolean {
         var blocker = true
         val checkapt = ReservationBySalon(
             listOf(CheckApt(
-                hairdresser_key = "asru6sxqrifl",
+                hairdresser_key = requireArguments().getString("hairsalon_key")!!,
                 date = date,
                 status = "aktiv",
                 time_from = time)
@@ -236,5 +237,5 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
             }
         })
         return blocker
-    }
+    }*/
 }
