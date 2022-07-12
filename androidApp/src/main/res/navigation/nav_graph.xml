@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragment_friseursalon">
+    app:startDestination="@id/fragment_startseite">
 
     <fragment
         android:id="@+id/fragment_startseite"
@@ -193,7 +193,7 @@
         android:id="@+id/fragment_reviews"
         android:name="com.example.crsfhs.android.fragments.ReviewFragment"
         android:label="Meine Bewertungen"
-        tools:layout="@layout/fragment_reviews" >
+        tools:layout="@layout/fragment_reviews">
         <action
             android:id="@+id/action_fragment_reviews_to_fragment_login"
             app:destination="@id/fragment_login" />
