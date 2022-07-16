@@ -70,6 +70,7 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                         }else {
                             //tvDate.text = date
                             binding.tdbtn1.text = date.toString()
+                            Times.setText("Zeiten")
                             getTime(day, date.substring(4, 14))
                         }
                     }
@@ -93,6 +94,8 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                                 findNavController().navigate(R.id.action_fragment_termin_details_to_fragment_login)
                             }else if(newDate < today){
                                 Toast.makeText(requireActivity(),"Sie haben einen Termin in der Vergangenheit eingegeben.", Toast.LENGTH_LONG).show()
+                            }else if(binding.Times.text.toString() == "Zeiten"){
+                                Toast.makeText(requireActivity(),"Ungültige Eingabe.", Toast.LENGTH_LONG).show()
                             }
                             else
                                 findNavController().navigate(R.id.action_termin_details_to_zusammenfassung, Bundle().apply {
@@ -100,10 +103,12 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                                     putString("friseurname", binding.hairdresserName3.text.toString())
                                     putString("adresse", binding.hairdresserAddress3.text.toString())
                                     putString("date", binding.tdbtn1.text.toString())
-                                    putString("time", selectedTime)
+                                    putString("time", binding.Times.text.toString())
                                     putString("service", selectedService)
                                     putString("hairsalon_key",  requireArguments().getString("hairsalon_key")!!)
                                 })
+                            Times.setText("Zeiten")
+                            autoCompleteTextView.setText("Services")
                         }
                     }
                 }
@@ -195,7 +200,6 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
     //fills the dropdown menu with content
      fun onResume(timeslots : ArrayList<String>) {
         super.onResume()
-
         val arrayAdapter = ArrayAdapter(requireContext(),R.layout.dropdownzeiten, timeslots )
         binding.Times.setAdapter(arrayAdapter)
     }
