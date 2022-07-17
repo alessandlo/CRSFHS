@@ -21,6 +21,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
@@ -31,15 +32,11 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
     private val binding get() = _binding!!
     var blocker = true
 
-
-//opens up the datepicker and works with the output
-    override fun onViewCreated(
-        view: View,
+    override fun onCreateView(
+        inflater:LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    )
-    {
-        super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentTerminDetailsBinding.bind(view)
+    ):View{
+        _binding = FragmentTerminDetailsBinding.inflate(inflater, container, false)
 
         // image + friseurname + Adresse
         binding.hairdresserImage2.load(requireArguments().getString("imgLink"))
@@ -64,7 +61,7 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                         val dateFrag = date.substring(4, 6)
                         val dateFrag2 = date.substring(7, 9)
                         val dateFrag3 = date.substring(10, 14)
-                        val newDate = dateFrag3+"-"+dateFrag2+"-"+dateFrag
+                        val newDate = "$dateFrag3-$dateFrag2-$dateFrag"
                         val current = LocalDate.now()
                         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
                         val today = current.format(formatter)
@@ -73,6 +70,7 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                         }else {
                             //tvDate.text = date
                             binding.tdbtn1.text = date.toString()
+                            Times.setText("Zeiten")
                             getTime(day, date.substring(4, 14))
                         }
                     }
@@ -84,27 +82,41 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                     binding.autoCompleteTextView.setOnItemClickListener { parent, view, position, id ->
                         val selectedService = parent.getItemAtPosition(position).toString()
                         tdbtn2.setOnClickListener {
+                            val dateFrag = binding.tdbtn1.text.substring(4, 6)
+                            val dateFrag2 = binding.tdbtn1.text.substring(7, 9)
+                            val dateFrag3 = binding.tdbtn1.text.substring(10, 14)
+                            val newDate = "$dateFrag3-$dateFrag2-$dateFrag $selectedTime"
+                            val current = LocalDateTime.now()
+                            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+                            val today = current.format(formatter)
                             //jump to next fragment and transfer appointment details
                             if (!userLoggedIn) { // umleiten auf Login, wenn nicht eingeloggt
                                 findNavController().navigate(R.id.action_fragment_termin_details_to_fragment_login)
+                            }else if(newDate < today){
+                                Toast.makeText(requireActivity(),"Sie haben einen Termin in der Vergangenheit eingegeben.", Toast.LENGTH_LONG).show()
+                            }else if(binding.Times.text.toString() == "Zeiten"){
+                                Toast.makeText(requireActivity(),"Ungültige Eingabe.", Toast.LENGTH_LONG).show()
                             }
                             else
-                            findNavController().navigate(R.id.action_termin_details_to_zusammenfassung, Bundle().apply {
-                                putString("imgLink", requireArguments().getString("imgLink"))
-                                putString("friseurname", binding.hairdresserName3.text.toString())
-                                putString("adresse", binding.hairdresserAddress3.text.toString())
-                                putString("date", binding.tdbtn1.text.toString())
-                                putString("time", selectedTime)
-                                putString("service", selectedService)
-                                putString("hairsalon_key",  requireArguments().getString("hairsalon_key")!!)
-                            })
-                         }
+                                findNavController().navigate(R.id.action_termin_details_to_zusammenfassung, Bundle().apply {
+                                    putString("imgLink", requireArguments().getString("imgLink"))
+                                    putString("friseurname", binding.hairdresserName3.text.toString())
+                                    putString("adresse", binding.hairdresserAddress3.text.toString())
+                                    putString("date", binding.tdbtn1.text.toString())
+                                    putString("time", binding.Times.text.toString())
+                                    putString("service", selectedService)
+                                    putString("hairsalon_key",  requireArguments().getString("hairsalon_key")!!)
+                                })
+                            Times.setText("Zeiten")
+                            autoCompleteTextView.setText("Services")
+                        }
                     }
                 }
             }
         }
-    }
 
+        return binding.root
+    }
 
     private fun getTime(day : String, date: String ){
 
@@ -188,7 +200,6 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
     //fills the dropdown menu with content
      fun onResume(timeslots : ArrayList<String>) {
         super.onResume()
-
         val arrayAdapter = ArrayAdapter(requireContext(),R.layout.dropdownzeiten, timeslots )
         binding.Times.setAdapter(arrayAdapter)
     }
@@ -197,14 +208,6 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
         super.onResume()
         val arrayAdapter = ArrayAdapter(requireContext(),R.layout.servicelist, services )
         binding.autoCompleteTextView.setAdapter(arrayAdapter)
-    }
-    override fun onCreateView(
-        inflater:LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ):View{
-        _binding = FragmentTerminDetailsBinding.inflate(inflater, container, false)
-
-        return binding.root
     }
 
     override fun onDestroyView() {

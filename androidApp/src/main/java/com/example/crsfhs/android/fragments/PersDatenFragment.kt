@@ -35,7 +35,6 @@ class PersDatenFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        //unsubscribe()
     }
 
     override fun onCreateView(
@@ -54,9 +53,6 @@ class PersDatenFragment : Fragment() {
             tRetrofitData.enqueue(object : Callback<UserDetails> {
                 override fun onResponse(call: Call<UserDetails>, response: Response<UserDetails>) {
 
-                    //println("getUser(): Response: " + response.body()!!)
-                    //println("getUser(): email. " + response.body()!!.email)
-
                     when (response.body()!!.gender) {
                         "männlich" -> binding.genderSelection.setText("männlich", false)
                         "weiblich" -> binding.genderSelection.setText("weiblich", false)
@@ -68,6 +64,7 @@ class PersDatenFragment : Fragment() {
 
                     binding.meinePersDatenVornameText.apply { setText(response.body()!!.firstname) }
                     binding.meinePersDatenNachnameText.apply { setText(response.body()!!.lastname) }
+                    binding.meinePersDatenTelText.apply { setText(response.body()!!.phone) }
                 }
 
                 override fun onFailure(call: Call<UserDetails>, t: Throwable) {
@@ -75,17 +72,10 @@ class PersDatenFragment : Fragment() {
                 }
             })
         }
-        // testing
-
 
         binding.goButton.setOnClickListener {
             if (isValidate()) {
                 updtUser()
-                //binding.passwordText2.apply { setText("") }
-            }
-
-            if (currentPassword == binding.passwordText.text.toString().toSHA()) {
-                //println("getUser(): GEEEEEEEEEEEEEEEEEHT")
             }
         }
 
@@ -114,6 +104,7 @@ class PersDatenFragment : Fragment() {
                 )
             )
         )
+        println("Phone: ${binding.meinePersDatenTelText.text.toString()}")
 
         retrofitData.enqueue(object : Callback<UpdateUserDetailsSet?> {
             override fun onResponse(
@@ -123,6 +114,9 @@ class PersDatenFragment : Fragment() {
                 Log.i("Update user", "geht klar")
                 Toast.makeText(activity, "Daten wurden aktualisiert!", Toast.LENGTH_SHORT)
                     .show()
+                binding.passwordText.apply { setText("") }
+                binding.passwordText2.apply { setText("") }
+                binding.passwordContainer2.clearFocus()
             }
 
             override fun onFailure(call: Call<UpdateUserDetailsSet?>, t: Throwable) {
@@ -134,7 +128,8 @@ class PersDatenFragment : Fragment() {
     }
 
     private fun isValidate(): Boolean =
-        validateFirstname() && validateLastname() && validatePassword() && validatePassword2()
+        validateFirstname() && validateLastname() && validatePassword() && validatePassword2() &&
+                checkIfCurrentPwEmpty()
 
     private fun setupListeners() {
         binding.meinePersDatenVornameText.addTextChangedListener(
@@ -174,6 +169,7 @@ class PersDatenFragment : Fragment() {
                 }
 
                 R.id.password_text -> {
+                    validatePassword()
                     validatePassword2()
                 }
                 R.id.password_text_2 -> {
@@ -236,7 +232,8 @@ class PersDatenFragment : Fragment() {
             binding.passwordContainer.error = "Falsches Passwort!"
             binding.passwordText.requestFocus()
             return false
-        } else {
+        }
+            else {
             binding.passwordContainer.isErrorEnabled = false
         }
         return true
@@ -250,6 +247,7 @@ class PersDatenFragment : Fragment() {
      * 5) Passwort muss aus mindestens einem Sonderzeichen bestehen
      */
     private fun validatePassword2(): Boolean {
+        println("geht rein")
         if (binding.passwordText.text.toString().isNotEmpty()) {
             if (binding.passwordText2.text.toString().trim().isEmpty()) {
                 binding.passwordContainer2.error = getString(R.string.requiredInput)
@@ -274,8 +272,19 @@ class PersDatenFragment : Fragment() {
             } else {
                 binding.passwordContainer2.isErrorEnabled = false
             }
-        } else {
+        }
+        else {
             binding.passwordContainer2.isErrorEnabled = false
+        }
+        return true
+    }
+
+    private fun checkIfCurrentPwEmpty(): Boolean {
+        if(binding.passwordText2.text.toString().isNotEmpty() && binding.passwordText.text.toString().isEmpty()) {
+            println("Trifft zu")
+            binding.passwordContainer.error = "Bitte aktuelles Passwort eingeben!"
+            binding.passwordText.requestFocus()
+            return false
         }
         return true
     }

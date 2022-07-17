@@ -3,7 +3,10 @@ package com.example.crsfhs.android.activities
 import android.content.Context
 import android.app.Application
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -58,8 +61,9 @@ class MainActivity : AppCompatActivity() {
 
             super.onCreate(savedInstanceState)
 
-        // toDo: wegmachen, testing
-        //loggedInUserRole = "hairdresser"
+        // Prüfe auf Internetverbindung
+        isNetworkAvailable()
+
 
         if(loggedInUserRole == "hairdresser") {
             // Hairsalon
@@ -130,6 +134,19 @@ class MainActivity : AppCompatActivity() {
     // Customer Navi Drawer
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfig) || super.onSupportNavigateUp()
+    }
+
+    fun isNetworkAvailable(){
+        val cm = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities = cm.getNetworkCapabilities(cm.activeNetwork)
+
+        if(!(capabilities != null && capabilities.hasCapability(NET_CAPABILITY_INTERNET))){
+            Toast.makeText(this@MainActivity, "Keine Internetverbindung!", Toast.LENGTH_LONG)
+                .show()
+            finish()
+        }
+
+        //return (capabilities != null && capabilities.hasCapability(NET_CAPABILITY_INTERNET))
     }
 
 
