@@ -123,24 +123,6 @@ class LoginFragment : Fragment() {
                         mainPref.edit().putString("loggedInUserRole", loggedInUserRole).apply()
                         Log.i("Role", "die Rolle ist: $loggedInUserRole")
 
-                        /*
-                        if (loggedInUserRole == "hairdresser"){
-                            val ownerkey =
-                                HairdresserByOwner(listOf(HairdresserQueryOwner(loggedInUserKey!!)))
-                            val retrofitData2 = DbApi.retrofitService.getHairdresserByOwner(ownerkey)
-
-                            retrofitData2.enqueue(object : Callback<HairdresserList?> {
-                                override fun onResponse(call2: Call<HairdresserList?>, response2: Response<HairdresserList?>) {
-                                    mainPref.edit().putString("loggedInHairdresserKey", response2.body()!!.items[0].key).apply()
-                                }
-
-                                override fun onFailure(call: Call<HairdresserList?>, t: Throwable) {
-                                    Log.e("Login", "onFailure: " + t.message)
-                                }
-                            })
-                        }
-                         */
-
                         binding.loginButton.findNavController()
                             .navigate(R.id.action_fragment_login_to_fragment_startseite)
                         Log.i("Login", "eingeloggt als $loggedInUserKey")

@@ -1,6 +1,8 @@
 package com.example.crsfhs.android.fragments
 
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.SharedPreferences
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.crsfhs.android.DatePickerFragment
 import com.example.crsfhs.android.R
+import com.example.crsfhs.android.activities.MainActivity
 import com.example.crsfhs.android.activities.userLoggedIn
 import com.example.crsfhs.android.api.*
 import com.example.crsfhs.android.databinding.FragmentTerminDetailsBinding
@@ -33,12 +36,17 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
     private var _binding: FragmentTerminDetailsBinding? = null
     private val binding get() = _binding!!
     var blocker = true
+    private lateinit var mainPref: SharedPreferences
 
     override fun onCreateView(
         inflater:LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ):View{
         _binding = FragmentTerminDetailsBinding.inflate(inflater, container, false)
+        mainPref = (activity as MainActivity).getSharedPreferences("PREFERENCE",
+            Context.MODE_PRIVATE
+        )
+
 
         // image + friseurname + Adresse
         binding.hairdresserImage2.load(requireArguments().getString("imgLink"))
@@ -91,7 +99,18 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
                             val today = current.format(formatter)
                             //jump to next fragment and transfer appointment details
-                            if (!userLoggedIn) { // umleiten auf Login, wenn nicht eingeloggt
+                            if (!userLoggedIn && newDate > today) { // umleiten auf Login, wenn nicht eingeloggt
+
+                                mainPref.edit().putString("redirLogin", "true").apply()
+                                mainPref.edit().putString("imgLink", requireArguments().getString("imgLink")).apply()
+                                mainPref.edit().putString("friseurname", binding.hairdresserName3.text.toString()).apply()
+                                mainPref.edit().putString("adresse", binding.hairdresserAddress3.text.toString()).apply()
+                                mainPref.edit().putString("date", binding.tdbtn1.text.toString()).apply()
+                                mainPref.edit().putString("time", binding.Times.text.toString()).apply()
+                                mainPref.edit().putString("service", selectedService).apply()
+                                mainPref.edit().putString("hairsalon_key", requireArguments().getString("hairsalon_key")!!).apply()
+
+
                                 findNavController().navigate(R.id.action_fragment_termin_details_to_fragment_login)
                             }else if(newDate < today){
                                 Toast.makeText(requireActivity(),"Sie haben einen Termin in der Vergangenheit eingegeben.", Toast.LENGTH_LONG).show()
@@ -216,31 +235,4 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
         super.onDestroyView()
         _binding = null
     }
-    //In progress( not finished)
-    /*private fun checkTime(date : String, time : String): Boolean {
-        var blocker = true
-        val checkapt = ReservationBySalon(
-            listOf(CheckApt(
-                hairdresser_key = requireArguments().getString("hairsalon_key")!!,
-                date = date,
-                status = "aktiv",
-                time_from = time)
-        ))
-        val retrofitData = DbApi.retrofitService.validateAppointment(checkapt)
-        retrofitData.enqueue(object : Callback<ReservationsList?> {
-
-            override fun onResponse(
-                call: Call<ReservationsList?>,
-                response: Response<ReservationsList?>
-            ) {
-                if(response.body()?.paging.toString() > 0.toString()){
-                }
-            }
-
-            override fun onFailure(call: Call<ReservationsList?>, t: Throwable) {
-                Log.e("Reserve", "onFailure: " + t.message)
-            }
-        })
-        return blocker
-    }*/
 }

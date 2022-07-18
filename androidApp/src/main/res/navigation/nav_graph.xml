@@ -185,5 +185,5 @@
         <action
             android:id="@+id/action_fragment_reviews_to_fragment_login"
             app:destination="@id/fragment_login" />
-    </fragment>
+    </fragment><action android:id="@+id/action_global_fragment_zusammenfassung_reservierung" app:destination="@id/fragment_zusammenfassung_reservierung"/>
 </navigation>
