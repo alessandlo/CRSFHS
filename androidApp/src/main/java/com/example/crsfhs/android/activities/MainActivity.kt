@@ -129,6 +129,11 @@ class MainActivity : AppCompatActivity() {
         println("MainActivity: Ist User eingeloggt? $userLoggedIn")
         println("Rolle des Users: $loggedInUserRole")
 
+        if(getSharedPreferences("PREFERENCE", MODE_PRIVATE).getString("redirLogin", "false") == "true") {
+            println("test: geht in mainactivity")
+            navController.navigate(R.id.action_global_fragment_zusammenfassung_reservierung)
+        }
+
     }
 
     // Customer Navi Drawer
