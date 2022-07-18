@@ -99,7 +99,7 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
                             val today = current.format(formatter)
                             //jump to next fragment and transfer appointment details
-                            if (!userLoggedIn) { // umleiten auf Login, wenn nicht eingeloggt
+                            if (!userLoggedIn && newDate > today) { // umleiten auf Login, wenn nicht eingeloggt
 
                                 mainPref.edit().putString("redirLogin", "true").apply()
                                 mainPref.edit().putString("imgLink", requireArguments().getString("imgLink")).apply()
