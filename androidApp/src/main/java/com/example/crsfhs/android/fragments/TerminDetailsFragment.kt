@@ -22,6 +22,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
@@ -68,7 +70,6 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                         if(newDate < today){ //checks if the date is in the past
                             Toast.makeText(requireActivity(),"Das eingegeben Datum liegt in der Vergangenheit", Toast.LENGTH_LONG).show()
                         }else {
-                            //tvDate.text = date
                             binding.tdbtn1.text = date.toString()
                             Times.setText("Zeiten")
                             getTime(day, date.substring(4, 14))
@@ -86,7 +87,7 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                             val dateFrag2 = binding.tdbtn1.text.substring(7, 9)
                             val dateFrag3 = binding.tdbtn1.text.substring(10, 14)
                             val newDate = "$dateFrag3-$dateFrag2-$dateFrag $selectedTime"
-                            val current = LocalDateTime.now()
+                            val current = ZonedDateTime.now(ZoneId.of("Europe/Paris"))
                             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
                             val today = current.format(formatter)
                             //jump to next fragment and transfer appointment details
@@ -215,7 +216,7 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
         _binding = null
     }
     //In progress( not finished)
-   /* private fun checkTime(date : String, time : String): Boolean {
+    /*private fun checkTime(date : String, time : String): Boolean {
         var blocker = true
         val checkapt = ReservationBySalon(
             listOf(CheckApt(
