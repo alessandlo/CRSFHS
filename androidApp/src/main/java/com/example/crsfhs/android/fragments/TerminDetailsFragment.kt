@@ -95,6 +95,7 @@ class TerminDetailsFragment : Fragment(R.layout.fragment_termin_details) {
                                 findNavController().navigate(R.id.action_fragment_termin_details_to_fragment_login)
                             }else if(newDate < today){
                                 Toast.makeText(requireActivity(),"Sie haben einen Termin in der Vergangenheit eingegeben.", Toast.LENGTH_LONG).show()
+                                binding.tdbtn1.text = "Datum auswählen"
                             }else if(binding.Times.text.toString() == "Zeiten"){
                                 Toast.makeText(requireActivity(),"Ungültige Eingabe.", Toast.LENGTH_LONG).show()
                             }
