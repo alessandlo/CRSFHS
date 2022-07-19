@@ -12,11 +12,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.crsfhs.android.R
 import com.example.crsfhs.android.activities.loggedInUserKey
+import com.example.crsfhs.android.activities.userLoggedIn
 import com.example.crsfhs.android.api.*
 import com.example.crsfhs.android.databinding.FragmentFriseursalonBinding
 import retrofit2.Call
@@ -166,68 +168,73 @@ class FriseursalonFragment : Fragment() {
     }
 
     private fun changeFavorite(hairdresserKey: String) {
-        val userkeyHairdresserkey = FavoriteByUserAndHairdresser(
-            listOf(
-                FavoriteQueryUserkeyHairdresserkey(
-                    loggedInUserKey!!,
-                    hairdresserKey
+        if(!userLoggedIn){
+            Toast.makeText(requireActivity(),"Friseur kann nur als Favorit gesetzt werden, wenn eingeloggt!", Toast.LENGTH_LONG).show()
+        }
+        else {
+            val userkeyHairdresserkey = FavoriteByUserAndHairdresser(
+                listOf(
+                    FavoriteQueryUserkeyHairdresserkey(
+                        loggedInUserKey!!,
+                        hairdresserKey
+                    )
                 )
             )
-        )
-        val retrofitData =
-            DbApi.retrofitService.getFavoriteByUserkeyHairdresserkey(userkeyHairdresserkey)
-        retrofitData.enqueue(object : Callback<FavoritesList> {
-            override fun onResponse(
-                call: Call<FavoritesList?>,
-                response: Response<FavoritesList?>
-            ) {
-                when (response.body()!!.paging.size) {
-                    0 -> {
-                        val favoriteItem = FavoriteItem(
-                            FavoriteDetails(
-                                key = null,
-                                hairdresser_key = hairdresserKey,
-                                user_key = loggedInUserKey!!
+            val retrofitData =
+                DbApi.retrofitService.getFavoriteByUserkeyHairdresserkey(userkeyHairdresserkey)
+            retrofitData.enqueue(object : Callback<FavoritesList> {
+                override fun onResponse(
+                    call: Call<FavoritesList?>,
+                    response: Response<FavoritesList?>
+                ) {
+                    when (response.body()!!.paging.size) {
+                        0 -> {
+                            val favoriteItem = FavoriteItem(
+                                FavoriteDetails(
+                                    key = null,
+                                    hairdresser_key = hairdresserKey,
+                                    user_key = loggedInUserKey!!
+                                )
                             )
-                        )
-                        val retrofitData2 = DbApi.retrofitService.storeFavorite(favoriteItem)
-                        retrofitData2.enqueue(object : Callback<FavoriteDetails> {
-                            override fun onResponse(
-                                call: Call<FavoriteDetails?>,
-                                response: Response<FavoriteDetails?>
-                            ) {
-                                Log.i("Favorite", "stored")
-                                checkFavorite(hairdresserKey)
-                            }
+                            val retrofitData2 = DbApi.retrofitService.storeFavorite(favoriteItem)
+                            retrofitData2.enqueue(object : Callback<FavoriteDetails> {
+                                override fun onResponse(
+                                    call: Call<FavoriteDetails?>,
+                                    response: Response<FavoriteDetails?>
+                                ) {
+                                    Log.i("Favorite", "stored")
+                                    checkFavorite(hairdresserKey)
+                                }
 
-                            override fun onFailure(call: Call<FavoriteDetails>, t: Throwable) {
-                                Log.e("Check Favorite", "onFailure: " + t.message)
-                            }
-                        })
-                    }
-                    1 -> {
-                        val retrofitData2 =
-                            DbApi.retrofitService.deleteFavorite(response.body()!!.items[0].key!!)
-                        retrofitData2.enqueue(object : Callback<FavoritesKey> {
-                            override fun onResponse(
-                                call: Call<FavoritesKey?>,
-                                response: Response<FavoritesKey?>
-                            ) {
-                                Log.i("Favorite", "deleted")
-                                checkFavorite(hairdresserKey)
-                            }
+                                override fun onFailure(call: Call<FavoriteDetails>, t: Throwable) {
+                                    Log.e("Check Favorite", "onFailure: " + t.message)
+                                }
+                            })
+                        }
+                        1 -> {
+                            val retrofitData2 =
+                                DbApi.retrofitService.deleteFavorite(response.body()!!.items[0].key!!)
+                            retrofitData2.enqueue(object : Callback<FavoritesKey> {
+                                override fun onResponse(
+                                    call: Call<FavoritesKey?>,
+                                    response: Response<FavoritesKey?>
+                                ) {
+                                    Log.i("Favorite", "deleted")
+                                    checkFavorite(hairdresserKey)
+                                }
 
-                            override fun onFailure(call: Call<FavoritesKey>, t: Throwable) {
-                                Log.e("Check Favorite", "onFailure: " + t.message)
-                            }
-                        })
+                                override fun onFailure(call: Call<FavoritesKey>, t: Throwable) {
+                                    Log.e("Check Favorite", "onFailure: " + t.message)
+                                }
+                            })
+                        }
                     }
                 }
-            }
 
-            override fun onFailure(call: Call<FavoritesList>, t: Throwable) {
-                Log.e("Check Favorite", "onFailure: " + t.message)
-            }
-        })
+                override fun onFailure(call: Call<FavoritesList>, t: Throwable) {
+                    Log.e("Check Favorite", "onFailure: " + t.message)
+                }
+            })
+        }
     }
 }
