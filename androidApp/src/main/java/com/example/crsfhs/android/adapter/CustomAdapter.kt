@@ -74,6 +74,7 @@ class CustomAdapter(private val dataSet: ArrayList<HairdresserDetails>,
 
     fun setCity(city: String){
         this.city = city
+        refresh()
     }
 
     fun addItem(item: HairdresserDetails){

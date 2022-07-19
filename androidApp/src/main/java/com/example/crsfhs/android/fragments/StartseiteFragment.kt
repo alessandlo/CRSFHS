@@ -49,14 +49,6 @@ class StartseiteFragment : Fragment(), LocationListener{
         if(!hasLocationPermission()) {
             ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
         }
-        if (hasLocationPermission()) {
-            locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER,
-                1000 * 60,
-                0F,
-                this
-            )
-        }
 
         val hairdresser: ArrayList<HairdresserDetails> = ArrayList()
         val recyclerView = binding.rv
@@ -71,6 +63,19 @@ class StartseiteFragment : Fragment(), LocationListener{
         recyclerView.adapter = adapter
         addAllHairdressers(adapter)
 
+        if (hasLocationPermission()) {
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                1000 * 60,
+                0F,
+                this
+            )
+            val location_last_known = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER)
+            println(locationManager.getProviders(true))
+            if(location_last_known != null){
+                setAdapterCity(location_last_known)
+            }
+        }
         //binding.searchbar.searchbarLayout.minHeight = binding.searchbar.searchbarLayout.height + 200
 
         val searchbar = binding.searchbar.searchbarText
@@ -107,7 +112,7 @@ class StartseiteFragment : Fragment(), LocationListener{
         })
     }
 
-    override fun onLocationChanged(location: Location) {
+    private fun setAdapterCity(location: Location){
         var addresses: List<Address>? = null
         repeat(10) {
             try {
@@ -121,7 +126,11 @@ class StartseiteFragment : Fragment(), LocationListener{
             address = addresses!![0]
             adapter.setCity(address.locality)
         }
+    }
 
+    override fun onLocationChanged(location: Location) {
+        setAdapterCity(location)
+        this.locationManager.removeUpdates(this)
     }
 
     override fun onProviderEnabled(provider: String) {
