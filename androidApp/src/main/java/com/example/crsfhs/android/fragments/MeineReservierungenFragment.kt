@@ -87,7 +87,6 @@ class MeineReservierungenFragment : Fragment() {
                                     val bundle = bundleOf(
                                         "reservation_key" to appointment.reservationDetails.key,
                                         "reservation_service" to appointment.reservationDetails.appointment.service,
-                                        "reservation_key" to appointment.reservationDetails.key,
                                         "hairdresser_name" to appointment.hairdresserDetails.name,
                                         "appointment_date" to appointment.reservationDetails.appointment.date,
                                         "appointment_time_from" to appointment.reservationDetails.appointment.time_from,
