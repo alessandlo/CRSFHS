@@ -29,6 +29,7 @@ class ZusammenfassungReservierungFragment : Fragment() {
     private var _binding: FragmentZusammenfassungReservierungBinding? = null
     private val binding get() = _binding!!
     private lateinit var mainPref: SharedPreferences
+    private var key: String? = null
 
 
     override fun onCreateView(
@@ -59,26 +60,28 @@ class ZusammenfassungReservierungFragment : Fragment() {
 
         binding.apply {
             if (mainPref.getString("redirLogin", "false") == "true") {
-                textView2.text = mainPref.getString("date", "failed to load")
-                textView3.text = mainPref.getString("time", "failed to load")
-                textView4.text = mainPref.getString("service", "failed to load")
+                textView2.text = "Datum: " +mainPref.getString("date", "failed to load")
+                textView3.text = "Uhrzeit: " +mainPref.getString("time", "failed to load")
+                textView4.text = "Service: " +mainPref.getString("service", "failed to load")
+                 key = mainPref.getString("hairsalon_key", "failed to load").toString()
             } else {
                 textView2.text = "Datum: " + requireArguments().getString("date").toString()
                 textView3.text = "Uhrzeit: " + requireArguments().getString("time").toString()
                 textView4.text = "Service: " + requireArguments().getString("service").toString()
+                 key = requireArguments().getString("hairsalon_key")!!
             }
 
 
             button.setOnClickListener {         //jump to next fragment and transfer appointment details
                 val df = SimpleDateFormat("HH:mm")
-                val d = df.parse(textView3.text.toString())
+                val d = df.parse(textView3.text.toString().substring(9))
                 val cal = Calendar.getInstance()
                 cal.time = d
                 cal.add(Calendar.MINUTE, 30)
                 val time_to = df.format(cal.getTime())
 
                 //val formattedDate = requireArguments().getString("date").toString().substring(4, 14)
-                val formattedDate = textView2.text.toString().substring(4, 14)
+                val formattedDate = textView2.text.toString().substring(11, 21)
 
                 Log.d(TAG, formattedDate)
 
@@ -87,11 +90,11 @@ class ZusammenfassungReservierungFragment : Fragment() {
                         appointment = ReservationAppointment(
                             date = formattedDate,
                             status = "aktiv",
-                            time_from = textView3.text.toString(),
+                            time_from = textView3.text.toString().substring(9),
                             time_to = time_to,
-                            service = textView4.text.toString()
+                            service = textView4.text.toString().substring(9)
                         ),
-                        hairdresser_key =  mainPref.getString("hairsalon_key", "failed to load").toString(),
+                        hairdresser_key = key!!,
                         key = null,
                         user_key = loggedInUserKey.toString()
                     )

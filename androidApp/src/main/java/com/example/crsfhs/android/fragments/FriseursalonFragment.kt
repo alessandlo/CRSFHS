@@ -98,17 +98,18 @@ class FriseursalonFragment : Fragment() {
         })
         binding.shareButton.setOnClickListener {
             // Text rausholen
-            val s = binding.hairdresserName.text.toString()
+            val s = binding.hairdresserName.text.toString() + ", " +
+                    binding.hairdresserAddress.text.toString()
 
             // Share Intent
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_SUBJECT, "Empfehlung geht raus!")
                 putExtra(Intent.EXTRA_TEXT, s)
-                putExtra(
+                /*putExtra(
                     Intent.EXTRA_STREAM,
                     Uri.parse("/drawable/fiverr_reshairvation_r1_02_final.png")
-                )
+                )*/
                 type = "*/*"
             }
 
