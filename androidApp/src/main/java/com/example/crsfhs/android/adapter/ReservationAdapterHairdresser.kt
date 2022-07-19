@@ -49,7 +49,7 @@ class ReservationAdapterHairdresser(
                 }
             }
 
-            customer.text = reservationsDetails.userDetails.firstname + reservationsDetails.userDetails.lastname
+            customer.text = reservationsDetails.userDetails.firstname + " " + reservationsDetails.userDetails.lastname
             service.text = reservationsDetails.reservationDetails.appointment.service
             appointment.text = appointmentReservation
         }
