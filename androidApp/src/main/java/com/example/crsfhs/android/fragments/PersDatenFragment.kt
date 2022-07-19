@@ -53,6 +53,8 @@ class PersDatenFragment : Fragment() {
             tRetrofitData.enqueue(object : Callback<UserDetails> {
                 override fun onResponse(call: Call<UserDetails>, response: Response<UserDetails>) {
 
+                    binding.genderSelection.setSimpleItems(R.array.genderList)
+
                     when (response.body()!!.gender) {
                         "männlich" -> binding.genderSelection.setText("männlich", false)
                         "weiblich" -> binding.genderSelection.setText("weiblich", false)
